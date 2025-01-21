@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/cart', function () {
+    return view('cart');
+});
+
 Route::get('/controller', [HomePageController::class, 'index']);
 
 Route::get('/test', function () {
