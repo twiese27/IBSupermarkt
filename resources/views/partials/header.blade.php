@@ -38,7 +38,7 @@
         <div class="col-lg-2 col-md-2 col-12">
           <!-- Logo -->
           <div class="logo">
-            <a href="/html/must-have/index4.html"><img src="/images/logo.png" alt="Logo" /></a>
+            <a href="/html/must-have/index4.html"><img src="{{ asset('images/logo.png') }}" alt="#" /></a>
           </div>
           <!--/ End Logo -->
           <!-- Search Form -->
