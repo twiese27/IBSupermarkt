@@ -11,18 +11,8 @@
               Abonnieren Sie unseren Newsletter und erhalten Sie
               <span>10%</span> Rabatt auf Ihren ersten Einkauf
             </p>
-            <form
-              action="mail/mail.php"
-              method="get"
-              target="_blank"
-              class="newsletter-inner"
-            >
-              <input
-                name="EMAIL"
-                placeholder="Ihre E-Mail-Adresse"
-                required=""
-                type="email"
-              />
+            <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+              <input name="EMAIL" placeholder="Ihre E-Mail-Adresse" required="" type="email" />
               <button class="btn">Abonnieren</button>
             </form>
           </div>

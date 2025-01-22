@@ -17,9 +17,7 @@
               officiis, quisquam inventore vero? Totam.
             </p>
             <p class="call">
-              Haben Sie eine Frage? Rufen Sie uns 24/7 an<span
-                ><a href="tel:0441 9722120">0441 9722120</a></span
-              >
+              Haben Sie eine Frage? Rufen Sie uns 24/7 an<span><a href="tel:0441 9722120">0441 9722120</a></span>
             </p>
           </div>
           <!-- End Single Widget -->
@@ -92,9 +90,7 @@
             <div class="left">
               <p>
                 Copyright © 2020
-                <a href="http://www.wpthemesgrid.com" target="_blank"
-                  >Wpthemesgrid</a
-                >
+                <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>
                 - Alle Rechte vorbehalten.
               </p>
             </div>
