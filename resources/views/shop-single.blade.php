@@ -50,18 +50,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
 
     <!-- Color CSS -->
-    <link rel="stylesheet" href="{{ asset('css/color/color1.css') }}">
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color3.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color4.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color5.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color6.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color7.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color8.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color9.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color10.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color11.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color12.css') }}">-->
+    <link rel="stylesheet" href="/css/color/color2.css">
 
     <link rel="stylesheet" href="#" id="colors" />
   </head>
@@ -108,10 +97,9 @@
             <div class="bread-inner">
               <ul class="bread-list">
                 <li>
-                  <a href="/html/must-have/index4.html">Startseite<i class="ti-arrow-right"></i></a>
+                  <a href="{{ route('home') }}">Startseite<i class="ti-arrow-right"></i></a>
                 </li>
-                <li class="active">
-                  <a href="blog-single.html">Shop Details</a>
+                <li class="active"><a>Shop Single</a>
                 </li>
               </ul>
             </div>
@@ -522,7 +510,7 @@
               <!-- Start Single Product -->
               <div class="single-product">
                 <div class="product-img">
-                  <a href="product-details.html">
+                  <a href="{{ route('shop-single') }}">
                     <img
                       class="default-img"
                       src="https://placehold.co/550x750"
@@ -559,7 +547,7 @@
                 </div>
                 <div class="product-content">
                   <h3>
-                    <a href="product-details.html">Black Sunglass For Women</a>
+                    <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
                   </h3>
                   <div class="product-price">
                     <span class="old">$60.00</span>
@@ -571,7 +559,7 @@
               <!-- Start Single Product -->
               <div class="single-product">
                 <div class="product-img">
-                  <a href="product-details.html">
+                  <a href="{{ route('shop-single') }}">
                     <img
                       class="default-img"
                       src="https://placehold.co/550x750"
@@ -607,7 +595,7 @@
                 </div>
                 <div class="product-content">
                   <h3>
-                    <a href="product-details.html">Women Hot Collection</a>
+                    <a href="{{ route('shop-single') }}">Women Hot Collection</a>
                   </h3>
                   <div class="product-price">
                     <span>$50.00</span>
@@ -618,7 +606,7 @@
               <!-- Start Single Product -->
               <div class="single-product">
                 <div class="product-img">
-                  <a href="product-details.html">
+                  <a href="{{ route('shop-single') }}">
                     <img
                       class="default-img"
                       src="https://placehold.co/550x750"
@@ -654,7 +642,7 @@
                   </div>
                 </div>
                 <div class="product-content">
-                  <h3><a href="product-details.html">Awesome Pink Show</a></h3>
+                  <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
                   <div class="product-price">
                     <span>$50.00</span>
                   </div>
@@ -664,7 +652,7 @@
               <!-- Start Single Product -->
               <div class="single-product">
                 <div class="product-img">
-                  <a href="product-details.html">
+                  <a href="{{ route('shop-single') }}">
                     <img
                       class="default-img"
                       src="https://placehold.co/550x750"
@@ -700,7 +688,7 @@
                 </div>
                 <div class="product-content">
                   <h3>
-                    <a href="product-details.html">Awesome Bags Collection</a>
+                    <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
                   </h3>
                   <div class="product-price">
                     <span>$50.00</span>

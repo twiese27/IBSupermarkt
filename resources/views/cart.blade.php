@@ -50,18 +50,8 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
 
     <!-- Color CSS -->
-    <link rel="stylesheet" href="{{ asset('css/color/color1.css') }}">
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color3.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color4.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color5.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color6.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color7.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color8.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color9.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color10.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color11.css') }}">-->
-    <!--<link rel="stylesheet" href="{{ asset('css/color/color12.css') }}">-->
+    <link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">
+
 
     <link rel="stylesheet" href="#" id="colors" />
   </head>
@@ -108,9 +98,9 @@
       <div class="bread-inner"></div>
           <ul class="bread-list">
           <li>
-            <a href="/html/must-have/index4.html">Startseite<i class="ti-arrow-right"></i></a>
+            <a href="{{ route('home') }}">Startseite<i class="ti-arrow-right"></i></a>
           </li>
-          <li class="active"><a href="blog-single.html">Warenkorb</a></li>
+          <li class="active"><a>Warenkorb</a></li>
           </ul>
         </div>
         </div>
