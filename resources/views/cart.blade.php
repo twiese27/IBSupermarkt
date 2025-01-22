@@ -46,11 +46,11 @@
     <!-- Eshop StyleSheet -->
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <!-- <link rel="stylesheet" href="/style.css') }}" /> -->
+
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
 
     <!-- Color CSS -->
-    <link rel="stylesheet" href="css/color/color1.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/color/color1.css') }}">
     <!--<link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">-->
     <!--<link rel="stylesheet" href="{{ asset('css/color/color3.css') }}">-->
     <!--<link rel="stylesheet" href="{{ asset('css/color/color4.css') }}">-->
