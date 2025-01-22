@@ -6,8 +6,8 @@ use Illuminate\Routing\Controller;
 
 class HomePageController extends Controller
 {
-    public function index() {
-        // return view('welcome');
-        dd('Hallöchen');
+    public function index()
+    {
+        return view('homepage');
     }
 }

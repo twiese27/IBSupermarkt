@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/controller', [HomePageController::class, 'index']);
+Route::get('/', [HomePageController::class, 'index']);
 
 Route::get('/test', function () {
     $results = DB::select('SELECT * FROM CUSTOMER');
