@@ -1,46 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ShopController;
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
-//Route::get('/', [HomePageController::class, 'index']);
+// Startseite
+Route::get('/', [HomePageController::class, 'index']);
 
-Route::get('/', function () {
-    return view('index');
-});
+// Warenkorb
+Route::get('/cart', [CartController::class, 'index']);
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+// Checkout
+Route::get('/checkout', [CheckoutController::class, 'index']);
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+// Login und Registrierung
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'register']);
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Shop
+Route::get('/shop-grid', [ShopController::class, 'grid']);
+Route::get('/shop-single', [ShopController::class, 'single']);
 
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/shop-grid', function () {
-    return view('shop-grid');
-});
-
-Route::get('/shop-single', function () {
-    return view('shop-single');
-});
-
-Route::get('/controller', [HomePageController::class, 'index']);
-
+// Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
     $results = DB::select('SELECT * FROM CUSTOMER');
     return $results;
 });
+
