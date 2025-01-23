@@ -1,37 +1,5 @@
 <!-- Header -->
 <header class="header shop">
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-12 col-12">
-          <!-- Top Left -->
-          <div class="top-left">
-            <ul class="list-main">
-              <li><i class="ti-headphone-alt"></i> 0441 9722120</li>
-              <li><i class="ti-email"></i> service@ibs-ol.de</li>
-            </ul>
-          </div>
-          <!--/ End Top Left -->
-        </div>
-        <div class="col-lg-8 col-md-12 col-12">
-          <!-- Top Right -->
-          <div class="right-content">
-            <ul class="list-main">
-              <li><i class="ti-location-pin"></i> Filiale finden</li>
-              <li><i class="ti-alarm-clock"></i> <a href="#">Tagesangebot</a></li>
-              <li><i class="ti-user"></i> <a href="#">Mein Konto</a></li>
-              <li>
-                <i class="ti-power-off"></i><a href="{{ route('login') }}">Anmelden</a>
-              </li>
-            </ul>
-          </div>
-          <!-- End Top Right -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Topbar -->
   <div class="middle-inner">
     <div class="container">
       <div class="row">
@@ -64,7 +32,7 @@
           <div class="search-bar-top">
             <div class="search-bar">
               <select>
-                <option selected="selected">Alle Kategorien</option>
+                <option selected="selected">Kategorien</option>
                 <option>Uhren</option>
                 <option>Handys</option>
                 <option>Kinderartikel</option>
