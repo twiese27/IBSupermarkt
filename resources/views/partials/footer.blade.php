@@ -8,7 +8,7 @@
           <!-- Single Widget -->
           <div class="single-footer about">
             <div class="logo">
-              <a href="{{ route('home') }}"><img src="{{ asset('images/logo2.png') }}" alt="#" /></a>
+              <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}" alt="#" /></a>
             </div>
             <p class="text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat

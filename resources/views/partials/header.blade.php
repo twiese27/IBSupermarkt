@@ -6,7 +6,7 @@
         <div class="col-lg-2 col-md-2 col-12">
           <!-- Logo -->
           <div class="logo">
-            <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="#" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}" alt="#" /></a>
           </div>
           <!--/ End Logo -->
           <!-- Search Form -->
@@ -31,12 +31,6 @@
         <div class="col-lg-8 col-md-7 col-12">
           <div class="search-bar-top">
             <div class="search-bar">
-              <select>
-                <option selected="selected">Kategorien</option>
-                <option>Uhren</option>
-                <option>Handys</option>
-                <option>Kinderartikel</option>
-              </select>
               <form>
                 <input name="search" placeholder="Produkte hier suchen..." type="search" />
                 <button class="btnn"><i class="ti-search"></i></button>
@@ -47,9 +41,6 @@
         <div class="col-lg-2 col-md-3 col-12">
           <div class="right-bar">
             <!-- Search Form -->
-            <div class="sinlge-bar">
-              <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-            </div>
             <div class="sinlge-bar">
               <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
             </div>
