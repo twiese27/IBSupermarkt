@@ -10,10 +10,7 @@
     <div class="row">
       <div class="col-lg-8 col-12">
         <div class="checkout-form">
-          <h2>Hier zur Kasse gehen</h2>
-          <p>
-            Bitte registrieren Sie sich, um schneller zur Kasse zu gehen
-          </p>
+          <h2>Kasse</h2>
           <!-- Form -->
           <form class="form" method="post" action="#">
             <div class="row">
@@ -31,14 +28,14 @@
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Email Adresse<span>*</span></label>
+                  <label>Email<span>*</span></label>
                   <input type="email" name="email" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Telefonnummer<span>*</span></label>
-                  <input type="number" name="number" placeholder="" required="required" />
+                  <input type="text" name="number" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
@@ -305,52 +302,26 @@
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Bundesland / Region<span>*</span></label>
-                  <select name="state-province" id="state-province">
-                    <option value="divition" selected="selected">
-                      New York
-                    </option>
-                    <option>Los Angeles</option>
-                    <option>Chicago</option>
-                    <option>Houston</option>
-                    <option>San Diego</option>
-                    <option>Dallas</option>
-                    <option>Charlotte</option>
-                  </select>
+                  <label>Stadt<span>*</span></label>
+                  <input type="text" name="city" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Adresszeile 1<span>*</span></label>
-                  <input type="text" name="address" placeholder="" required="required" />
+                  <label>Straße<span>*</span></label>
+                  <input type="text" name="street" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Adresszeile 2<span>*</span></label>
-                  <input type="text" name="address" placeholder="" required="required" />
+                  <label>Hausnummer<span>*</span></label>
+                  <input type="text" name="house" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Postleitzahl<span>*</span></label>
                   <input type="text" name="post" placeholder="" required="required" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-12">
-                <div class="form-group">
-                  <label>Firma<span>*</span></label>
-                  <select name="company_name" id="company">
-                    <option value="company" selected="selected">
-                      Microsoft
-                    </option>
-                    <option>Apple</option>
-                    <option>Xiaomi</option>
-                    <option>Huawei</option>
-                    <option>Wpthemesgrid</option>
-                    <option>Samsung</option>
-                    <option>Motorola</option>
-                  </select>
                 </div>
               </div>
               <div class="col-12">
@@ -372,8 +343,8 @@
             <div class="content">
               <ul>
                 <li>Zwischensumme<span>330,00€</span></li>
-                <li>(+) Versand<span>10,00€</span></li>
-                <li class="last">Gesamt<span>340,00€</span></li>
+                <li>(+) Versand<span>Kostenlos</span></li>
+                <li class="last">Gesamt<span>330,00€</span></li>
               </ul>
             </div>
           </div>
@@ -384,9 +355,9 @@
             <div class="content">
               <div class="checkbox">
                 <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox" />
-                  Scheckzahlungen</label>
+                  Lastschrift</label>
                 <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" />
-                  Nachnahme</label>
+                  Klarna</label>
                 <label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox" />
                   PayPal</label>
               </div>
@@ -404,7 +375,7 @@
           <div class="single-widget get-button">
             <div class="content">
               <div class="button">
-                <a href="#" class="btn">zur Kasse gehen</a>
+                <a href="#" class="btn">Kostenpflichtig bestellen</a>
               </div>
             </div>
           </div>
@@ -415,9 +386,6 @@
   </div>
 </section>
 <!--/ End Checkout -->
-
-<!-- Include Shop Services Area-->
-@include('partials.shop-service-area')
 
 <!-- Include Newsletter -->
 @include('partials.newsletter')
