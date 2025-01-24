@@ -50,7 +50,7 @@
               <div class="shopping-item">
                 <div class="dropdown-cart-header">
                   <span>2 Artikel</span>
-                  <a href="#">Warenkorb ansehen</a>
+                  <a href="{{route('cart')}}">Warenkorb ansehen</a>
                 </div>
                 <ul class="shopping-list">
                   <li>

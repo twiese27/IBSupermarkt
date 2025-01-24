@@ -339,7 +339,7 @@
         <div class="order-details">
           <!-- Order Widget -->
           <div class="single-widget">
-            <h2>WARENKORB SUMMEN</h2>
+            <h2>Bestellübersicht</h2>
             <div class="content">
               <ul>
                 <li>Zwischensumme<span>330,00€</span></li>
@@ -351,7 +351,7 @@
           <!--/ End Order Widget -->
           <!-- Order Widget -->
           <div class="single-widget">
-            <h2>Zahlungen</h2>
+            <h2>Bezahlmethode</h2>
             <div class="content">
               <div class="checkbox">
                 <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox" />
