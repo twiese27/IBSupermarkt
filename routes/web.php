@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -27,6 +28,9 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 // Shop
 Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
 Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
+
+//Profil
+Route::get('/profile',[ProfileController::class,'index'])->name('profile');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
