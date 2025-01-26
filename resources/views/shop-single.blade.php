@@ -62,37 +62,7 @@
                 </p>
               </div>
               <!--/ End Description -->
-              <!-- Color -->
-              <div class="color">
-                <h4>Optionen <span>Farbe</span></h4>
-                <ul>
-                  <li>
-                    <a href="#" class="one"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="two"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="three"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="four"><i class="ti-check"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <!--/ End Color -->
-              <!-- Size -->
-              <div class="size">
-                <h4>Größe</h4>
-                <ul>
-                  <li><a href="#" class="one">S</a></li>
-                  <li><a href="#" class="two">M</a></li>
-                  <li><a href="#" class="three">L</a></li>
-                  <li><a href="#" class="four">XL</a></li>
-                  <li><a href="#" class="four">XXL</a></li>
-                </ul>
-              </div>
-              <!--/ End Size -->
+              
               <!-- Product Buy -->
               <div class="product-buy">
                 <div class="quantity">
