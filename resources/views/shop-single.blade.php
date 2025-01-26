@@ -39,16 +39,7 @@
               <!-- Description -->
               <div class="short">
                 <h4>Nonstick Dishwasher PFOA</h4>
-                <div class="rating-main">
-                  <ul class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star-half-o"></i></li>
-                    <li class="dark"><i class="fa fa-star-o"></i></li>
-                  </ul>
-                  <a href="#" class="total-review">(102) Review</a>
-                </div>
+                
                 <p class="price">
                   <span class="discount">$70.00</span><s>$80.00</s>
                 </p>
