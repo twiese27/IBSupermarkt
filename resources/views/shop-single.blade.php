@@ -41,7 +41,7 @@
                 <h4>Nonstick Dishwasher PFOA</h4>
                 
                 <p class="price">
-                  <span class="discount">$70.00</span><s>$80.00</s>
+                  <span class="discount">$70.00</span>
                 </p>
                 <p class="description">
                   eget velit. Donec ac tempus ante. Fusce ultricies massa
@@ -97,9 +97,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Bewertungen</a>
-                  </li>
+                  
                 </ul>
                 <!--/ End Tab Nav -->
               </div>
