@@ -30,9 +30,6 @@
               </td>
               <td class="product-des" data-title="Description">
                 <p class="product-name"><a href="#">Frauenkleid</a></p>
-                <p class="product-des">
-                  Maboriosam in a tonto nesciung eget distingy magndapibus.
-                </p>
               </td>
               <td class="price" data-title="Price">
                 <span>110,00€ </span>
@@ -68,9 +65,6 @@
               </td>
               <td class="product-des" data-title="Description">
                 <p class="product-name"><a href="#">Frauenkleid</a></p>
-                <p class="product-des">
-                  Maboriosam in a tonto nesciung eget distingy magndapibus.
-                </p>
               </td>
               <td class="price" data-title="Price">
                 <span>110,00€ </span>
@@ -106,9 +100,6 @@
               </td>
               <td class="product-des" data-title="Description">
                 <p class="product-name"><a href="#">Frauenkleid</a></p>
-                <p class="product-des">
-                  Maboriosam in a tonto nesciung eget distingy magndapibus.
-                </p>
               </td>
               <td class="price" data-title="Price">
                 <span>110,00€ </span>
@@ -151,14 +142,6 @@
             <div class="col-lg-8 col-md-5 col-12">
               <div class="left">
                 <div class="coupon">
-                  <form action="#" target="_blank">
-                    <input name="Coupon" placeholder="Geben Sie Ihren Gutschein ein" />
-                    <button class="btn">Anwenden</button>
-                  </form>
-                </div>
-                <div class="checkbox">
-                  <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" /> Versand
-                    (+10€)</label>
                 </div>
               </div>
             </div>
@@ -167,12 +150,10 @@
                 <ul>
                   <li>Zwischensumme<span>330,00€</span></li>
                   <li>Versand<span>Kostenlos</span></li>
-                  <li>Sie sparen<span>20,00€</span></li>
-                  <li class="last">Sie zahlen<span>310,00€</span></li>
+                  <li class="last">Sie zahlen<span>330,00€</span></li>
                 </ul>
                 <div class="button5">
-                  <a href="#" class="btn">Zur Kasse</a>
-                  <a href="#" class="btn">Weiter einkaufen</a>
+                  <a href="{{ route('checkout') }}" class="btn">Zur Kasse</a>
                 </div>
               </div>
             </div>
@@ -184,9 +165,6 @@
   </div>
 </div>
 <!--/ End Shopping Cart -->
-
-<!-- Include Shop Services Area-->
-@include('partials.shop-service-area')
 
 <!-- Include Newsletter -->
 @include('partials.newsletter')

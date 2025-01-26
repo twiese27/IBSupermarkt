@@ -4,164 +4,82 @@
 
 @section('content')
 
-<!-- Product Style -->
+    <!-- Start Area 2 -->
+    <section class="hero-area4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="home-slider-4">
+                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
+                            <div class="inner">
+                                <h4 class="title">
+                                    make your <br />
+                                    site stunning with <br />
+                                    large title
+                                </h4>
+                                <p class="des">
+                                    Hipster style is a fashion trending for Gentleman and
+                                    Lady<br />with tattoos. You’ll become so cool and attractive
+                                    with your’s girl.<br />
+                                    Now let come hare and grab it now !
+                                </p>
+                                <div class="button">
+                                    <a href="#" class="btn">Jetzt Einkaufen</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
+                            <div class="inner">
+                                <h4 class="title">
+                                    make your <br />
+                                    site stunning with <br />
+                                    large title
+                                </h4>
+                                <p class="des">
+                                    Hipster style is a fashion trending for Gentleman and
+                                    Lady<br />with tattoos. You’ll become so cool and attractive
+                                    with your’s girl.<br />
+                                    Now let come hare and grab it now !
+                                </p>
+                                <div class="button">
+                                    <a href="#" class="btn">Jetzt Einkaufen</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
+                            <div class="inner">
+                                <h4 class="title">
+                                    make your <br />
+                                    site stunning with <br />
+                                    large title
+                                </h4>
+                                <p class="des">
+                                    Hipster style is a fashion trending for Gentleman and
+                                    Lady<br />with tattoos. You’ll become so cool and attractive
+                                    with your’s girl.<br />
+                                    Now let come hare and grab it now !
+                                </p>
+                                <div class="button">
+                                    <a href="#" class="btn">Jetzt Einkaufen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Hero Area 2 -->
+    <section>
+        <br>
+        <br>
+        <div style="text-align: center;"><h1> Kategoriename </h1></div>
+    </section>
+
+    <!-- Product Style
 <section class="product-area shop-sidebar shop section">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-4 col-12">
-        <div class="shop-sidebar">
-          <!-- Single Widget -->
-          <div class="single-widget category">
-            <h3 class="title">Kategorien</h3>
-            <ul class="categor-list">
-              <li><a href="#">T-Shirts</a></li>
-              <li><a href="#">Jacken</a></li>
-              <li><a href="#">Jeans</a></li>
-              <li><a href="#">Sweatshirts</a></li>
-              <li><a href="#">Hosen</a></li>
-              <li><a href="#">Strickwaren</a></li>
-              <li><a href="#">Accessoires</a></li>
-            </ul>
-          </div>
-          <!--/ End Single Widget -->
-          <!-- Shop By Price -->
-          <div class="single-widget range">
-            <h3 class="title">Nach Preis einkaufen</h3>
-            <div class="price-filter">
-              <div class="price-filter-inner">
-                <div id="slider-range"></div>
-                <div class="price_slider_amount">
-                  <div class="label-input">
-                    <span>Bereich:</span><input type="text" id="amount" name="price" placeholder="Preis hinzufügen" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <ul class="check-box-list"></ul>
-            <li>
-              <label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox" />$20 -
-                $50<span class="count">(3)</span></label>
-            </li>
-            <li>
-              <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" />$50 -
-                $100<span class="count">(5)</span></label>
-            </li>
-            <li>
-              <label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox" />$100 -
-                $250<span class="count">(8)</span></label>
-            </li>
-            </ul>
-          </div>
-          <!--/ End Shop By Price -->
-          <!-- Single Widget -->
-          <div class="single-widget recent-post">
-            <h3 class="title">Neuester Beitrag</h3>
-            <!-- Single Post -->
-            <div class="single-post first">
-              <div class="image">
-                <img src="https://placehold.co/75x75" alt="#" />
-              </div>
-              <div class="content">
-                <h5><a href="#">Mädchenkleid</a></h5>
-                <p class="price">$99.50</p>
-                <ul class="reviews">
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li><i class="ti-star"></i></li>
-                  <li><i class="ti-star"></i></li>
-                </ul>
-              </div>
-            </div>
-            <!-- End Single Post -->
-            <!-- Single Post -->
-            <div class="single-post first">
-              <div class="image">
-                <img src="https://placehold.co/75x75" alt="#" />
-              </div>
-              <div class="content">
-                <h5><a href="#">Damenbekleidung</a></h5>
-                <p class="price">$99.50</p>
-                <ul class="reviews">
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li><i class="ti-star"></i></li>
-                </ul>
-              </div>
-            </div>
-            <!-- End Single Post -->
-            <!-- Single Post -->
-            <div class="single-post first">
-              <div class="image">
-                <img src="https://placehold.co/75x75" alt="#" />
-              </div>
-              <div class="content">
-                <h5><a href="#">Herren T-Shirt</a></h5>
-                <p class="price">$99.50</p>
-                <ul class="reviews">
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                  <li class="yellow"><i class="ti-star"></i></li>
-                </ul>
-              </div>
-            </div>
-            <!-- End Single Post -->
-          </div>
-          <!--/ End Single Widget -->
-          <!-- Single Widget -->
-          <div class="single-widget category">
-            <h3 class="title">Hersteller</h3>
-            <ul class="categor-list">
-              <li><a href="#">Forever</a></li>
-              <li><a href="#">Giordano</a></li>
-              <li><a href="#">Abercrombie</a></li>
-              <li><a href="#">Ecko United</a></li>
-              <li><a href="#">Zara</a></li>
-            </ul>
-          </div>
-          <!--/ End Single Widget -->
-        </div>
-      </div>
       <div class="col-lg-9 col-md-8 col-12">
-        <div class="row">
-          <div class="col-12">
-            <!-- Shop Top -->
-            <div class="shop-top">
-              <div class="shop-shorter">
-                <div class="single-shorter">
-                  <label>Zeigen :</label>
-                  <select>
-                    <option selected="selected">09</option>
-                    <option>15</option>
-                    <option>25</option>
-                    <option>30</option>
-                  </select>
-                </div>
-                <div class="single-shorter">
-                  <label>Sortieren nach :</label>
-                  <select>
-                    <option selected="selected">Name</option>
-                    <option>Preis</option>
-                    <option>Größe</option>
-                  </select>
-                </div>
-              </div>
-              <ul class="view-mode">
-                <li class="active">
-                  <a href="{{ route('shop-grid') }}"><i class="fa fa-th-large"></i></a>
-                </li>
-                <li>
-                  <a><i class="fa fa-th-list"></i></a>
-                </li>
-              </ul>
-            </div>
-            <!--/ End Shop Top -->
-          </div>
-        </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
@@ -398,7 +316,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
+                  <a href="{{route('shop-single') }}">Black Sunglass For Women</a>
                 </h3>
                 <div class="product-price">
                   <span class="old">$60.00</span>
@@ -443,9 +361,85 @@
     </div>
   </div>
 </section>
-<!--/ End Product Style 1  -->
+/ End Product Style 1  -->
 
-<!-- Include Newsletter -->
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <div class="col-lg-12 col-md-8 col-12">
+                <div class="row" id="product-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <script language="javascript" type="text/javascript">
+    const products = [
+    {
+            name: "Produkt 1",
+            price: 29.00,
+            image: "https://placehold.co/512x512",
+            description: "Dies ist ein Beispiel-Produkt"
+        },
+        {
+            name: "Produkt 2",
+            price: 39.00,
+            image: "https://placehold.co/512x512",
+            description: "Dies ist ein weiteres Beispiel-Produkt"
+        },
+        {
+            name: "Produkt 2",
+            price: 39.00,
+            image: "https://placehold.co/512x512",
+            description: "Dies ist ein weiteres Beispiel-Produkt"
+        },
+        {
+            name: "Produkt 2",
+            price: 39.00,
+            image: "https://placehold.co/512x512",
+            description: "Dies ist ein weiteres Beispiel-Produkt"
+        },
+        {
+            name: "Produkt 2",
+            price: 39.00,
+            image: "https://placehold.co/512x512",
+            description: "Dies ist ein weiteres Beispiel-Produkt"
+        },
+    // ...
+    ];
+
+    const productGrid = document.getElementById("product-grid");
+
+    products.forEach((product) => {
+    const productElement = document.createElement("div");
+    productElement.classList.add("col-lg-3", "col-md-6", "col-12");
+    productElement.innerHTML = `
+    <div class="single-product">
+        <div class="product-img">
+            <a href="#">
+                <img class="default-img" src="${product.image}" alt="#" />
+                <img class="hover-img" src="${product.image}" alt="#" />
+            </a>
+            <div class="button-head">
+                <div class="product-action-2">
+                    <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+            </div>
+        </div>
+        <div class="product-content">
+            <h3>
+                <a href="#">${product.name}</a>
+            </h3>
+            <div class="product-price">
+                <span>${product.price} €</span>
+            </div>
+        </div>
+    </div>
+    `;
+    productGrid.appendChild(productElement);
+    });
+
+    </script>
+
+    <!-- Include Newsletter -->
 @include('partials.newsletter')
 
 <!-- Modal -->
