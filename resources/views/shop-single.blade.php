@@ -77,12 +77,11 @@
                 </div>
                 <div class="add-to-cart">
                   <a href="#" class="btn">In den Warenkorb</a>
-                  <a href="#" class="btn min"><i class="ti-heart"></i></a>
-                  <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
+                 
                 </div>
                 <p class="cat">Kategorie :<a href="#">Kleidung</a></p>
-                <p class="availability">
-                  Verfügbarkeit : 180 Produkte auf Lager
+                <p class="hersteller">
+                  Hersteller : muss noch an DB angebunden werden
                 </p>
               </div>
               <!--/ End Product Buy -->
