@@ -305,6 +305,147 @@
 </div>
 <!-- End Most Popular Area -->
 
+<!-- Start Alternative Empfehlungsfunktion -->
+<div class="product-area most-popular related-product section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title">
+          <h2>Alternative Empfehlungsfunktion</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="owl-carousel popular-slider">
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+                <span class="out-of-stock">Hot</span>
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
+              </h3>
+              <div class="product-price">
+                <span class="old">$60.00</span>
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
+              </h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+                <span class="new">Neu</span>
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+              </h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Alternative Empfehlungsfunktion Area -->
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
