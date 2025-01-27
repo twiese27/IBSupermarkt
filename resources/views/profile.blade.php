@@ -29,7 +29,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Nachname</label><br/>
-                                        <input type="text" name="name" placeholder="" required="required" />
+                                        <input type="text" name="name" placeholder="" required="required" disabled />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
