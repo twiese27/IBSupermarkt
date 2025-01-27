@@ -175,14 +175,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -206,14 +198,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -237,14 +221,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -269,14 +245,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -300,14 +268,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -332,14 +292,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -363,14 +315,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -395,14 +339,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -435,14 +371,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -466,14 +394,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -497,14 +417,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -529,14 +441,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -560,14 +464,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -592,14 +488,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -623,14 +511,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -655,14 +535,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -695,14 +567,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -726,14 +590,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -757,14 +613,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -789,14 +637,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -820,14 +660,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -852,14 +684,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -883,14 +707,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -915,14 +731,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -955,14 +763,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -986,14 +786,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1017,14 +809,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1049,14 +833,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1080,14 +856,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1112,14 +880,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1143,14 +903,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1175,14 +927,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1215,14 +959,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1246,14 +982,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1277,14 +1005,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1309,14 +1029,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1340,14 +1052,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1372,14 +1076,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1403,14 +1099,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1435,14 +1123,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1475,14 +1155,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1506,14 +1178,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1537,14 +1201,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1569,14 +1225,6 @@
                           <span class="new">Neu</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1600,14 +1248,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1632,14 +1272,6 @@
                           <span class="price-dec">30% Off</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1663,14 +1295,6 @@
                           <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1695,14 +1319,6 @@
                           <span class="out-of-stock">Hot</span>
                         </a>
                         <div class="button-head">
-                          <div class="product-action">
-                            <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                                class="ti-eye"></i><span>Schnellansicht</span></a>
-                            <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
-                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
-                          </div>
                           <div class="product-action-2">
                             <a title="Add to cart" href="#">In den Warenkorb</a>
                           </div>
@@ -1789,13 +1405,6 @@
                 <span class="out-of-stock">Hot</span>
               </a>
               <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
                 <div class="product-action-2">
                   <a title="Add to cart" href="#">In den Warenkorb</a>
                 </div>
@@ -1820,13 +1429,6 @@
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
               <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
                 <div class="product-action-2">
                   <a title="Add to cart" href="#">In den Warenkorb</a>
                 </div>
@@ -1851,13 +1453,6 @@
                 <span class="new">Neu</span>
               </a>
               <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
                 <div class="product-action-2">
                   <a title="Add to cart" href="#">In den Warenkorb</a>
                 </div>
@@ -1879,13 +1474,6 @@
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
               <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
                 <div class="product-action-2">
                   <a title="Add to cart" href="#">In den Warenkorb</a>
                 </div>
@@ -2155,9 +1743,6 @@
   </div>
 </section>
 <!-- /End Cowndown Area -->
-
-<!-- Include Shop Services Area-->
-@include('partials.shop-service-area')
 
 <!-- Include Neusletter -->
 @include('partials.newsletter')
