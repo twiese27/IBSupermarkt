@@ -31,4 +31,9 @@ class ProductToShoppingCart extends Model
         'shopping_cart_id' => 'integer',
         'total_amount' => 'decimal:2', // Falls es sich um eine Betrag handelt
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

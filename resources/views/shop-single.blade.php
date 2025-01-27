@@ -39,18 +39,9 @@
               <!-- Description -->
               <div class="short">
                 <h4>Nonstick Dishwasher PFOA</h4>
-                <div class="rating-main">
-                  <ul class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star-half-o"></i></li>
-                    <li class="dark"><i class="fa fa-star-o"></i></li>
-                  </ul>
-                  <a href="#" class="total-review">(102) Review</a>
-                </div>
+
                 <p class="price">
-                  <span class="discount">$70.00</span><s>$80.00</s>
+                  <span class="discount">$70.00</span>
                 </p>
                 <p class="description">
                   eget velit. Donec ac tempus ante. Fusce ultricies massa
@@ -62,37 +53,7 @@
                 </p>
               </div>
               <!--/ End Description -->
-              <!-- Color -->
-              <div class="color">
-                <h4>Optionen <span>Farbe</span></h4>
-                <ul>
-                  <li>
-                    <a href="#" class="one"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="two"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="three"><i class="ti-check"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" class="four"><i class="ti-check"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <!--/ End Color -->
-              <!-- Size -->
-              <div class="size">
-                <h4>Größe</h4>
-                <ul>
-                  <li><a href="#" class="one">S</a></li>
-                  <li><a href="#" class="two">M</a></li>
-                  <li><a href="#" class="three">L</a></li>
-                  <li><a href="#" class="four">XL</a></li>
-                  <li><a href="#" class="four">XXL</a></li>
-                </ul>
-              </div>
-              <!--/ End Size -->
+
               <!-- Product Buy -->
               <div class="product-buy">
                 <div class="quantity">
@@ -116,12 +77,11 @@
                 </div>
                 <div class="add-to-cart">
                   <a href="#" class="btn">In den Warenkorb</a>
-                  <a href="#" class="btn min"><i class="ti-heart"></i></a>
-                  <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
+
                 </div>
                 <p class="cat">Kategorie :<a href="#">Kleidung</a></p>
-                <p class="availability">
-                  Verfügbarkeit : 180 Produkte auf Lager
+                <p class="hersteller">
+                  Hersteller : muss noch an DB angebunden werden
                 </p>
               </div>
               <!--/ End Product Buy -->
@@ -137,9 +97,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Bewertungen</a>
-                  </li>
+
                 </ul>
                 <!--/ End Tab Nav -->
               </div>
@@ -194,128 +152,7 @@
                 </div>
                 <!--/ End Description Tab -->
                 <!-- Reviews Tab -->
-                <div class="tab-pane fade" id="reviews" role="tabpanel">
-                  <div class="tab-single review-panel">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="ratting-main">
-                          <div class="avg-r</div>atting">
-                            <h4>4.5 <span>(Gesamt)</span></h4>
-                            <span>Basierend auf 1 Kommentar</span>
-                          </div>
-                          <!-- Single Rating -->
-                          <div class="single-rating">
-                            <div class="rating-author">
-                              <img src="https://placehold.co/200x200" alt="#" />
-                            </div>
-                            <div class="rating-des">
-                              <h6>Naimur Rahman</h6>
-                              <div class="ratings">
-                                <ul class="rating">
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star-half-o"></i></li>
-                                  <li><i class="fa fa-star-o"></i></li>
-                                </ul>
-                                <div class="rate-count">
-                                  (<span>3.5</span>)
-                                </div>
-                              </div>
-                              <p>
-                                Duis tincidunt mauris ac aliquet congue.
-                                Donec vestibulum consequat cursus. Aliquam
-                                pellentesque nulla dolor, in imperdiet.
-                              </p>
-                            </div>
-                          </div>
-                          <!--/ End Single Rating -->
-                          <!-- Single Rating -->
-                          <div class="single-rating">
-                            <div class="rating-author">
-                              <img src="https://placehold.co/200x200" alt="#" />
-                            </div>
-                            <div class="rating-des">
-                              <h6>Advin Geri</h6>
-                              <div class="ratings">
-                                <ul class="rating">
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                  <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rate-count">
-                                  (<span>5.0</span>)
-                                </div>
-                              </div>
-                              <p>
-                                Duis tincidunt mauris ac aliquet congue.
-                                Donec vestibulum consequat cursus. Aliquam
-                                pellentesque nulla dolor, in imperdiet.
-                              </p>
-                            </div>
-                          </div>
-                          <!--/ End Single Rating -->
-                        </div>
-                        <!-- Review -->
-                        <div class="comment-review">
-                          <div class="add-review">
-                            <h5>Eine Bewertung hinzufügen</h5>
-                            <p>
-                              Ihre E-Mail-Adresse wird nicht veröffentlicht.
-                              Erforderliche Felder sind markiert
-                            </p>
-                          </div>
-                          <h4>Ihre Bewertung</h4>
-                          <div class="review-inner">
-                            <div class="ratings">
-                              <ul class="rating">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/ End Review -->
-                        <!-- Form -->
-                        <form class="form" method="post" action="mail/mail.php">
-                          <div class="row">
-                            <div class="col-lg-6 col-12">
-                              <div class="form-group">
-                                <label>Ihr Name<span>*</span></label>
-                                <input type="text" name="name" required="required" placeholder="" />
-                              </div>
-                            </div>
-                            <div class="col-lg-6 col-12">
-                              <div class="form-group">
-                                <label>Ihre Email<span>*</span></label>
-                                <input type="email" name="email" required="required" placeholder="" />
-                              </div>
-                            </div>
-                            <div class="col-lg-12 col-12">
-                              <div class="form-group">
-                                <label>Schreiben Sie eine Bewertung<span>*</span></label>
-                                <textarea name="message" rows="6" placeholder=""></textarea>
-                              </div>
-                            </div>
-                            <div class="col-lg-12 col-12">
-                              <div class="form-group button5">
-                                <button type="submit" class="btn">
-                                  Absenden
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                        <!--/ End Form -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
                 <!--/ End Reviews Tab -->
               </div>
             </div>
@@ -467,6 +304,147 @@
   </div>
 </div>
 <!-- End Most Popular Area -->
+
+<!-- Start Alternative Empfehlungsfunktion -->
+<div class="product-area most-popular related-product section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title">
+          <h2>Alternative Empfehlungsfunktion</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="owl-carousel popular-slider">
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+                <span class="out-of-stock">Hot</span>
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
+              </h3>
+              <div class="product-price">
+                <span class="old">$60.00</span>
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
+              </h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+                <span class="new">Neu</span>
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+          <!-- Start Single Product -->
+          <div class="single-product">
+            <div class="product-img">
+              <a href="{{ route('shop-single') }}">
+                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
+                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
+              </a>
+              <div class="button-head">
+                <div class="product-action">
+                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
+                      class="ti-eye"></i><span>Schnellansicht</span></a>
+                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
+                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
+                      hinzufügen</span></a>
+                </div>
+                <div class="product-action-2">
+                  <a title="Add to cart" href="#">In den Warenkorb</a>
+                </div>
+              </div>
+            </div>
+            <div class="product-content">
+              <h3>
+                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+              </h3>
+              <div class="product-price">
+                <span>$50.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Product -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Alternative Empfehlungsfunktion Area -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
