@@ -34,7 +34,8 @@ Route::get('/profile',[ProfileController::class,'index'])->name('profile');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
-    $results = DB::select('SELECT * FROM CUSTOMER');
+//    $results = DB::select('SELECT * FROM CUSTOMER');
+    $results = \App\Models\Warehouse::query()->get();
     return $results;
 })->name('test');
 
