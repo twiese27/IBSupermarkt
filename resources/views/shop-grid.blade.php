@@ -372,78 +372,36 @@
     <section class="product-area shop-sidebar shop section">
         <div class="container">
             <div class="col-lg-12 col-md-8 col-12">
-                <div class="row" id="product-grid"></div>
-            </div>
-        </div>
-    </section>
-
-    <script language="javascript" type="text/javascript">
-    const products = [
-    {
-            name: "Produkt 1",
-            price: 29.00,
-            image: "https://placehold.co/512x512",
-            description: "Dies ist ein Beispiel-Produkt"
-        },
-        {
-            name: "Produkt 2",
-            price: 39.00,
-            image: "https://placehold.co/512x512",
-            description: "Dies ist ein weiteres Beispiel-Produkt"
-        },
-        {
-            name: "Produkt 2",
-            price: 39.00,
-            image: "https://placehold.co/512x512",
-            description: "Dies ist ein weiteres Beispiel-Produkt"
-        },
-        {
-            name: "Produkt 2",
-            price: 39.00,
-            image: "https://placehold.co/512x512",
-            description: "Dies ist ein weiteres Beispiel-Produkt"
-        },
-        {
-            name: "Produkt 2",
-            price: 39.00,
-            image: "https://placehold.co/512x512",
-            description: "Dies ist ein weiteres Beispiel-Produkt"
-        },
-    // ...
-    ];
-
-    const productGrid = document.getElementById("product-grid");
-
-    products.forEach((product) => {
-    const productElement = document.createElement("div");
-    productElement.classList.add("col-lg-3", "col-md-6", "col-12");
-    productElement.innerHTML = `
-    <div class="single-product">
-        <div class="product-img">
-            <a href="#">
-                <img class="default-img" src="${product.image}" alt="#" />
-                <img class="hover-img" src="${product.image}" alt="#" />
-            </a>
-            <div class="button-head">
-                <div class="product-action-2">
-                    <a title="Add to cart" href="#">In den Warenkorb</a>
+                <div class="row" id="product-grid">
+                    @foreach($products as $product)
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <a href="#">
+                                        <img class="default-img" src="https://placehold.co/512x512" alt="#" />
+                                        <img class="hover-img" src="https://placehold.co/512x512" alt="#" />
+                                    </a>
+                                    <div class="button-head">
+                                        <div class="product-action-2">
+                                            <a title="Add to cart" href="#">In den Warenkorb</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3>
+                                        <a href="#">{{ $product->product_name }}</a>
+                                    </h3>
+                                    <div class="product-price">
+                                        <span>{{ $product->retail_price }} €</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-        <div class="product-content">
-            <h3>
-                <a href="#">${product.name}</a>
-            </h3>
-            <div class="product-price">
-                <span>${product.price} €</span>
-            </div>
-        </div>
-    </div>
-    `;
-    productGrid.appendChild(productElement);
-    });
-
-    </script>
+    </section>
 
     <!-- Include Newsletter -->
 @include('partials.newsletter')
