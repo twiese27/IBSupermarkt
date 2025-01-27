@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Routing\Controller;
 
 class HomePageController extends Controller
 {
     public function index()
     {
-        $users = User::query()
+        $products = Product::query()
+            ->limit(20)
             ->get();
 
-        return view('index', ['users' => $users]);
+        return view('index', ['products' => $products]);
     }
 }
