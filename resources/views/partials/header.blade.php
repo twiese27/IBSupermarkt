@@ -109,10 +109,10 @@
                                                     <li>
                                                         <a href="#">Alkoholische Getränke<i
                                                                 class="ti-angle-right"></i></a>
-                                                        <ul class="dropdown sub-dropdown .bg-danger text-primary">
+                                                        <ul class="dropdown sub-dropdown">
                                                             <li><a href="#">Bier und Wein<i
-                                                                        class="ti-angle-right .bg-danger"></i></a>
-                                                                <ul class="dropdown sub-dropdown .bg-danger">
+                                                                        class="ti-angle-right"></i></a>
+                                                                <ul class="dropdown sub-dropdown">
                                                                     <li><a href="#">Bier</a></li>
                                                                     <li><a href="#">Alkoholfreier Wein</a></li>
                                                                     <li><a href="#">Wein</a></li>
