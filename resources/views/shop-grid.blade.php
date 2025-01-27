@@ -4,6 +4,12 @@
 
 @section('content')
 
+    <section>
+        <br>
+        <br>
+        <div style="text-align: center;"><h1> Trendprodukte </h1></div>
+    </section>
+
     <!-- Start Area 2 -->
     <section class="hero-area4">
         <div class="container">
