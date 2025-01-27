@@ -30,7 +30,8 @@ Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
-    $results = DB::select('SELECT * FROM CUSTOMER');
+//    $results = DB::select('SELECT * FROM CUSTOMER');
+    $results = \App\Models\Warehouse::query()->get();
     return $results;
 })->name('test');
 
