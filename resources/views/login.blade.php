@@ -32,10 +32,6 @@
                   <button class="btn" type="submit">Anmelden</button>
                   <a href="{{ route('register') }}" class="btn">Registrieren</a>
                 </div>
-                <div class="checkbox">
-                  <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" />Erinnere
-                    mich</label>
-                </div>
                 <a href="#" class="lost-pass">Passwort vergessen?</a>
               </div>
             </div>
