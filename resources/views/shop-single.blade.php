@@ -10,8 +10,7 @@
     <div class="row">
       <div class="col-12">
         <div class="row">
-          <div class="col-lg-6 col-12">
-            <!-- Product Slider -->
+          <div class="col-lg-6 col-12">            <!-- Product Slider -->
             <div class="product-gallery">
               <!-- Images slider -->
               <div class="flexslider-thumbnails">
@@ -38,7 +37,7 @@
             <div class="product-des">
               <!-- Description -->
               <div class="short">
-                <h4>Nonstick Dishwasher PFOA</h4>
+                <h4>BIIIIIIIIIIIIIIIIER</h4>
                 
                 <p class="price">
                   <span class="discount">$70.00</span>
