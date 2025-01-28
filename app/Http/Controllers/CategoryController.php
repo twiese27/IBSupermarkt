@@ -31,6 +31,6 @@ class CategoryController extends Controller
             ->limit(20)
             ->get();
 
-        return view('shop-grid', ['products' => $products]);
+        return view('shop-grid', ['products' => $products, 'categoryName' => $category->name]);
     }
 }

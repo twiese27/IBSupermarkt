@@ -79,7 +79,7 @@
     <section>
         <br>
         <br>
-        <div style="text-align: center;"><h1> Kategoriename </h1></div>
+        <div style="text-align: center;"><h1> {{ $categoryName }} </h1></div>
     </section>
 
     <!-- Product Style
