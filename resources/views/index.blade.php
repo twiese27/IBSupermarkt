@@ -139,7 +139,9 @@
       <div class="col-12">
         <div class="product-info">
           <div class="nav-main">
+
             <!-- Tab Nav -->
+            <!--
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#man" role="tab">Männer</a>
@@ -160,7 +162,9 @@
                 <a class="nav-link" data-toggle="tab" href="#prices" role="tab">Preise</a>
               </li>
             </ul>
+            -->
             <!--/ End Tab Nav -->
+
           </div>
           <div class="tab-content" id="myTabContent">
             <!-- Start Single Tab -->
@@ -176,14 +180,16 @@
                                         <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                                     </a>
                                     <div class="button-head">
+                                      <!--
                                         <div class="product-action">
                                             <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
                                                     class="ti-eye"></i><span>Schnellansicht</span></a>
                                             <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste
-                                hinzufügen</span></a>
+                                                    hinzufügen</span></a>
                                             <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                                hinzufügen</span></a>
+                                                    hinzufügen</span></a>
                                         </div>
+                                        -->
                                         <div class="product-action-2">
                                             <a title="Add to cart" href="#">In den Warenkorb</a>
                                         </div>
@@ -205,6 +211,7 @@
             </div>
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
+             <!--
             <div class="tab-pane fade" id="women" role="tabpanel">
               <div class="tab-single">
                 <div class="row">
@@ -463,8 +470,10 @@
                 </div>
               </div>
             </div>
+            -->
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
+             <!--
             <div class="tab-pane fade" id="kids" role="tabpanel">
               <div class="tab-single">
                 <div class="row">
@@ -723,8 +732,10 @@
                 </div>
               </div>
             </div>
+            -->
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
+             <!--
             <div class="tab-pane fade" id="accessories" role="tabpanel">
               <div class="tab-single">
                 <div class="row">
@@ -983,8 +994,10 @@
                 </div>
               </div>
             </div>
+            -->
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
+             <!--
             <div class="tab-pane fade" id="essential" role="tabpanel">
               <div class="tab-single">
                 <div class="row">
@@ -1243,8 +1256,10 @@
                 </div>
               </div>
             </div>
+            -->
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
+             <!--
             <div class="tab-pane fade" id="prices" role="tabpanel">
               <div class="tab-single">
                 <div class="row">
@@ -1503,6 +1518,7 @@
                 </div>
               </div>
             </div>
+            -->
             <!--/ End Single Tab -->
           </div>
         </div>
