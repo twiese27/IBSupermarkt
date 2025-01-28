@@ -25,6 +25,7 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 // Login und Registrierung
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 
 // Shop
 Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');

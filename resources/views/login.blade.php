@@ -11,7 +11,12 @@
       <div class="col-lg-6 offset-lg-3 col-12">
         <div class="login-form">
           <h2>Anmeldung</h2>
+          @if(session('status'))
+            <p>{{ session('status') }}</p>
+          @endif
           <p>Bitte anmelden, um den vollen Funktionsumfang des Shops zu erleben</p>
+          
+
           <!-- Form -->
           <form class="form" method="post" action="#">
             <div class="row">
