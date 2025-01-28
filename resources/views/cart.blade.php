@@ -24,111 +24,45 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="image" data-title="No">
-                <img src="https://placehold.co/100x100" alt="#" />
-              </td>
-              <td class="product-des" data-title="Description">
-                <p class="product-name"><a href="#">Frauenkleid</a></p>
-              </td>
-              <td class="price" data-title="Price">
-                <span>110,00€ </span>
-              </td>
-              <td class="qty" data-title="Qty">
-                <!-- Input Order -->
-                <div class="input-group">
-                  <div class="button minus">
-                    <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-                      data-field="quant[1]">
-                      <i class="ti-minus"></i>
-                    </button>
-                  </div>
-                  <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="100" value="1" />
-                  <div class="button plus">
-                    <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                      <i class="ti-plus"></i>
-                    </button>
-                  </div>
-                </div>
-                <!--/ End Input Order -->
-              </td>
-              <td class="total-amount" data-title="Total">
-                <span>220,88€</span>
-              </td>
-              <td class="action" data-title="Remove">
-                <a href="#"><i class="ti-trash remove-icon"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td class="image" data-title="No">
-                <img src="https://placehold.co/100x100" alt="#" />
-              </td>
-              <td class="product-des" data-title="Description">
-                <p class="product-name"><a href="#">Frauenkleid</a></p>
-              </td>
-              <td class="price" data-title="Price">
-                <span>110,00€ </span>
-              </td>
-              <td class="qty" data-title="Qty">
-                <!-- Input Order -->
-                <div class="input-group">
-                  <div class="button minus">
-                    <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-                      data-field="quant[2]">
-                      <i class="ti-minus"></i>
-                    </button>
-                  </div>
-                  <input type="text" name="quant[2]" class="input-number" data-min="1" data-max="100" value="2" />
-                  <div class="button plus">
-                    <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[2]">
-                      <i class="ti-plus"></i>
-                    </button>
-                  </div>
-                </div>
-                <!--/ End Input Order -->
-              </td>
-              <td class="total-amount" data-title="Total">
-                <span>220,88€</span>
-              </td>
-              <td class="action" data-title="Remove">
-                <a href="#"><i class="ti-trash remove-icon"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td class="image" data-title="No">
-                <img src="https://placehold.co/100x100" alt="#" />
-              </td>
-              <td class="product-des" data-title="Description">
-                <p class="product-name"><a href="#">Frauenkleid</a></p>
-              </td>
-              <td class="price" data-title="Price">
-                <span>110,00€ </span>
-              </td>
-              <td class="qty" data-title="Qty">
-                <!-- Input Order -->
-                <div class="input-group">
-                  <div class="button minus">
-                    <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-                      data-field="quant[3]">
-                      <i class="ti-minus"></i>
-                    </button>
-                  </div>
-                  <input type="text" name="quant[3]" class="input-number" data-min="1" data-max="100" value="3" />
-                  <div class="button plus">
-                    <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[3]">
-                      <i class="ti-plus"></i>
-                    </button>
-                  </div>
-                </div>
-                <!--/ End Input Order -->
-              </td>
-              <td class="total-amount" data-title="Total">
-                <span>220,88€</span>
-              </td>
-              <td class="action" data-title="Remove">
-                <a href="#"><i class="ti-trash remove-icon"></i></a>
-              </td>
-            </tr>
+            @foreach($products as $product)
+        <tr>
+          <td class="image" data-title="No">
+          <img src="https://placehold.co/100x100" alt="#" />
+          </td>
+          <td class="product-des" data-title="Description">
+          <p class="product-name"><a href="#">{{ $product->product_name }}</a></p>
+          </td>
+          <td class="price" data-title="Price">
+          <span>{{ $product->retail_price }} €</span>
+          </td>
+          <td class="qty" data-title="Qty">
+          <!-- Input Order -->
+          <div class="input-group">
+            <div class="button minus">
+            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
+              data-field="quant[{{ $loop->index }}]">
+              <i class="ti-minus"></i>
+            </button>
+            </div>
+            <input type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100"
+            value="1" />
+            <div class="button plus">
+            <button type="button" class="btn btn-primary btn-number" data-type="plus"
+              data-field="quant[{{ $loop->index }}]">
+              <i class="ti-plus"></i>
+            </button>
+            </div>
+          </div>
+          <!--/ End Input Order -->
+          </td>
+          <td class="total-amount" data-title="Total">
+          <span>{{ $product->retail_price }} €</span>
+          </td>
+          <td class="action" data-title="Remove">
+          <a href="#"><i class="ti-trash remove-icon"></i></a>
+          </td>
+        </tr>
+      @endforeach
           </tbody>
         </table>
         <!--/ End Shopping Summery -->
@@ -148,9 +82,15 @@
             <div class="col-lg-4 col-md-7 col-12">
               <div class="right">
                 <ul>
-                  <li>Zwischensumme<span>330,00€</span></li>
+                  @php
+          $subtotal = 0;
+          foreach ($products as $product) {
+            $subtotal += $product->retail_price;
+          }
+          @endphp
+                  <li>Zwischensumme<span>{{ $subtotal }} €</span></li>
                   <li>Versand<span>Kostenlos</span></li>
-                  <li class="last">Sie zahlen<span>330,00€</span></li>
+                  <li class="last">Sie zahlen<span>{{ $subtotal }} €</span></li>
                 </ul>
                 <div class="button5">
                   <a href="{{ route('checkout') }}" class="btn">Zur Kasse</a>
