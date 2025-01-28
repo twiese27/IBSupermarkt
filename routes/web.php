@@ -18,6 +18,7 @@ Route::get('/', [HomePageController::class, 'index'])->name('home');
 
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
