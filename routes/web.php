@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
@@ -31,6 +32,9 @@ Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single
 
 //Profil
 Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+
+//Produktkategorien
+Route::get('category/{name}', [CategoryController::class, 'index'])->name('category');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
