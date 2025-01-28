@@ -47,14 +47,14 @@
                         </div>
                         <div class="sinlge-bar shopping">
                             <a href="#" class="single-icon"><i class="ti-bag"></i> <span
-                                    class="total-count">2</span></a>
+                                    class="total-count">0</span></a>
                             <!-- Shopping Item -->
                             <div class="shopping-item">
                                 <div class="dropdown-cart-header">
-                                    <span>2 Artikel</span>
+                                    <span>0 Artikel</span>
                                     <a href="{{route('cart')}}">Warenkorb ansehen</a>
                                 </div>
-                                <ul class="shopping-list">
+                                <!-- <ul class="shopping-list">
                                     <li>
                                         <a href="#" class="remove" title="Diesen Artikel entfernen"><i
                                                 class="fa fa-remove"></i></a>
@@ -62,7 +62,7 @@
                                                 alt="#" /></a>
                                         <h4><a href="#">Damenring</a></h4>
                                         <p class="quantity">
-                                            1x - <span class="amount">99,00€</span>
+                                            1x - <span class="amount">99,00 €</span>
                                         </p>
                                     </li>
                                     <li>
@@ -72,14 +72,14 @@
                                                 alt="#" /></a>
                                         <h4><a href="#">Damenkette</a></h4>
                                         <p class="quantity">
-                                            1x - <span class="amount">35,00€</span>
+                                            1x - <span class="amount">35,00 €</span>
                                         </p>
                                     </li>
-                                </ul>
+                                </ul> -->
                                 <div class="bottom">
                                     <div class="total">
                                         <span>Gesamt</span>
-                                        <span class="total-amount">134,00€</span>
+                                        <span class="total-amount">0 €</span>
                                     </div>
                                     <a href="{{ route('checkout') }}" class="btn animate">Zur Kasse</a>
                                 </div>

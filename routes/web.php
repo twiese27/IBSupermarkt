@@ -22,6 +22,7 @@ Route::get('/welcome', function () {
 
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
