@@ -37,7 +37,7 @@
             <div class="product-des">
               <!-- Description -->
               <div class="short">
-                <h4>BIIIIIIIIIIIIIIIIER</h4>
+                <h4>BIIIIIIIIIIIIIER</h4>
                 
                 <p class="price">
                   <span class="discount">$70.00</span>
