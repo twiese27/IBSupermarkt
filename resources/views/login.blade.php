@@ -11,20 +11,20 @@
       <div class="col-lg-6 offset-lg-3 col-12">
         <div class="login-form">
           <h2>Anmeldung</h2>
-          <p>Bitte registrieren Sie sich, um schneller auszuchecken</p>
+          <p>Bitte anmelden, um den vollen Funktionsumfang des Shops zu erleben</p>
           <!-- Form -->
           <form class="form" method="post" action="#">
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
                   <label>Ihre E-Mail<span>*</span></label>
-                  <input type="email" name="email" placeholder="" required="required" />
+                  <input type="email" name="email" placeholder="John.Doe@example.com" required="required" />
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
                   <label>Ihr Passwort<span>*</span></label>
-                  <input type="password" name="password" placeholder="" required="required" />
+                  <input type="password" name="password" placeholder="********" required="required" />
                 </div>
               </div>
               <div class="col-12">
