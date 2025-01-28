@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\CategoryMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
@@ -14,7 +15,10 @@ Route::get('/welcome', function () {
 })->name('welcome');
 
 // Startseite
-Route::get('/', [HomePageController::class, 'index'])->name('home');
+//Route::middleware([CategoryMiddleware::class])->group(function () {
+    Route::get('/', [HomePageController::class, 'index'])
+        ->name('home');
+//});
 
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
