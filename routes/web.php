@@ -16,14 +16,16 @@ Route::get('/welcome', function () {
 
 // Startseite
 //Route::middleware([CategoryMiddleware::class])->group(function () {
-    Route::get('/', [HomePageController::class, 'index'])
-        ->name('home');
+Route::get('/', [HomePageController::class, 'index'])
+    ->name('home');
 //});
 
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
@@ -38,14 +40,14 @@ Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
 Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
 
 //Profil
-Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 //Produktkategorien
 Route::get('category/{name}', [CategoryController::class, 'index'])->name('category');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
-//    $results = DB::select('SELECT * FROM CUSTOMER');
+    //    $results = DB::select('SELECT * FROM CUSTOMER');
     $results = \App\Models\Warehouse::query()->get();
     return $results;
 })->name('test');

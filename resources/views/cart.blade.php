@@ -19,14 +19,19 @@
               <th class="text-center">MENGE</th>
               <th class="text-center">GESAMT</th>
               <th class="text-center">
-                <i class="ti-trash remove-icon"></i>
+                <form action="{{ route('cart.clear') }}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn" style="background: none; border: none; padding: 0;">
+                    <i class="ti-trash"></i>
+                  </button>
+                </form>
               </th>
             </tr>
           </thead>
           <tbody>
             @php
         $subtotal = 0;
-        @endphp
+      @endphp
             @foreach($items as $item)
               @php
           $qty = $item->total_amount;
@@ -67,7 +72,13 @@
                 <span>{{ $total }} €</span>
                 </td>
                 <td class="action" data-title="Remove">
-                <a href="#"><i class="ti-trash remove-icon"></i></a>
+                <form action="{{ route('cart.remove') }}" method="POST">
+                  @csrf
+                  <input type="hidden" name="product_id" value="{{ $item->product->product_id }}">
+                  <button type="submit" class="btn" style="background: transparent; border: none; padding: 0;">
+                  <i class="ti-trash" style="color: black;"></i>
+                  </button>
+                </form>
                 </td>
               </tr>
       @endforeach

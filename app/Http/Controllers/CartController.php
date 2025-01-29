@@ -38,6 +38,23 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function remove(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $cart = session('cart', []);
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+        }
+        session(['cart' => $cart]);
+        return redirect()->back();
+    }
+
+    public function clear()
+    {
+        session()->forget('cart');
+        return redirect()->back();
+    }
+
     public function show($id)
     {
         $items = ProductToShoppingCart::where('shopping_cart_id', $id)
