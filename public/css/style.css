@@ -3617,6 +3617,7 @@ Version:1.0
 .shop.login .login-form .lost-pass{
     display:inline-block;
     margin-left:25px;
+    margin-top: 22px;
     color:#333;
     font-size:14px;
     font-weight:400;
@@ -5032,8 +5033,9 @@ Version:1.0
 	Start Favourite Bier
 ===============================*/
 #favorite_beer {
-    padding: 20px 0;
-}
+    padding: 0 0 30px 0;
+    margin: 0 10px 20px 10px;
+    }   
 /*=============================
 	End Favourite Bier
 ===============================*/
