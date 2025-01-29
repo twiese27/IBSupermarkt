@@ -43,20 +43,10 @@ class AuthController extends Controller
             'birth_date' => 'nullable|date',
             'password' => 'required|string|min:8',
         ]);
-       //dd($validated);
-
-       $birthDate = $validated['birth_date'];
-        // Datum konvertieren von 'dd-mm-yyyy' zu 'dd-mm-yy'
-        /*if ($validated['birth_date']) {
-            // Erstelle ein Carbon-Objekt und wandle das Datum um
-            $birthDate = Carbon::createFromFormat('Y-m-d', $validated['birth_date']);
-        }*/
-        //dd($birthDate);
+        
         $createdOn = Carbon::now()->format('d-m-y');
         
-        //dd($createdOn);
-
-        // Erstellen des Kunden
+                // Erstellen des Kunden
         $customer = new Customer();
         //$customer->customer_id = DB::table('customer')->max('customer_id') + 1;
         $customer->customer_id = DB::table('customer')->max('customer_id') + 1;
@@ -71,21 +61,25 @@ class AuthController extends Controller
         $customer->country = $validated['country'] ?? null;
         $customer->iban = $validated['iban'] ?? null;
         $customer->birth_date = $validated['birth_date'];  // Umgewandeltes Format
-        //dd($customer);
 
+        //dd($customer['customer_id']);
         // Speichern des Kunden in der Datenbank
         $customer->save();
-/*
+
         // Erstellen des User_Account
-        $user_account = UserAccount::create([
-            //'USER_ACCOUNT_ID' => DB::table('user_account')->max('USER_ACCOUNT_ID') + 1,
-            'USER_ACCOUNT_ID' => 1,
-            'CUSTOMER_ID' => $customer->CUSTOMER_ID, 
-            'PASSWORD' => $validated['password'],
-            'PASSWORD_VALID_BEGINN' => Carbon::now(), // TODO: Wird das Attribut in der DB automatisch gepflegt? Eventuell knallt es hier, aufgrund unterschiedlichen Formats
-            'PASSWORD_VALID_END' => null,
-        ]);
-*/
+        $datenow = Carbon::now()->toDateString();
+        $timestamp = Carbon::now()->toDateTimeString();
+        //dd($timestamp);
+        $user_account = new UserAccount();
+        $user_account->USER_ACCOUNT_ID = DB::table('user_account')->max('USER_ACCOUNT_ID') + 1;
+        $user_account->CUSTOMER_ID = $customer['customer_id']   ;
+        $user_account->PASSWORD = Hash::make($validated['password']);
+        $user_account->PASSWORD_VALID_BEGIN = $timestamp;
+        $user_account->PASSWORD_VALID_END = null;
+        
+       //dd($user_account);
+
+       $user_account->save();
         return redirect()->route('login')->with('status', 'Registrierung erfolgreich!');
     }
 }
