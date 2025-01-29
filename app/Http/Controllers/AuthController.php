@@ -43,16 +43,17 @@ class AuthController extends Controller
             'birth_date' => 'nullable|date',
             'password' => 'required|string|min:8',
         ]);
-        //dd($validated);
+       //dd($validated);
 
+       $birthDate = $validated['birth_date'];
         // Datum konvertieren von 'dd-mm-yyyy' zu 'dd-mm-yy'
-        if ($validated['birth_date']) {
+        /*if ($validated['birth_date']) {
             // Erstelle ein Carbon-Objekt und wandle das Datum um
-            $birthDate = Carbon::createFromFormat('Y-m-d', $validated['birth_date'])->format('d-m-y');
-        }
-        //dd($validated);
-        $createdOn = Carbon::now()->format('d-m-y');
+            $birthDate = Carbon::createFromFormat('Y-m-d', $validated['birth_date']);
+        }*/
         //dd($birthDate);
+        $createdOn = Carbon::now()->format('d-m-y');
+        
         //dd($createdOn);
 
         // Erstellen des Kunden
@@ -69,7 +70,7 @@ class AuthController extends Controller
         $customer->city = $validated['city'] ?? null;
         $customer->country = $validated['country'] ?? null;
         $customer->iban = $validated['iban'] ?? null;
-        $customer->birth_date = $birthDate;  // Umgewandeltes Format
+        $customer->birth_date = $validated['birth_date'];  // Umgewandeltes Format
         //dd($customer);
 
         // Speichern des Kunden in der Datenbank

@@ -37,6 +37,12 @@ class Customer extends Model
 
     /** @var string[] */
     protected $casts = [
-        //'customer_id' => 'integer',
+        'birth_date' => 'string',
     ];
+
+    public function getBirthDateAttribute($value)
+    {
+        // Format the date and return the custom string
+        return "TO_DATE('{$value}', 'DD.MM.YYYY')";
+    }
 }
