@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Models\ProductCategory;
 
@@ -11,37 +10,42 @@ class CategoryMiddleware
 {
     public function handle($request, Closure $next)
     {
-//        // Hole die Kategorien und teile sie mit allen Views
-//        $categories = $this->buildCategoryTree();
-//        View::share('categories', $categories);
-//
-//        return $next($request);
+        $categories = $this->buildCategoryTree();
+        View::share('categories', $categories);
+
+        return $next($request);
     }
 
-    private function buildCategoryTree($parentId = null, $depth = 0, $maxDepth = 5)
+    /**
+     * @param int|null $parentId
+     * @param int $depth
+     * @param int $maxDepth
+     * @return array
+     */
+    private function buildCategoryTree(int $parentId = null, int $depth = 0, int $maxDepth = 5): array
     {
         if ($depth >= $maxDepth) {
             return [];
         }
 
-        $categories = ProductCategory::query()
-            ->where('PARENT_CATEGORY', '=', $parentId)
-            ->get();
+        $query = ProductCategory::query();
 
+        if ($parentId === null) {
+            $query->whereNull('PARENT_CATEGORY');
+        } else {
+            $query->where('PARENT_CATEGORY', '=', $parentId);
+        }
+
+        $categories = $query->get();
         $categoryTree = [];
 
         foreach ($categories as $category) {
-            Log::debug('Comparing category:', [
-                'PRODUCT_CATEGORY_ID' => $category->PRODUCT_CATEGORY_ID,
-                'PARENT_CATEGORY' => $category->PARENT_CATEGORY
-            ]);
-
-            if ($category->PRODUCT_CATEGORY_ID === $category->PARENT_CATEGORY) {
+            if ($category->product_category_id === $category->parent_category) {
                 continue;
             }
 
-            $category->children = $this->buildCategoryTree($category->PRODUCT_CATEGORY_ID, $depth + 1, $maxDepth);
-
+            $category->level = $depth;
+            $category->children = $this->buildCategoryTree($category->product_category_id, $depth + 1, $maxDepth);
             $categoryTree[] = $category;
         }
 
