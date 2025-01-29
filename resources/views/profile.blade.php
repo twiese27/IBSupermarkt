@@ -41,7 +41,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Telefonnummer</label>
-                                        <input type="number" name="number" placeholder="" required="required" disabled/>
+                                        <input type="text" name="phonenumber" placeholder="" required="required" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
