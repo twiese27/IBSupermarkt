@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
@@ -17,6 +18,38 @@ class AuthController extends Controller
     public function login()
     {
         return view('login');
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect(route('home'))->with('success', 'Logout erfolgreich!');
+    }
+    public function loginPost(Request $request){
+        // Validierung der Login-Daten
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        // Suche den Kunden anhand der E-Mail in der CUSTOMER-Tabelle
+        $customer = Customer::where('email', $request->email)->first();
+
+        if ($customer) {
+            // Finde das zugehörige UserAccount
+            $userAccount = UserAccount::where('customer_id', $customer->customer_id)->first();
+
+            // Wenn das UserAccount und das Passwort stimmen
+            if ($userAccount && Hash::check($request->password, $userAccount['password'])) {
+                
+                //Auth::guard('web')->login($userAccount);
+                Auth::guard('web')->loginUsingId($userAccount['USER_ACCOUNT_ID']);
+                return redirect()->intended(route('home'))->with('success', 'Login erfolgreich!');
+            }
+        }
+
+        return redirect(route('login'))->with('error', 'Login fehlgeschlagen!');
     }
 
     public function register()
