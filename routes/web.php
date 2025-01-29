@@ -23,6 +23,7 @@ Route::get('/welcome', function () {
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
