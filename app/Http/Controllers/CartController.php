@@ -62,4 +62,20 @@ class CartController extends Controller
             ->get();
         return view('cart', compact('items'));
     }
+
+    public function update(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = (int) $request->input('quantity', 1);
+        $cart = session('cart', []);
+        if (isset($cart[$productId])) {
+            if ($quantity <= 0) {
+                unset($cart[$productId]);
+            } else {
+                $cart[$productId] = $quantity;
+            }
+        }
+        session(['cart' => $cart]);
+        return redirect()->back();
+    }
 }
