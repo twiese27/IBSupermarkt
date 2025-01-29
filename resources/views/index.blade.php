@@ -71,11 +71,15 @@
 </section>
 <!--/ End Hero Area 2 -->
 
+
 <!-- Start Small Banner  -->
+<!--
 <section class="small-banner section">
   <div class="container">
     <div class="row">
+-->
       <!-- Single Banner  -->
+<!--
       <div class="col-lg-4 col-md-6 col-12">
         <div class="single-banner">
           <img src="https://placehold.co/600x370" alt="#" />
@@ -89,8 +93,10 @@
           </div>
         </div>
       </div>
+-->
       <!-- /End Single Banner  -->
       <!-- Single Banner  -->
+<!--
       <div class="col-lg-4 col-md-6 col-12">
         <div class="single-banner">
           <img src="https://placehold.co/600x370" alt="#" />
@@ -104,8 +110,10 @@
           </div>
         </div>
       </div>
+-->
       <!-- /End Single Banner  -->
       <!-- Single Banner  -->
+<!--
       <div class="col-lg-4 col-12">
         <div class="single-banner tab-height">
           <img src="https://placehold.co/600x370" alt="#" />
@@ -119,10 +127,13 @@
           </div>
         </div>
       </div>
+-->
       <!-- /End Single Banner  -->
+<!--
     </div>
   </div>
 </section>
+-->
 <!-- End Small Banner -->
 
 <!-- Start Produktbereich -->
@@ -138,8 +149,9 @@
     <div class="row">
       <div class="col-12">
         <div class="product-info">
+<!--
           <div class="nav-main">
-
+-->
             <!-- Tab Nav -->
             <!--
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -164,8 +176,9 @@
             </ul>
             -->
             <!--/ End Tab Nav -->
-
+<!--
           </div>
+-->
           <div class="tab-content" id="myTabContent">
             <!-- Start Single Tab -->
             <div class="tab-pane fade show active" id="man" role="tabpanel">
@@ -1520,19 +1533,24 @@
             </div>
             -->
             <!--/ End Single Tab -->
+<!--
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+-->
 <!-- End Product Area -->
 
 <!-- Start Midium Banner  -->
+<!--
 <section class="midium-banner">
   <div class="container">
     <div class="row">
+-->
       <!-- Single Banner  -->
+<!--
       <div class="col-lg-6 col-md-6 col-12">
         <div class="single-banner">
           <img src="https://placehold.co/600x370" alt="#" />
@@ -1543,8 +1561,10 @@
           </div>
         </div>
       </div>
+-->
       <!-- /End Single Banner  -->
       <!-- Single Banner  -->
+<!--
       <div class="col-lg-6 col-md-6 col-12">
         <div class="single-banner">
           <img src="https://placehold.co/600x370" alt="#" />
@@ -1558,19 +1578,238 @@
           </div>
         </div>
       </div>
+-->
       <!-- /End Single Banner  -->
+<!--
     </div>
   </div>
 </section>
+-->
 <!-- End Midium Banner -->
 
-<!-- Start Most Popular -->
+<!-- Start Shop Home List  -->
+<section class="shop-home-list section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="shop-section-title">
+              <h1>Geheimtipp</h1>
+            </div>
+          </div>
+        </div>
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h4 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h4>
+                <p class="price with-discount">$59</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$44</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$89</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+      </div>
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="shop-section-title">
+              <h1>Bewusster Leben</h1>
+            </div>
+          </div>
+        </div>
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$65</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$33</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$77</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+      </div>
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="shop-section-title">
+              <h1>Bestseller</h1>
+            </div>
+          </div>
+        </div>
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$22</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$35</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+        <!-- Start Single List  -->
+        <div class="single-list">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="list-image overlay">
+                <img src="https://placehold.co/115x140" alt="#" />
+                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 no-padding">
+              <div class="content">
+                <h5 class="title">
+                  <a href="#">Licity jelly leg flat Sandals</a>
+                </h5>
+                <p class="price with-discount">$99</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single List  -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Shop Home List  -->
+
+<!-- Start New Items -->
 <div class="product-area most-popular section">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Hot Item</h2>
+          <h2>New Items</h2>
         </div>
       </div>
     </div>
@@ -1675,223 +1914,7 @@
     </div>
   </div>
 </div>
-<!-- End Most Popular Area -->
-
-<!-- Start Shop Home List  -->
-<section class="shop-home-list section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-12">
-        <div class="row">
-          <div class="col-12">
-            <div class="shop-section-title">
-              <h1>Im Angebot</h1>
-            </div>
-          </div>
-        </div>
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h4 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h4>
-                <p class="price with-discount">$59</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$44</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$89</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-      </div>
-      <div class="col-lg-4 col-md-6 col-12">
-        <div class="row">
-          <div class="col-12">
-            <div class="shop-section-title">
-              <h1>Bestseller</h1>
-            </div>
-          </div>
-        </div>
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$65</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$33</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$77</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-      </div>
-      <div class="col-lg-4 col-md-6 col-12">
-        <div class="row">
-          <div class="col-12">
-            <div class="shop-section-title">
-              <h1>Am meisten angesehen</h1>
-            </div>
-          </div>
-        </div>
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$22</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$35</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-        <!-- Start Single List  -->
-        <div class="single-list">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-              <div class="list-image overlay">
-                <img src="https://placehold.co/115x140" alt="#" />
-                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12 no-padding">
-              <div class="content">
-                <h5 class="title">
-                  <a href="#">Licity jelly leg flat Sandals</a>
-                </h5>
-                <p class="price with-discount">$99</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Single List  -->
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End Shop Home List  -->
+<!-- End New Items Area -->
 
 <!-- Start Cowndown Area -->
 <section class="cown-down">
@@ -1906,7 +1929,7 @@
         <div class="col-lg-6 col-12 padding-left">
           <div class="content">
             <div class="heading-block">
-              <p class="small-title">Deal des Tages</p>
+              <p class="small-title">Geheimtipp</p>
               <h3 class="title">Beatutyful dress for women</h3>
               <p class="text">
                 Suspendisse massa leo, vestibulum cursus nulla sit amet,
