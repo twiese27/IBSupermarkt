@@ -26,11 +26,14 @@ class CategoryController extends Controller
 
         }
 
+        dd(ProductCategory::all());
+
+
         $products = Product::query()
             ->where('product_category_id', '=', $category->product_category_id)
             ->limit(20)
             ->get();
 
-        return view('shop-grid', ['products' => $products]);
+        return view('shop-grid', ['products' => $products, 'categoryName' => $category->name]);
     }
 }

@@ -10,60 +10,24 @@
     <div class="row">
       <div class="col-12">
         <div class="home-slider-4">
-          <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-            <div class="inner">
-              <h4 class="title">
-                make your <br />
-                site stunning with <br />
-                large title
-              </h4>
-              <p class="des">
-                Hipster style is a fashion trending for Gentleman and
-                Lady<br />with tattoos. You’ll become so cool and attractive
-                with your’s girl.<br />
-                Now let come hare and grab it now !
-              </p>
-              <div class="button">
-                <a href="#" class="btn">Jetzt Einkaufen</a>
-              </div>
-            </div>
-          </div>
-          <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-            <div class="inner">
-              <h4 class="title">
-                make your <br />
-                site stunning with <br />
-                large title
-              </h4>
-              <p class="des">
-                Hipster style is a fashion trending for Gentleman and
-                Lady<br />with tattoos. You’ll become so cool and attractive
-                with your’s girl.<br />
-                Now let come hare and grab it now !
-              </p>
-              <div class="button">
-                <a href="#" class="btn">Jetzt Einkaufen</a>
-              </div>
-            </div>
-          </div>
-          <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-            <div class="inner">
-              <h4 class="title">
-                make your <br />
-                site stunning with <br />
-                large title
-              </h4>
-              <p class="des">
-                Hipster style is a fashion trending for Gentleman and
-                Lady<br />with tattoos. You’ll become so cool and attractive
-                with your’s girl.<br />
-                Now let come hare and grab it now !
-              </p>
-              <div class="button">
-                <a href="#" class="btn">Jetzt Einkaufen</a>
-              </div>
-            </div>
-          </div>
+            @for ($i = 0; $i < 5; $i++)
+                <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
+                    <div class="inner">
+                        <h4 class="title">
+                            {{ $products[$i]->product_name }}
+                        </h4>
+                        <p class="des">
+                            Discover our extensive range of high-quality products, <br/>
+                            carefully selected to meet all your daily needs. From fresh fruits and vegetables to pantry essentials
+                            <br/>and indulgent treats, we’ve got you covered. Shop conveniently online and
+                            <br/>enjoy fast delivery straight to your door – because your satisfaction is our top priority!
+                        </p>
+                        <div class="button">
+                            <a href="#" class="btn">Jetzt Einkaufen</a>
+                        </div>
+                    </div>
+                </div>
+            @endfor
         </div>
       </div>
     </div>

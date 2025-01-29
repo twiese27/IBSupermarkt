@@ -24,44 +24,52 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($products as $product)
-        <tr>
-          <td class="image" data-title="No">
-          <img src="https://placehold.co/100x100" alt="#" />
-          </td>
-          <td class="product-des" data-title="Description">
-          <p class="product-name"><a href="#">{{ $product->product_name }}</a></p>
-          </td>
-          <td class="price" data-title="Price">
-          <span>{{ $product->retail_price }} €</span>
-          </td>
-          <td class="qty" data-title="Qty">
-          <!-- Input Order -->
-          <div class="input-group">
-            <div class="button minus">
-            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-              data-field="quant[{{ $loop->index }}]">
-              <i class="ti-minus"></i>
-            </button>
-            </div>
-            <input type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100"
-            value="1" />
-            <div class="button plus">
-            <button type="button" class="btn btn-primary btn-number" data-type="plus"
-              data-field="quant[{{ $loop->index }}]">
-              <i class="ti-plus"></i>
-            </button>
-            </div>
-          </div>
-          <!--/ End Input Order -->
-          </td>
-          <td class="total-amount" data-title="Total">
-          <span>{{ $product->retail_price }} €</span>
-          </td>
-          <td class="action" data-title="Remove">
-          <a href="#"><i class="ti-trash remove-icon"></i></a>
-          </td>
-        </tr>
+            @php
+        $subtotal = 0;
+        @endphp
+            @foreach($items as $item)
+              @php
+          $qty = $item->total_amount;
+          $total = $item->product->retail_price * $qty;
+          $subtotal += $total;
+      @endphp
+              <tr>
+                <td class="image" data-title="No">
+                <img src="https://placehold.co/100x100" alt="#" />
+                </td>
+                <td class="product-des" data-title="Description">
+                <p class="product-name"><a href="#">{{ $item->product->product_name }}</a></p>
+                </td>
+                <td class="price" data-title="Price">
+                <span>{{ $item->product->retail_price }} €</span>
+                </td>
+                <td class="qty" data-title="Qty">
+                <!-- Input Order -->
+                <div class="input-group">
+                  <div class="button minus">
+                  <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
+                    data-field="quant[{{ $loop->index }}]">
+                    <i class="ti-minus"></i>
+                  </button>
+                  </div>
+                  <input type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100"
+                  value="{{ $qty }}" />
+                  <div class="button plus">
+                  <button type="button" class="btn btn-primary btn-number" data-type="plus"
+                    data-field="quant[{{ $loop->index }}]">
+                    <i class="ti-plus"></i>
+                  </button>
+                  </div>
+                </div>
+                <!--/ End Input Order -->
+                </td>
+                <td class="total-amount" data-title="Total">
+                <span>{{ $total }} €</span>
+                </td>
+                <td class="action" data-title="Remove">
+                <a href="#"><i class="ti-trash remove-icon"></i></a>
+                </td>
+              </tr>
       @endforeach
           </tbody>
         </table>
@@ -82,12 +90,6 @@
             <div class="col-lg-4 col-md-7 col-12">
               <div class="right">
                 <ul>
-                  @php
-          $subtotal = 0;
-          foreach ($products as $product) {
-            $subtotal += $product->retail_price;
-          }
-          @endphp
                   <li>Zwischensumme<span>{{ $subtotal }} €</span></li>
                   <li>Versand<span>Kostenlos</span></li>
                   <li class="last">Sie zahlen<span>{{ $subtotal }} €</span></li>

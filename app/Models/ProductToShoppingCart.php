@@ -29,7 +29,7 @@ class ProductToShoppingCart extends Model
     protected $casts = [
         'product_id' => 'integer',
         'shopping_cart_id' => 'integer',
-        'total_amount' => 'decimal:2', // Falls es sich um eine Betrag handelt
+        'total_amount' => 'integer',
     ];
 
     public function product()

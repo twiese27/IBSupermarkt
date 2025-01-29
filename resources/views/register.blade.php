@@ -13,7 +13,8 @@
           <h2>Registrieren</h2>
           <p>Werde Teil der IBSupermarkt Community</p>
           <!-- Form -->
-          <form class="form" method="post" action="#">
+          <form class="form" method="post" action="{{ route('register.store') }}">
+            @csrf <!-- CSRF protection, sonst gibt es den Fehler 419 aus Sicherheitsgründen -->
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -79,6 +80,12 @@
                 <div class="form-group">
                   <label>E-Mail-Adresse<span>*</span></label>
                   <input type="email" name="email" placeholder="Leonardo.Di@Caprio.com" required="required" />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Passwort<span>*</span></label>
+                  <input type="text" name="password" placeholder="****" required="required" />
                 </div>
               </div>
               <div class="col-12">

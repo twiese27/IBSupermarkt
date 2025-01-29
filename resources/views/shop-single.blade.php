@@ -38,8 +38,8 @@
             <div class="product-des">
               <!-- Description -->
               <div class="short">
-                <h4>Nonstick Dishwasher PFOA</h4>
-
+                <h4>BIIIIIIIIIIIIIIIIIIIIER</h4>
+                
                 <p class="price">
                   <span class="discount">$70.00</span>
                 </p>
@@ -53,7 +53,7 @@
                 </p>
               </div>
               <!--/ End Description -->
-
+              
               <!-- Product Buy -->
               <div class="product-buy">
                 <div class="quantity">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="add-to-cart">
                   <a href="#" class="btn">In den Warenkorb</a>
-
+                 
                 </div>
                 <p class="cat">Kategorie :<a href="#">Kleidung</a></p>
                 <p class="hersteller">
@@ -97,7 +97,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
                   </li>
-
+                  
                 </ul>
                 <!--/ End Tab Nav -->
               </div>
@@ -152,7 +152,7 @@
                 </div>
                 <!--/ End Description Tab -->
                 <!-- Reviews Tab -->
-
+                
                 <!--/ End Reviews Tab -->
               </div>
             </div>

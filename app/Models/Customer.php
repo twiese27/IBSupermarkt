@@ -13,32 +13,36 @@ class Customer extends Model
     protected $table = 'customer';
 
     /** @var string */
-    protected $primaryKey = 'customer_id';
+    protected $primaryKey = 'customer_id'; // Primärschlüssel der Tabelle
 
     /** @var bool */
     public $timestamps = false;
 
     /** @var string[] */
     protected $fillable = [
+        'customer_id',
+        'forename',
+        'middle_name',
+        'lastname',
         'street',
         'house_number',
         'postal_code',
         'city',
-        'middle_name',
-        'lastname',
+        'country',
+        'email',
         'iban',
         'birth_date',
         'created_on',
-        'email',
-        'country',
-        'forename',
     ];
 
     /** @var string[] */
     protected $casts = [
-        'customer_id' => 'integer',
-        'postal_code' => 'string',
-        'birth_date' => 'date',
-        'created_on' => 'date',
+        'birth_date' => 'string',
     ];
+
+    public function getBirthDateAttribute($value)
+    {
+        // Format the date and return the custom string
+        return "TO_DATE('{$value}', 'DD.MM.YYYY')";
+    }
 }
