@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
 
@@ -42,5 +43,9 @@ class User extends Model
     public function getAuthIdentifierName()
     {
         return 'USER_ACCOUNT_ID'; // Oder das Attribut, das du als Identifikator verwendest
+    }
+    public function getRememberTokenName()
+    {
+        return null; // Deaktiviert die Speicherung des Tokens
     }
 }

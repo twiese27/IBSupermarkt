@@ -38,18 +38,20 @@ class AuthController extends Controller
         if (!$customer) {
             return back()->withErrors(['email' => 'Diese E-Mail-Adresse wurde nicht gefunden.']);
         }
-    
+        //dd($customer);
+
         // Finde das Benutzerkonto mit der customer_id des gefundenen Kunden
         $userAccount = User::where('customer_id', $customer->customer_id)
             ->orderByDesc('password_valid_begin') // Neuestes Passwort verwenden
             ->first();
-        
+        //dd($userAccount);
         if (!$userAccount) {
             return back()->withErrors(['email' => 'Kein Benutzerkonto für diese E-Mail-Adresse gefunden.']);
         }
         
+        //dd(Hash::check($validated['password'], $userAccount->password));
         // Prüfe, ob das eingegebene Passwort mit dem gespeicherten Hash übereinstimmt
-        if (!Hash::check($validated['password'], $userAccount->password_hash)) {
+        if (!Hash::check($validated['password'], $userAccount->password)) {
             return back()->withErrors(['password' => 'Das Passwort ist falsch.']);
         }
     
