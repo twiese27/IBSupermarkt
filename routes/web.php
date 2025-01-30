@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Middleware\CategoryMiddleware;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
@@ -37,14 +37,17 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 
 // Shop
-Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
-Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
+//Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
+//Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
 
 //Profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 //Produktkategorien
 Route::get('category/{name}', [CategoryController::class, 'index'])->name('category');
+
+//Produktdetailseite
+Route::get('/product', [ProductController::class, 'index'])->name('product');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {

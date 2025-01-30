@@ -38,8 +38,8 @@
             <div class="product-des">
               <!-- Description -->
               <div class="short">
-                <h4>Produkt</h4>
-                
+                <h4>{{ $product->product_name }}</h4>
+
                 <p class="price">
                   <span class="discount">$70.00</span>
                 </p>
@@ -53,7 +53,7 @@
                 </p>
               </div>
               <!--/ End Description -->
-              
+
               <!-- Product Buy -->
               <div class="product-buy">
                 <div class="quantity">
@@ -77,11 +77,11 @@
                 </div>
                 <div class="add-to-cart">
                   <a href="#" class="btn">In den Warenkorb</a>
-                 
+
                 </div>
-                <p class="cat">Kategorie :<a href="#">Kleidung</a></p>
+                <p class="cat">Kategorie :<a href="#">{{ $category->name }}</a></p>
                 <p class="hersteller">
-                  Hersteller : muss noch an DB angebunden werden
+                  Hersteller : {{ $producer->name }}
                 </p>
               </div>
               <!--/ End Product Buy -->
@@ -97,7 +97,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
                   </li>
-                  
+
                 </ul>
                 <!--/ End Tab Nav -->
               </div>
@@ -152,7 +152,7 @@
                 </div>
                 <!--/ End Description Tab -->
                 <!-- Reviews Tab -->
-                
+
                 <!--/ End Reviews Tab -->
               </div>
             </div>
@@ -180,7 +180,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 <span class="out-of-stock">Hot</span>
@@ -200,7 +200,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
+                <a href="{{ route('product') }}">Black Sunglass For Women</a>
               </h3>
               <div class="product-price">
                 <span class="old">$60.00</span>
@@ -212,7 +212,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
@@ -231,7 +231,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
+                <a href="{{ route('product') }}">Women Hot Collection</a>
               </h3>
               <div class="product-price">
                 <span>$50.00</span>
@@ -242,7 +242,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 <span class="new">Neu</span>
@@ -261,7 +261,7 @@
               </div>
             </div>
             <div class="product-content">
-              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
+              <h3><a href="{{ route('product') }}">Awesome Pink Show</a></h3>
               <div class="product-price">
                 <span>$50.00</span>
               </div>
@@ -271,7 +271,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
@@ -290,7 +290,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+                <a href="{{ route('product') }}">Awesome Bags Collection</a>
               </h3>
               <div class="product-price">
                 <span>$50.00</span>
@@ -321,7 +321,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 <span class="out-of-stock">Hot</span>
@@ -341,7 +341,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
+                <a href="{{ route('product') }}">Black Sunglass For Women</a>
               </h3>
               <div class="product-price">
                 <span class="old">$60.00</span>
@@ -353,7 +353,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
@@ -372,7 +372,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
+                <a href="{{ route('product') }}">Women Hot Collection</a>
               </h3>
               <div class="product-price">
                 <span>$50.00</span>
@@ -383,7 +383,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 <span class="new">Neu</span>
@@ -402,7 +402,7 @@
               </div>
             </div>
             <div class="product-content">
-              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
+              <h3><a href="{{ route('product') }}">Awesome Pink Show</a></h3>
               <div class="product-price">
                 <span>$50.00</span>
               </div>
@@ -412,7 +412,7 @@
           <!-- Start Single Product -->
           <div class="single-product">
             <div class="product-img">
-              <a href="{{ route('shop-single') }}">
+              <a href="{{ route('product') }}">
                 <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
               </a>
@@ -431,7 +431,7 @@
             </div>
             <div class="product-content">
               <h3>
-                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+                <a href="{{ route('product') }}">Awesome Bags Collection</a>
               </h3>
               <div class="product-price">
                 <span>$50.00</span>
