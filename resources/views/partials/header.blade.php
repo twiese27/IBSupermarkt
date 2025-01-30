@@ -41,7 +41,13 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @if(Auth::check())
+                                <p>Hallo, Nutzer</p>
+                                <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @else
+                                <p>Hallo, Gast</p>
+                                <a href="{{ route('login') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @endif
                         </div>
                         <div class="sinlge-bar shopping">
                             @php

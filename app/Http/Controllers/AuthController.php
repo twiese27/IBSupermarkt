@@ -57,24 +57,10 @@ class AuthController extends Controller
     
         // Authentifiziere den Benutzer
         Auth::loginUsingId($userAccount->user_account_id, true);
-    
+        //dd(Auth::check(), Auth::user());
         // Weiterleitung nach erfolgreichem Login
         return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
     }
-    
-/*
-        // Wenn der Benutzer existiert und das Passwort korrekt ist
-        if ($user && Hash::check($validated['password'], $user->PASSWORD)) {
-            // Benutzer erfolgreich authentifizieren
-            Auth::loginUsingId($user->USER_ACCOUNT_ID, true);
-
-            // Weiterleitung nach erfolgreichem Login (z.B. zur Dashboard-Seite)
-            return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
-        }
-
-        // Wenn Login fehlgeschlagen ist, Fehlermeldung anzeigen
-        return back()->withErrors(['email' => 'Ungültige Anmeldedaten.'])->withInput();
-    }*/
 
     public function store(Request $request)
     {

@@ -35,7 +35,6 @@
 </section>
 <!--/ End Hero Area 2 -->
 
-
 <!-- Start Small Banner  -->
 <!--
 <section class="small-banner section">
