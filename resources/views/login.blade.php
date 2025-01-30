@@ -18,7 +18,9 @@
           
 
           <!-- Form -->
-          <form class="form" method="post" action="#">
+          <form class="form" method="POST" action="{{ route('loginPost') }}">
+
+            @csrf
             <div class="row">
               <div class="col-12">
                 <div class="form-group">

@@ -2,47 +2,45 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // Wenn der Name der Tabelle nicht der Standard-Name ist
+    protected $table = 'users';
+
+    // Primärschlüssel definieren (falls abweichend von der Standardkonvention)
+    protected $primaryKey = 'user_account_id';
+    public $incrementing = false; // Weil es ein zusammengesetzter Primärschlüssel ist
+
+    // Felder, die massenweise zuweisbar sind
     protected $fillable = [
-        'name',
-        'email',
+        'user_account_id',
+        'password_valid_end',
+        'customer_id',
         'password',
+        'password_valid_begin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // Optional: Timestamps deaktivieren, falls die Tabelle keine created_at/updated_at Spalten hat
+    public $timestamps = false;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function getPassordValidEndAttribute($value)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        // Format the date and return the custom string
+        return "TO_TIMESTAMP('{$value}', 'DD-MM-YYYY HH24:MI:SS')";
+    }
+
+    public function getPassordValidBeginnAttribute($value)
+    {
+        // Format the date and return the custom string
+        return "TO_TIMESTAMP('{$value}', 'DD-MM-YYYY HH24:MI:SS')";
+    }
+    public function getAuthIdentifierName()
+    {
+        return 'USER_ACCOUNT_ID'; // Oder das Attribut, das du als Identifikator verwendest
     }
 }

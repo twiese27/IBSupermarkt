@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Customer;
-use App\Models\UserAccount;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;#
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -23,6 +25,35 @@ class AuthController extends Controller
     {
         return view('register');
     }
+
+    public function loginPost(Request $request)
+    {
+        // Validierung der Eingabedaten
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        // Versuchen, den Benutzer zu finden
+        $customer = Customer::where('email', $validated['email'])->first();
+        $user = User::where('customer_id', $customer['customer_id'])->first();
+        dd($customer['customer_id']);
+        Auth::loginUsingId($user->USER_ACCOUNT_ID, true);
+        return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
+    }
+/*
+        // Wenn der Benutzer existiert und das Passwort korrekt ist
+        if ($user && Hash::check($validated['password'], $user->PASSWORD)) {
+            // Benutzer erfolgreich authentifizieren
+            Auth::loginUsingId($user->USER_ACCOUNT_ID, true);
+
+            // Weiterleitung nach erfolgreichem Login (z.B. zur Dashboard-Seite)
+            return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
+        }
+
+        // Wenn Login fehlgeschlagen ist, Fehlermeldung anzeigen
+        return back()->withErrors(['email' => 'Ungültige Anmeldedaten.'])->withInput();
+    }*/
 
     public function store(Request $request)
     {
@@ -70,8 +101,8 @@ class AuthController extends Controller
         $datenow = Carbon::now()->toDateString();
         $timestamp = Carbon::now()->toDateTimeString();
         //dd($timestamp);
-        $user_account = new UserAccount();
-        $user_account->USER_ACCOUNT_ID = DB::table('user_account')->max('USER_ACCOUNT_ID') + 1;
+        $user_account = new User();
+        $user_account->USER_ACCOUNT_ID = DB::table('users')->max('USER_ACCOUNT_ID') + 1;
         $user_account->CUSTOMER_ID = $customer['customer_id']   ;
         $user_account->PASSWORD = Hash::make($validated['password']);
         $user_account->PASSWORD_VALID_BEGIN = $timestamp;
