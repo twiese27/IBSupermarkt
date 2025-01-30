@@ -26,9 +26,6 @@ class CategoryController extends Controller
 
         }
 
-        dd(ProductCategory::all());
-
-
         $products = Product::query()
             ->where('product_category_id', '=', $category->product_category_id)
             ->limit(20)
