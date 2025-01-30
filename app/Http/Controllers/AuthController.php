@@ -25,7 +25,6 @@ class AuthController extends Controller
     {
         return view('register');
     }
-
     public function loginPost(Request $request)
     {
         // Validierung der Eingabedaten
@@ -33,14 +32,34 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
-
-        // Versuchen, den Benutzer zu finden
+    
+        // Versuchen, den Kunden anhand der E-Mail zu finden
         $customer = Customer::where('email', $validated['email'])->first();
-        $user = User::where('customer_id', $customer['customer_id'])->first();
-        dd($customer['customer_id']);
-        Auth::loginUsingId($user->USER_ACCOUNT_ID, true);
+        if (!$customer) {
+            return back()->withErrors(['email' => 'Diese E-Mail-Adresse wurde nicht gefunden.']);
+        }
+    
+        // Finde das Benutzerkonto mit der customer_id des gefundenen Kunden
+        $userAccount = User::where('customer_id', $customer->customer_id)
+            ->orderByDesc('password_valid_begin') // Neuestes Passwort verwenden
+            ->first();
+        
+        if (!$userAccount) {
+            return back()->withErrors(['email' => 'Kein Benutzerkonto für diese E-Mail-Adresse gefunden.']);
+        }
+        
+        // Prüfe, ob das eingegebene Passwort mit dem gespeicherten Hash übereinstimmt
+        if (!Hash::check($validated['password'], $userAccount->password_hash)) {
+            return back()->withErrors(['password' => 'Das Passwort ist falsch.']);
+        }
+    
+        // Authentifiziere den Benutzer
+        Auth::loginUsingId($userAccount->user_account_id, true);
+    
+        // Weiterleitung nach erfolgreichem Login
         return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
     }
+    
 /*
         // Wenn der Benutzer existiert und das Passwort korrekt ist
         if ($user && Hash::check($validated['password'], $user->PASSWORD)) {
