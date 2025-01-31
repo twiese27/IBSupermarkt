@@ -38,13 +38,10 @@ class AuthController extends Controller
         if (!$customer) {
             return back()->withErrors(['email' => 'Diese E-Mail-Adresse wurde nicht gefunden.']);
         }
-        //dd($customer);
-
+        
         // Finde das Benutzerkonto mit der customer_id des gefundenen Kunden
-        $userAccount = User::where('customer_id', $customer->customer_id)
-            ->orderByDesc('password_valid_begin') // Neuestes Passwort verwenden
-            ->first();
-        //dd($userAccount);
+        $userAccount = User::where('customer_id', $customer->customer_id)->first();
+        //dd($userAccount, $customer);
         if (!$userAccount) {
             return back()->withErrors(['email' => 'Kein Benutzerkonto für diese E-Mail-Adresse gefunden.']);
         }
@@ -57,7 +54,7 @@ class AuthController extends Controller
     
         // Authentifiziere den Benutzer
         Auth::loginUsingId($userAccount->user_account_id, true);
-        //dd(Auth::check(), Auth::user());
+        
         // Weiterleitung nach erfolgreichem Login
         return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
     }
