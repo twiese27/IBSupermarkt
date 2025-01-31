@@ -56,7 +56,11 @@ class AuthController extends Controller
         Auth::loginUsingId($userAccount->user_account_id, true);
         
         // Weiterleitung nach erfolgreichem Login
-        return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
+        return redirect()->route('home')->with([
+            'status' => 'Erfolgreich eingeloggt!',
+            'user' => $userAccount,
+            'customer' => $customer
+        ]);
     }
 
     public function store(Request $request)
