@@ -35,6 +35,18 @@
 </section>
 <!--/ End Hero Area 2 -->
 
+<!-- Start Test Zugriff auf eingeloggten Nutzer -->
+ <!--
+@if(session('status'))
+    <p>{{ session('status') }}</p>
+@endif
+
+@if(session('user'))
+    <p>Willkommen, {{ session('user')->user_account_id }}</p>
+@endif
+-->
+
+<!-- Ende Test Zugriff auf eingeloggten Nutzer -->
 
 <!-- Start Small Banner  -->
 <!--

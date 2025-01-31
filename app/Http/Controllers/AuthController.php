@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Customer;
-use App\Models\UserAccount;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;#
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -22,6 +24,43 @@ class AuthController extends Controller
     public function register()
     {
         return view('register');
+    }
+    public function loginPost(Request $request)
+    {
+        // Validierung der Eingabedaten
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+    
+        // Versuchen, den Kunden anhand der E-Mail zu finden
+        $customer = Customer::where('email', $validated['email'])->first();
+        if (!$customer) {
+            return back()->withErrors(['email' => 'Diese E-Mail-Adresse wurde nicht gefunden.']);
+        }
+        
+        // Finde das Benutzerkonto mit der customer_id des gefundenen Kunden
+        $userAccount = User::where('customer_id', $customer->customer_id)->first();
+        //dd($userAccount, $customer);
+        if (!$userAccount) {
+            return back()->withErrors(['email' => 'Kein Benutzerkonto für diese E-Mail-Adresse gefunden.']);
+        }
+        
+        //dd(Hash::check($validated['password'], $userAccount->password));
+        // Prüfe, ob das eingegebene Passwort mit dem gespeicherten Hash übereinstimmt
+        if (!Hash::check($validated['password'], $userAccount->password)) {
+            return back()->withErrors(['password' => 'Das Passwort ist falsch.']);
+        }
+    
+        // Authentifiziere den Benutzer
+        Auth::loginUsingId($userAccount->user_account_id, true);
+        
+        // Weiterleitung nach erfolgreichem Login
+        return redirect()->route('home')->with([
+            'status' => 'Erfolgreich eingeloggt!',
+            'user' => $userAccount,
+            'customer' => $customer
+        ]);
     }
 
     public function store(Request $request)
@@ -70,8 +109,8 @@ class AuthController extends Controller
         $datenow = Carbon::now()->toDateString();
         $timestamp = Carbon::now()->toDateTimeString();
         //dd($timestamp);
-        $user_account = new UserAccount();
-        $user_account->USER_ACCOUNT_ID = DB::table('user_account')->max('USER_ACCOUNT_ID') + 1;
+        $user_account = new User();
+        $user_account->USER_ACCOUNT_ID = DB::table('users')->max('USER_ACCOUNT_ID') + 1;
         $user_account->CUSTOMER_ID = $customer['customer_id']   ;
         $user_account->PASSWORD = Hash::make($validated['password']);
         $user_account->PASSWORD_VALID_BEGIN = $timestamp;

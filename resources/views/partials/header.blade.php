@@ -41,7 +41,17 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                        @if(session('status'))
+                            <!--<p>{{ session('status') }}</p>-->
+                        @endif
+
+                        @if(session('user'))
+                            <!--<p>Willkommen, {{ session('user')->user_account_id }}</p>-->
+                            <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>  
+                            @else
+                                <p>Hallo, Gast</p>
+                                <a href="{{ route('login') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @endif
                         </div>
                         <div class="sinlge-bar shopping">
                             @php
