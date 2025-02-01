@@ -49,6 +49,9 @@ Route::get('category/{name}', [CategoryController::class, 'index'])->name('categ
 //Produktdetailseite
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 
+//AGB
+Route::get('/agb', [\App\Http\Controllers\AGBController::class, 'index'])->name('agb');
+
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
     //    $results = DB::select('SELECT * FROM CUSTOMER');

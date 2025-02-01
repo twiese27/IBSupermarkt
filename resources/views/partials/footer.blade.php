@@ -32,7 +32,7 @@
             <ul>
               <li><a href="#">Über uns</a></li>
               <li><a href="#">FAQ</a></li>
-              <li><a href="#">AGB</a></li>
+              <li><a href="{{ route('agb') }}">AGB</a></li>
               <li><a href="#">Kontakt</a></li>
               <li><a href="#">Hilfe</a></li>
             </ul>
