@@ -31,7 +31,7 @@
             <h4>Informationen</h4>
             <ul>
               <li><a href="{{ route('aboutus') }}">Über uns</a></li>
-              <li><a href="#">FAQ</a></li>
+              <li><a href="{{ route('faq') }}">FAQ</a></li>
               <li><a href="{{ route('agb') }}">AGB</a></li>
               <li><a href="#">Kontakt</a></li>
               <li><a href="#">Hilfe</a></li>

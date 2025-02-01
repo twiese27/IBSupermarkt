@@ -55,6 +55,9 @@ Route::get('/agb', [\App\Http\Controllers\AGBController::class, 'index'])->name(
 //Über uns
 Route::get('/aboutus', [\App\Http\Controllers\AboutUsController::class, 'index'])->name('aboutus');
 
+//FAQ
+Route::get('/faq',[\App\Http\Controllers\FAQController::class, 'index'])->name('faq');
+
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {
     //    $results = DB::select('SELECT * FROM CUSTOMER');
