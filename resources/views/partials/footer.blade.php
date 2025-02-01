@@ -30,7 +30,7 @@
           <div class="single-footer links">
             <h4>Informationen</h4>
             <ul>
-              <li><a href="#">Über uns</a></li>
+              <li><a href="{{ route('aboutus') }}">Über uns</a></li>
               <li><a href="#">FAQ</a></li>
               <li><a href="{{ route('agb') }}">AGB</a></li>
               <li><a href="#">Kontakt</a></li>
