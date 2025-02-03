@@ -56,29 +56,32 @@
 
               <!-- Product Buy -->
               <div class="product-buy">
-                <div class="quantity">
-                  <h6>Menge :</h6>
-                  <!-- Input Order -->
-                  <div class="input-group">
-                    <div class="button minus">
-                      <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-                        data-field="quant[1]">
-                        <i class="ti-minus"></i>
-                      </button>
+                <form action="{{ route('cart.add') }}" method="POST">
+                  @csrf
+                  <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                  <div class="quantity">
+                    <h6>Menge :</h6>
+                    <!-- Input Order -->
+                    <div class="input-group">
+                      <div class="button minus">
+                        <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
+                          data-field="quant[1]">
+                          <i class="ti-minus"></i>
+                        </button>
+                      </div>
+                      <input type="text" name="quantity" class="input-number" data-min="1" data-max="1000" value="1" />
+                      <div class="button plus">
+                        <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                          <i class="ti-plus"></i>
+                        </button>
+                      </div>
                     </div>
-                    <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1" />
-                    <div class="button plus">
-                      <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                        <i class="ti-plus"></i>
-                      </button>
-                    </div>
+                    <!--/ End Input Order -->
                   </div>
-                  <!--/ End Input Order -->
-                </div>
-                <div class="add-to-cart">
-                  <a href="#" class="btn">In den Warenkorb</a>
-
-                </div>
+                  <div class="add-to-cart">
+                    <button type="submit" class="btn">In den Warenkorb</button>
+                  </div>
+                </form>
                 <p class="cat">Kategorie :<a href="#">{{ $category->name }}</a></p>
                 <p class="hersteller">
                   Hersteller : {{ $producer->name }}
