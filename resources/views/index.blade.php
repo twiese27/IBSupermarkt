@@ -287,48 +287,49 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="owl-carousel popular-slider">
-                      <!-- Start Single Product -->
-                      @foreach($products->take(6) as $product)
-              <div class="single-product">
-              <div class="product-img">
-                <a href="{{ route('product', ['id' => $product->product_id]) }}">
-                <img class="default-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
-                  alt="{{ $product->product_name }}" />
-                <img class="hover-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
-                  alt="{{ $product->product_name }}" />
-                <span class="out-of-stock">Hot</span>
-                </a>
-                <div class="button-head">
-                <form action="{{ route('cart.add') }}" method="POST" style="width: 100%;">
-                  @csrf
-                  <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                  <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
-                </form>
-                </div>
-              </div>
-              <div class="product-content">
-                <h3>
-                <a
-                  href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
-                </h3>
-                <div class="product-price">
-                <span class="old">{{ $product->old_price }} €</span>
-                <span>{{ $product->retail_price }} €</span>
-                </div>
-              </div>
-              </div>
-            @endforeach
-                      <!-- End Single Product -->
-                    </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="owl-carousel popular-slider">
+                              <!-- Start Single Product -->
+                              @foreach($products->take(6) as $product)
+                                  <div class="single-product">
+                                      <div class="product-img">
+                                          <a href="{{ route('product', ['id' => $product->product_id]) }}">
+                                              <img class="default-img"
+                                                   src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+                                                   alt="{{ $product->product_name }}"/>
+                                              <img class="hover-img"
+                                                   src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+                                                   alt="{{ $product->product_name }}"/>
+                                              <span class="out-of-stock">Hot</span>
+                                          </a>
+                                          <div class="button-head">
+                                              <div class="button">
+                                                  <a href="#" class="btn"
+                                                     onclick="addProductToCart({{ $product->product_id }})">In den
+                                                      Warenkorb</a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="product-content">
+                                          <h3>
+                                              <a
+                                                  href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
+                                          </h3>
+                                          <div class="product-price">
+                                              <span class="old">{{ $product->old_price }} €</span>
+                                              <span>{{ $product->retail_price }} €</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                          @endforeach
+                          <!-- End Single Product -->
+                          </div>
+                      </div>
                   </div>
-                </div>
               </div>
             </div>
-            <!-- End New Items Area -->
-
+              <!-- End New Items Area -->
             <!-- Start Cowndown Area -->
             <section class="cown-down">
               <div class="section-inner">

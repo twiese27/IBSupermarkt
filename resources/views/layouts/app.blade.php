@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title Tag -->
     <title>@yield('title', 'Eshop - eCommerce HTML5 Template')</title>
     <!-- Favicon -->
@@ -60,6 +61,7 @@
     @include('partials.footer')
 
     <!-- JS Files -->
+    <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-3.0.0.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>

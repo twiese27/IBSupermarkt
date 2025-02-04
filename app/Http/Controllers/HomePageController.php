@@ -13,11 +13,23 @@ class HomePageController extends Controller
         $products = Product::query()
             ->limit(20)
             ->get();
-        
-        $user = Auth::user(); // Gibt den eingeloggten User zurück (oder null)
-        $customer = $user ? $user->customer : null; // Falls ein User existiert, lade den zugehörigen Customer
 
+        $user = Auth::user();
+        $customer = $user ? $user->customer : null;
 
-        return view('index', compact('products', 'user', 'customer'));
+        $cartItems = session('cart', []);
+        $totalCount = 0;
+        $productsInCart = [];
+
+        foreach ($cartItems as $prodId => $qty) {
+            $totalCount += $qty;
+            $product = Product::find($prodId);
+            if ($product) {
+                $productsInCart[] = "{$qty} x {$product->product_name}";
+            }
+        }
+
+        return view('index', compact('products', 'user', 'customer', 'totalCount', 'productsInCart'));
     }
+
 }

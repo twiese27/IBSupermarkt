@@ -30,13 +30,31 @@ class CartController extends Controller
     {
         $productId = $request->input('product_id');
         $cart = session('cart', []);
+
         if (!isset($cart[$productId])) {
             $cart[$productId] = 0;
         }
         $cart[$productId]++;
         session(['cart' => $cart]);
-        return redirect()->back();
+        $totalCount = array_sum($cart);
+
+        // Produktinformationen holen
+        $productsInCart = [];
+        foreach ($cart as $prodId => $qty) {
+            $product = \App\Models\Product::find($prodId);
+            if ($product) {
+                $productsInCart[] = "{$qty} x {$product->product_name}";
+            }
+        }
+
+        // Antwort zurückgeben
+        return response()->json([
+            'message' => 'Produkt hinzugefügt',
+            'totalCount' => $totalCount,
+            'productsInCart' => $productsInCart,
+        ]);
     }
+
 
     public function remove(Request $request)
     {
