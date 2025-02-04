@@ -48,4 +48,7 @@ class User extends Authenticatable
     {
         return null; // Deaktiviert die Speicherung des Tokens
     }
+    public function customer(){
+        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+    }
 }

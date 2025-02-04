@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Customer;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingOrder;
+use App\Models\ProductToShoppingCart;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -38,43 +42,76 @@ class AuthController extends Controller
         if (!$customer) {
             return back()->withErrors(['email' => 'Diese E-Mail-Adresse wurde nicht gefunden.']);
         }
-        //dd($customer);
-
+        
         // Finde das Benutzerkonto mit der customer_id des gefundenen Kunden
-        $userAccount = User::where('customer_id', $customer->customer_id)
-            ->orderByDesc('password_valid_begin') // Neuestes Passwort verwenden
-            ->first();
-        //dd($userAccount);
-        if (!$userAccount) {
+        $user = User::where('customer_id', $customer->customer_id)->first();
+        //dd($user, $customer);
+        if (!$user) {
             return back()->withErrors(['email' => 'Kein Benutzerkonto für diese E-Mail-Adresse gefunden.']);
         }
         
-        //dd(Hash::check($validated['password'], $userAccount->password));
+        //dd(Hash::check($validated['password'], $user->password));
         // Prüfe, ob das eingegebene Passwort mit dem gespeicherten Hash übereinstimmt
-        if (!Hash::check($validated['password'], $userAccount->password)) {
+        if (!Hash::check($validated['password'], $user->password)) {
             return back()->withErrors(['password' => 'Das Passwort ist falsch.']);
         }
-    
-        // Authentifiziere den Benutzer
-        Auth::loginUsingId($userAccount->user_account_id, true);
-    
-        // Weiterleitung nach erfolgreichem Login
-        return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
-    }
-    
-/*
-        // Wenn der Benutzer existiert und das Passwort korrekt ist
-        if ($user && Hash::check($validated['password'], $user->PASSWORD)) {
-            // Benutzer erfolgreich authentifizieren
-            Auth::loginUsingId($user->USER_ACCOUNT_ID, true);
+        $shopping_carts = ShoppingCart::where('customer_id', $customer->customer_id)->get();
 
-            // Weiterleitung nach erfolgreichem Login (z.B. zur Dashboard-Seite)
-            return redirect()->route('home')->with('status', 'Erfolgreich eingeloggt!');
+        $ordersData = [];
+
+        foreach ($shopping_carts as $shopping_cart) {
+            // Lade alle zugehörigen ShoppingOrders für dieses ShoppingCart
+            $shopping_orders = ShoppingOrder::where('shopping_cart_id', $shopping_cart->shopping_cart_id)->get();
+
+            foreach ($shopping_orders as $order) {
+                // Lade alle ProductToShoppingCart-Daten für das aktuelle ShoppingCart
+                $product_to_shopping_cart = ProductToShoppingCart::where('shopping_cart_id', $shopping_cart->shopping_cart_id)->get();
+
+                // Hole alle Produkte, die in ProductToShoppingCart verwendet werden, in einer einzigen Abfrage
+                $product_ids = $product_to_shopping_cart->pluck('product_id')->toArray();
+                $products = Product::whereIn('product_id', $product_ids)->get()->keyBy('product_id');
+
+                $product_data = [];
+                foreach ($product_to_shopping_cart as $product_item) {
+                    // Hole die Produktinformationen direkt aus der geladenen Kollektion
+                    $product = $products->get($product_item->product_id);
+
+                    if ($product) {
+                        $product_data[] = [
+                            'product_name' => $product->product_name,
+                            'total_amount' => $product_item->total_amount,
+                            'retail_price' => $product->retail_price,
+                        ];
+                    }
+                }
+
+                // Füge alle Daten für eine Bestellung in das Array ein
+                $ordersData[] = [
+                    'order_id' => $order->order_id,
+                    'status' => $order->status,
+                    'order_time' => $order->order_time,
+                    'total_price' => $order->total_price,
+                    'products' => $product_data, // Alle Produkte zu dieser Bestellung
+                ];
+            }
         }
 
-        // Wenn Login fehlgeschlagen ist, Fehlermeldung anzeigen
-        return back()->withErrors(['email' => 'Ungültige Anmeldedaten.'])->withInput();
-    }*/
+        // Authentifiziere den Benutzer
+        Auth::loginUsingId($user->user_account_id, true);
+
+        session()->flash('status', 'Erfolgreich eingeloggt!');
+        session()->put('user', $user);
+        session()->put('customer', $customer);
+        session()->put('ordersData', $ordersData);
+
+        // Funktionsweise überprüfen
+        //dd($ordersData);
+
+        // Weiterleitung nach erfolgreichem Login
+        return redirect()->route('home')->with([
+            'status' => 'Erfolgreich eingeloggt!'
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -133,5 +170,12 @@ class AuthController extends Controller
 
        $user_account->save();
         return redirect()->route('login')->with('status', 'Registrierung erfolgreich!');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        session()->flush();
+        return redirect()->route('home')->with('status', 'Erfolgreich ausgeloggt!');
     }
 }

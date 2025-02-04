@@ -41,7 +41,20 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @if(session()->has('user'))
+                                @php
+                                    $user = session('user');
+                                    $cusomter = session('customer');
+                                @endphp
+                                <div class="user-info">
+                                    <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>  
+                                    
+                                </div>
+                                @else
+                                <div class="guest-info">
+                                    <a href="{{ route('login') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                </div>
+                                @endif
                         </div>
                         <div class="sinlge-bar shopping">
                             @php
