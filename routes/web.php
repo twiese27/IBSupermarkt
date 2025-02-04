@@ -36,6 +36,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Shop
 //Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
@@ -49,6 +50,15 @@ Route::get('category/{name}', [CategoryController::class, 'index'])->name('categ
 
 //Produktdetailseite
 Route::get('/product', [ProductController::class, 'index'])->name('product');
+
+//AGB
+Route::get('/agb', [\App\Http\Controllers\AGBController::class, 'index'])->name('agb');
+
+//Über uns
+Route::get('/aboutus', [\App\Http\Controllers\AboutUsController::class, 'index'])->name('aboutus');
+
+//FAQ
+Route::get('/faq',[\App\Http\Controllers\FAQController::class, 'index'])->name('faq');
 
 // Test-Routen (Datenbankabfrage)
 Route::get('/test', function () {

@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $productId = $request->query('id');
 
         $product = Product::query()
@@ -24,6 +25,10 @@ class ProductController extends Controller
             ->where('PRODUCER_ID', '=', $product->producer_id)
             ->firstOrNew();
 
-        return view('shop-single', ['product' => $product, 'category' => $category, 'producer' => $producer]);
+        $products = Product::query()
+            ->limit(20)
+            ->get();
+
+        return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
     }
 }

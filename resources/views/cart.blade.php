@@ -31,7 +31,7 @@
           <tbody>
             @php
         $subtotal = 0;
-      @endphp
+        @endphp
             @foreach($items as $item)
               @php
           $qty = $item->total_amount;
@@ -133,26 +133,6 @@
       </div>
       <div class="modal-body">
         <div class="row no-gutters">
-          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <!-- Product Slider -->
-            <div class="product-gallery">
-              <div class="quickview-slider-active">
-                <div class="single-slider">
-                  <img src="{{ asset('images/modal1.jpg') }}" alt="#" />
-                </div>
-                <div class="single-slider">
-                  <img src="{{ asset('images/modal2.jpg') }}" alt="#" />
-                </div>
-                <div class="single-slider">
-                  <img src="{{ asset('images/modal3.jpg') }}" alt="#" />
-                </div>
-                <div class="single-slider">
-                  <img src="{{ asset('images/modal4.jpg') }}" alt="#" />
-                </div>
-              </div>
-            </div>
-            <!-- End Product slider -->
-          </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="quickview-content">
               <h2>Flared Shift Kleid</h2>
