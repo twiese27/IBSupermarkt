@@ -59,7 +59,19 @@
                         </div>
                         <!-- Warenkorb Button im Header -->
                         <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon">
+                            @php
+                                $cartItems = session('cart', []);
+                                $totalCount = 0;
+                                $productsInCart = [];
+                                foreach ($cartItems as $prodId => $qty) {
+                                    $totalCount += $qty;
+                                    $product = \App\Models\Product::find($prodId);
+                                    if ($product) {
+                                        $productsInCart[] = "{$qty} x {$product->product_name}";
+                                    }
+                                }
+                            @endphp
+                            <a href="{{ route('cart') }}" class="single-icon">
                                 <i class="ti-bag"></i>
                                 <span class="total-count">{{ $totalCount }}</span>
                                 <!-- Dynamische Anzeige der Anzahl -->
@@ -67,10 +79,12 @@
                             <!-- Warenkorb anzeigen -->
                             <div class="shopping-item">
                                 <ul class="shopping-list">
-                                    @if($productsInCart && count($productsInCart) > 0)
-                                        @foreach($productsInCart as $info)
-                                            <li>{{ $info }}</li>
-                                        @endforeach
+                                    @if($productsInCart)
+                                        <ul class="shopping-list">
+                                            @foreach($productsInCart as $info)
+                                                <li>{{ $info }}</li>
+                                            @endforeach
+                                        </ul>
                                     @else
                                         <p>Warenkorb ist leer</p>
                                     @endif
