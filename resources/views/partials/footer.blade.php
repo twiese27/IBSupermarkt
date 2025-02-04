@@ -8,14 +8,17 @@
           <!-- Single Widget -->
           <div class="single-footer about">
             <div class="logo">
-              <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}" alt="#" /></a>
+              <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}" alt="#" style="width: 300px; height: auto;"/></a>
             </div>
-            <p class="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              dolore voluptatem ea quod natus eaque reiciendis facilis expedita
-              corrupti dolores non laudantium architecto consectetur nisi
-              officiis, quisquam inventore vero? Totam.
+            <p class="text" style="margin-bottom: 5px;">
+                Klausurenstress? Wir haben Kaffee. Durchgemachte Nacht? Energy-Drinks en masse.
             </p>
+              <p class="text" style="margin-bottom: 5px;">
+                  Unser Motto: "Immer Besser Studi (Stuber)!"
+              </p>
+              <p class="text">
+                  Also, nicht prokrastinieren – vorbeikommen, Vorräte bunkern und durchstarten!
+              </p>
             <p class="call">
               Haben Sie eine Frage? Rufen Sie uns 24/7 an<span><a href="tel:0441 9722120">0441 9722120</a></span>
             </p>
@@ -27,9 +30,9 @@
           <div class="single-footer links">
             <h4>Informationen</h4>
             <ul>
-              <li><a href="#">Über uns</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">AGB</a></li>
+              <li><a href="{{ route('aboutus') }}">Über uns</a></li>
+              <li><a href="{{ route('faq') }}">FAQ</a></li>
+              <li><a href="{{ route('agb') }}">AGB</a></li>
               <li><a href="#">Kontakt</a></li>
               <li><a href="#">Hilfe</a></li>
             </ul>

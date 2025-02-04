@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/niceselect.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
@@ -69,11 +69,10 @@
     <script src="{{ asset('js/slicknav.min.js') }}"></script>
     <script src="{{ asset('js/owl-carousel.js') }}"></script>
     <script src="{{ asset('js/magnific-popup.js') }}"></script>
-    <script src="{{ asset('js/facnybox.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/fancybox.min.js') }}"></script> -->
     <script src="{{ asset('js/waypoints.min.js') }}"></script>
     <script src="{{ asset('js/finalcountdown.min.js') }}"></script>
     <script src="{{ asset('js/nicesellect.js') }}"></script>
-    <script src="{{ asset('js/ytplayer.min.js') }}"></script>
     <script src="{{ asset('js/flex-slider.js') }}"></script>
     <script src="{{ asset('js/scrollup.js') }}"></script>
     <script src="{{ asset('js/onepage-nav.min.js') }}"></script>
