@@ -26,16 +26,19 @@
                     <!--/ End Search Form -->
                     <div class="mobile-nav"></div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <form>
-                                <input name="search" placeholder="Produkte hier suchen..." type="search"/>
-                                <button class="btnn"><i class="ti-search"></i></button>
-                            </form>
+                <form action="{{ route('search') }}" method="GET">
+                    @csrf
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="search-bar-top">
+                            <div class="search-bar">
+                                <form>
+                                    <input name="search" placeholder="Produkte hier suchen..." type="search"/>
+                                    <button class="btnn"><i class="ti-search"></i></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->

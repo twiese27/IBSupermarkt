@@ -51,4 +51,12 @@ class Product extends Model
         'product_category_id' => 'integer',
         'net_weight' => 'decimal:2',
     ];
+    public function producer() {
+        return $this->belongsTo(Producer::class, 'producer_id');
+    }
+    
+    public function productCategory() {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+    
 }
