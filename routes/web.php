@@ -7,7 +7,6 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/welcome', function () {
@@ -27,6 +26,8 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/total-price', [CartController::class, 'getTotalPrice'])->name('cart.total-price');
+Route::post('/cart/total-cart-price', [CartController::class, 'getTotalCartPrice'])->name('cart.total-cart-price');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
