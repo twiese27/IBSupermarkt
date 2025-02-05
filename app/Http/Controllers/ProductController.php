@@ -31,4 +31,21 @@ class ProductController extends Controller
 
         return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
     }
+
+    public function search(Request $request){
+        $query = $request->input('search');
+
+    // Falls kein Suchbegriff eingegeben wurde, leere Ergebnisse zurückgeben
+    if (!$query) {
+        return view('shop-grid', ['products' => []]);
+    }
+    $products = Product::join('producer', 'product.producer_id', '=', 'producer.producer_id')
+        ->join('product_category', 'product.product_category_id', '=', 'product_category.product_category_id')
+        ->whereRaw('LOWER(product.product_name) LIKE LOWER(?)', ["%{$query}%"])
+        ->orWhereRaw('LOWER(producer.name) LIKE LOWER(?)', ["%{$query}%"])
+        ->orWhereRaw('LOWER(product_category.name) LIKE LOWER(?)', ["%{$query}%"])
+        ->select('product.*')
+        ->get();
+    return view('shop-grid', ['products' => $products, 'query' => $query]);
+    }
 }

@@ -19,6 +19,9 @@ Route::get('/', [HomePageController::class, 'index'])
     ->name('home');
 //});
 
+//Suchbutton
+Route::get('/search', [HomePageController::class, 'search'])->name('search');
+
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
@@ -40,8 +43,8 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.store
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Shop
-//Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
-//Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
+Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
+Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
 
 //Profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -68,3 +71,4 @@ Route::get('/test', function () {
     return $results;
 })->name('test');
 
+Route::get('/search', [ProductController::class, 'search'])->name('search');
