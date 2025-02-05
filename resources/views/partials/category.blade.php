@@ -1,10 +1,12 @@
 @foreach($categories as $category)
     <li>
-        <a href="#">{{ $category->name }}<i class="ti-angle-down"></i></a>
+        <a href="{{ route('category', ['name' => $category->name]) }}?categoryId={{ $category->product_category_id }}">
+            {{ $category->name }}<i class="ti-angle-down"></i>
+        </a>
         <ul class="dropdown">
             @foreach($category->children as $subcategory)
                 <li>
-                    <a href="#">{{ $subcategory->name }}
+                    <a href="{{ route('category', ['name' => $subcategory->name]) }}?categoryId={{ $subcategory->product_category_id }}">{{ $subcategory->name }}
                         @if (count($category->children) > 0)
                             <i class="ti-angle-right"></i>
                         @endif
