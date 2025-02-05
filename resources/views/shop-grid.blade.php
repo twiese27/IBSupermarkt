@@ -83,7 +83,7 @@
   <br>
   <div style="text-align: center;">
     <!--<h1></h1>-->
-    <h1>categoryName</h1>
+    <h1>Die Suchergebnisse für:" {{ $query }} "</h1>
   </div>
 </section>
 
@@ -378,13 +378,23 @@
   <div class="container">
     <div class="col-lg-12 col-md-8 col-12">
       <div class="row" id="product-grid">
-        @foreach($products as $product)
-      @include('partials.product', ['product' => $product])
-    @endforeach
+        @if($products->isEmpty())
+            <p>Keine Produkte gefunden.</p>
+        @else
+          @foreach($products as $product)
+            @include('partials.product', ['product' => $product])
+          @endforeach
+        @endif
+      </div>
+
+      <!-- Pagination-Links -->
+      <div class="pagination-container mt-4">
+        {{ $products->appends(['search' => request()->search])->links() }}
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- Include Newsletter -->
 @include('partials.newsletter')
