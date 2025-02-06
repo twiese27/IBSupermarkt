@@ -44,6 +44,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Shop
 Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
 Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
+Route::get('/search-results', [ShopController::class, 'searchResults'])->name('searchResults');
 
 //Profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
