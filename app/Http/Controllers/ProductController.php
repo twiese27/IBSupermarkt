@@ -48,6 +48,6 @@ class ProductController extends Controller
         ->orWhereRaw('LOWER(product_category.name) LIKE LOWER(?)', ["%{$query}%"])
         ->select('product.*')
         ->paginate(16);
-    return view('shop-grid', ['products' => $products, 'query' => $query]);
+    return view('searchResults', ['products' => $products, 'query' => $query]);
     }
 }
