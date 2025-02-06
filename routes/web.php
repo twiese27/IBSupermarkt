@@ -7,7 +7,6 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/welcome', function () {
@@ -20,6 +19,9 @@ Route::get('/', [HomePageController::class, 'index'])
     ->name('home');
 //});
 
+//Suchbutton
+Route::get('/search', [HomePageController::class, 'search'])->name('search');
+
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
@@ -27,6 +29,8 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/total-price', [CartController::class, 'getTotalPrice'])->name('cart.total-price');
+Route::post('/cart/total-cart-price', [CartController::class, 'getTotalCartPrice'])->name('cart.total-cart-price');
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
@@ -39,8 +43,8 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.store
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Shop
-//Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
-//Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
+Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');
+Route::get('/shop-single', [ShopController::class, 'single'])->name('shop-single');
 
 //Profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -67,3 +71,4 @@ Route::get('/test', function () {
     return $results;
 })->name('test');
 
+Route::get('/search', [ProductController::class, 'search'])->name('search');

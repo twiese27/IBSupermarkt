@@ -30,13 +30,31 @@ class CartController extends Controller
     {
         $productId = $request->input('product_id');
         $cart = session('cart', []);
+
         if (!isset($cart[$productId])) {
             $cart[$productId] = 0;
         }
         $cart[$productId]++;
         session(['cart' => $cart]);
-        return redirect()->back();
+        $totalCount = array_sum($cart);
+
+        // Produktinformationen holen
+        $productsInCart = [];
+        foreach ($cart as $prodId => $qty) {
+            $product = \App\Models\Product::find($prodId);
+            if ($product) {
+                $productsInCart[] = "{$qty} x {$product->product_name}";
+            }
+        }
+
+        // Antwort zurückgeben
+        return response()->json([
+            'message' => 'Produkt hinzugefügt',
+            'totalCount' => $totalCount,
+            'productsInCart' => $productsInCart,
+        ]);
     }
+
 
     public function remove(Request $request)
     {
@@ -66,16 +84,67 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $productId = $request->input('product_id');
-        $quantity = (int) $request->input('quantity', 1);
+        $quantity = max(1, (int) $request->input('quantity', 1));
+
         $cart = session('cart', []);
+
         if (isset($cart[$productId])) {
-            if ($quantity <= 0) {
-                unset($cart[$productId]);
-            } else {
-                $cart[$productId] = $quantity;
+            $cart[$productId] = $quantity;
+        }
+
+        session(['cart' => $cart]);
+
+        $newSubtotal = 0;
+        foreach ($cart as $prodId => $qty) {
+            $product = Product::find($prodId);
+            if ($product) {
+                $newSubtotal += $product->retail_price * $qty;
             }
         }
+
+        return response()->json([
+            'message' => 'Produktmenge geändert',
+            'newSubtotal' => $newSubtotal,
+            'session' => $cart
+        ]);
+    }
+
+
+    public function getTotalPrice(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = (int) $request->input('quantity', 1);
+        $product = \App\Models\Product::find($productId);
+        if ($product) {
+            $price = $product->retail_price * $quantity;
+            return response()->json([
+                'price' => $price
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Produkt nicht gefunden'
+            ]);
+        }
+    }
+
+    public function getTotalCartPrice()
+    {
+        $cart = session('cart', []);
+
         session(['cart' => $cart]);
-        return redirect()->back();
+
+        $total = 0;
+        foreach ($cart as $prodId => $qty) {
+            $product = \App\Models\Product::find($prodId);
+            if ($product) {
+                $total += $product->retail_price * $qty;
+            }
+        }
+
+        return response()
+            ->json([
+                'subtotal' => $total,
+                'total' => $total
+            ]);
     }
 }

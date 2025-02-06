@@ -13,11 +13,11 @@ class HomePageController extends Controller
         $products = Product::query()
             ->limit(20)
             ->get();
-        
-        $user = Auth::user(); // Gibt den eingeloggten User zurück (oder null)
-        $customer = $user ? $user->customer : null; // Falls ein User existiert, lade den zugehörigen Customer
 
+        $user = Auth::user();
+        $customer = $user ? $user->customer : null;
 
         return view('index', compact('products', 'user', 'customer'));
     }
+
 }

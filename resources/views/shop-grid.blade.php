@@ -82,7 +82,8 @@
   <br>
   <br>
   <div style="text-align: center;">
-    <h1> {{ $categoryName }} </h1>
+    <!--<h1></h1>-->
+    <h1>Die Suchergebnisse für:" {{ $query }} "</h1>
   </div>
 </section>
 
@@ -94,7 +95,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 </a>
@@ -113,7 +114,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Frauen Heiße Kollektion</a>
+                  <a href="">Frauen Heiße Kollektion</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -124,7 +125,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 </a>
@@ -143,7 +144,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Awesome Pink Show</a>
+                  <a href="">Awesome Pink Show</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -154,7 +155,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 </a>
@@ -173,7 +174,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+                  <a href="">Awesome Bags Collection</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -184,7 +185,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                   <span class="new">Neu</span>
@@ -204,7 +205,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Women Pant Collectons</a>
+                  <a href="">Women Pant Collectons</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -215,7 +216,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 </a>
@@ -234,7 +235,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
+                  <a href="">Awesome Bags Collection</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -245,7 +246,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                   <span class="price-dec">30% Off</span>
@@ -265,7 +266,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Awesome Cap For Women</a>
+                  <a href="">Awesome Cap For Women</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -276,7 +277,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                 </a>
@@ -295,7 +296,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Polo Dress For Women</a>
+                  <a href="">Polo Dress For Women</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -306,7 +307,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                   <span class="out-of-stock">Hot</span>
@@ -326,7 +327,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{route('shop-single') }}">Black Sunglass For Women</a>
+                  <a href="">Black Sunglass For Women</a>
                 </h3>
                 <div class="product-price">
                   <span class="old">$60.00</span>
@@ -338,7 +339,7 @@
           <div class="col-lg-4 col-md-6 col-12">
             <div class="single-product">
               <div class="product-img">
-                <a href="{{ route('shop-single') }}">
+                <a href="">
                   <img class="default-img" src="https://placehold.co/550x750" alt="#" />
                   <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
                   <span class="new">Neu</span>
@@ -358,7 +359,7 @@
               </div>
               <div class="product-content">
                 <h3>
-                  <a href="{{ route('shop-single') }}">Women Pant Collectons</a>
+                  <a href="">Women Pant Collectons</a>
                 </h3>
                 <div class="product-price">
                   <span>$29.00</span>
@@ -377,13 +378,27 @@
   <div class="container">
     <div class="col-lg-12 col-md-8 col-12">
       <div class="row" id="product-grid">
-        @foreach($products as $product)
-      @include('partials.product', ['product' => $product])
-    @endforeach
+        @if($products->isEmpty())
+            <p>Keine Produkte gefunden.</p>
+        @else
+          @foreach($products as $product)
+            @include('partials.product', ['product' => $product])
+          @endforeach
+        @endif
+      </div>
+
+      <!-- Pagination-Links -->
+      <div class="pagination-container mt-4 d-flex justify-content-center">
+        <nav>
+          <ul class="pagination d-flex flex-wrap">
+              {{ $products->links('pagination::bootstrap-4') }}
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- Include Newsletter -->
 @include('partials.newsletter')

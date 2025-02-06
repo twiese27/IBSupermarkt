@@ -60,7 +60,7 @@
 
               <!-- Product Buy -->
               <div class="product-buy">
-                <form action="{{ route('cart.add') }}" method="POST">
+                <form>
                   @csrf
                   <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                   <div class="quantity">
@@ -178,7 +178,7 @@
           <span class="out-of-stock">Hot</span>
           </a>
           <div class="button-head">
-          <form action="{{ route('cart.add') }}" method="POST" style="width: 100%;">
+          <form style="width: 100%;">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->product_id }}">
             <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
@@ -235,7 +235,7 @@
           <span class="out-of-stock">Hot</span>
           </a>
           <div class="button-head">
-          <form action="{{ route('cart.add') }}" method="POST" style="width: 100%;">
+          <form style="width: 100%;">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->product_id }}">
             <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>

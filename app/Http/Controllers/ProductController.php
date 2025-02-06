@@ -6,6 +6,7 @@ use App\Models\Producer;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -30,5 +31,23 @@ class ProductController extends Controller
             ->get();
 
         return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
+    }
+
+    public function search(Request $request){
+        $query = $request->input('search');
+
+    // Falls kein Suchbegriff eingegeben wurde, eine leere Paginierung zurückgeben
+    if (!$query) {
+        $products = new LengthAwarePaginator([], 0, 16);
+        return view('shop-grid', ['products' => $products, 'query' => $query]);
+    }
+    $products = Product::join('producer', 'product.producer_id', '=', 'producer.producer_id')
+        ->join('product_category', 'product.product_category_id', '=', 'product_category.product_category_id')
+        ->whereRaw('LOWER(product.product_name) LIKE LOWER(?)', ["%{$query}%"])
+        ->orWhereRaw('LOWER(producer.name) LIKE LOWER(?)', ["%{$query}%"])
+        ->orWhereRaw('LOWER(product_category.name) LIKE LOWER(?)', ["%{$query}%"])
+        ->select('product.*')
+        ->paginate(16);
+    return view('shop-grid', ['products' => $products, 'query' => $query]);
     }
 }

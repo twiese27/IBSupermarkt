@@ -6,11 +6,9 @@
                 <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
             </a>
             <div class="button-head">
-                <form action="{{ route('cart.add') }}" method="POST" style="width: 100%;">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                    <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
-                </form>
+                <div class="button">
+                    <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})">In den Warenkorb</a>
+                </div>
             </div>
         </div>
         <div class="product-content">
