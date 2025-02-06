@@ -142,18 +142,20 @@
           <!--/ End Tab Nav -->
           <!--
           </div>
--->
           <div class="tab-content" id="myTabContent">
+            -->
             <!-- Start Single Tab -->
+            <!--
             <div class="tab-pane fade show active" id="man" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  @foreach($products as $product)
-             @include('partials.product', ['product' => $product])
-          @endforeach
-                </div>
-              </div>
+            -->
+          <div class="tab-single">
+            <div class="row">
+              @foreach($products as $product)
+              @include('partials.product', ['product' => $product])
+              @endforeach
             </div>
+          </div>
+        </div>
             <!--/ End Single Tab -->
             <!-- Start Single Tab -->
             <!--
