@@ -56,7 +56,7 @@ class AuthController extends Controller
             return back()->withErrors(['password' => 'Das Passwort ist falsch.']);
         }
         $shopping_carts = ShoppingCart::where('customer_id', $customer->customer_id)->get();
-
+        //dd($shopping_carts);
         $ordersData = [];
 
         foreach ($shopping_carts as $shopping_cart) {
@@ -78,9 +78,10 @@ class AuthController extends Controller
 
                     if ($product) {
                         $product_data[] = [
+                            'product_id' => $product->product_id,
+                            'category_id' => $product->category_id,
                             'product_name' => $product->product_name,
                             'total_amount' => $product_item->total_amount,
-                            'retail_price' => $product->retail_price,
                         ];
                     }
                 }
@@ -95,6 +96,7 @@ class AuthController extends Controller
                 ];
             }
         }
+        //dd($ordersData);
 
         // Authentifiziere den Benutzer
         Auth::loginUsingId($user->user_account_id, true);

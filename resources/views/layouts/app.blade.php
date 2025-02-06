@@ -34,10 +34,14 @@
     <link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">
     <link rel="stylesheet" href="#" id="colors" />
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
     @stack('styles')
 </head>
 
 <body class="js">
+    
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-inner">
