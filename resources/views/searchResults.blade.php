@@ -100,9 +100,14 @@
       </div>
 
       <!-- Pagination-Links -->
-      <div class="pagination-container mt-4">
-        {{ $products->appends(['search' => request()->search])->links() }}
-      </div>
+      <div class="pagination-container mt-4 d-flex justify-content-center">
+        <nav>
+            <ul class="pagination d-flex flex-wrap">
+                {{ $products->links('pagination::bootstrap-4') }}
+            </ul>
+        </nav>
+    </div>
+
     </div>
   </div>
 </section>
