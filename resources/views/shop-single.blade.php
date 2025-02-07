@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Produktseite')
+@section('title', $product->product_name)
 
 @section('content')
 
@@ -38,51 +38,60 @@
             <div class="product-des">
               <!-- Description -->
               <div class="short">
-                <h4>Produkt</h4>
-                
+                <h4>{{ $product->product_name }}</h4>
+
                 <p class="price">
-                  <span class="discount">$70.00</span>
+                  <span class="discount">{{$product->retail_price}} €</span>
                 </p>
                 <p class="description">
-                  eget velit. Donec ac tempus ante. Fusce ultricies massa
-                  massa. Fusce aliquam, purus eget sagittis vulputate,
-                  sapien libero hendrerit est, sed commodo augue nisi non
-                  neque. Lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit. Sed tempor, lorem et placerat vestibulum, metus nisi
-                  posuere nisl, in
+                  Dieses herausragende Produkt, hergestellt von dem renommierten Hersteller {{ $producer->name }},
+                  fällt unter die Kategorie {{ $category->name }}. Es zeichnet sich durch seine hohe Qualität und
+                  Zuverlässigkeit aus. Jedes Paket enthält {{ $product->units_per_case }} sorgfältig verpackte
+                  Einheiten,
+                  die für ihre Langlebigkeit und Effizienz bekannt sind. Darüber hinaus ist dieses Produkt
+                  {{ $product->recyclable_package ? 'in einer umweltfreundlichen, recycelbaren Verpackung' : 'leider nicht recycelbar' }},
+                  was es zu einer ausgezeichneten Wahl für umweltbewusste Verbraucher macht. Mit einem Bruttogewicht von
+                  {{ $product->gross_weight }} kg bietet es eine robuste und stabile Lösung für Ihre Bedürfnisse.
+                  Zudem ist es {{ $product->low_fat ? 'fettarm' : 'nicht fettarm' }}, was es zu einer gesünderen Option
+                  für ernährungsbewusste Kunden macht.
                 </p>
               </div>
               <!--/ End Description -->
-              
+
               <!-- Product Buy -->
               <div class="product-buy">
-                <div class="quantity">
-                  <h6>Menge :</h6>
-                  <!-- Input Order -->
-                  <div class="input-group">
-                    <div class="button minus">
-                      <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
-                        data-field="quant[1]">
-                        <i class="ti-minus"></i>
-                      </button>
+                <form>
+                  @csrf
+                  <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                  <div class="quantity">
+                    <h6>Menge :</h6>
+                    <!-- Input Order -->
+                    <div class="input-group">
+                      <div class="button minus">
+                        <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
+                          data-field="quant[1]">
+                          <i class="ti-minus"></i>
+                        </button>
+                      </div>
+                      <input type="text" name="quantity" class="input-number" data-min="1" data-max="1000" value="1" />
+                      <div class="button plus">
+                        <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                          <i class="ti-plus"></i>
+                        </button>
+                      </div>
                     </div>
-                    <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1" />
-                    <div class="button plus">
-                      <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                        <i class="ti-plus"></i>
-                      </button>
-                    </div>
+                    <!--/ End Input Order -->
                   </div>
-                  <!--/ End Input Order -->
-                </div>
-                <div class="add-to-cart">
-                  <a href="#" class="btn">In den Warenkorb</a>
-                 
-                </div>
-                <p class="cat">Kategorie :<a href="#">Kleidung</a></p>
-                <p class="hersteller">
-                  Hersteller : muss noch an DB angebunden werden
-                </p>
+                  <div class="add-to-cart">
+                    <button type="submit" class="btn">In den Warenkorb</button>
+                  </div>
+                </form>
+                <p style="margin-top: 20px;">Kategorie : {{ $category->name }}</p>
+                <p> Hersteller : {{ $producer->name }} </p>
+                <p>Einheiten pro Karton: {{ $product->units_per_case }}</p>
+                <p>Recycelbare Verpackung: {{ $product->recyclable_package ? 'Ja' : 'Nein' }}</p>
+                <p>Bruttogewicht: {{ $product->gross_weight }} kg</p>
+                <p>Fettarm: {{ $product->low_fat ? 'Ja' : 'Nein' }}</p>
               </div>
               <!--/ End Product Buy -->
             </div>
@@ -97,7 +106,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
                   </li>
-                  
+
                 </ul>
                 <!--/ End Tab Nav -->
               </div>
@@ -108,43 +117,23 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="single-des">
-                          <p>
-                            simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry's standard dummy text ever since the
-                            1500s, when an unknown printer took a galley of
-                            type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries,
-                            but also the leap into electronic typesetting,
-                            remaining essentially unchanged. It was
-                            popularised in the 1960s with the release of
-                            Letraset sheets containing Lorem Ipsum passages,
-                            and more recently with deskto
+                          <p class="dummy-text">
+                            Dieses herausragende Produkt, hergestellt von dem renommierten Hersteller
+                            {{ $producer->name }},
+                            fällt unter die Kategorie {{ $category->name }}. Es zeichnet sich durch seine hohe Qualität
+                            und
+                            Zuverlässigkeit aus. Jedes Paket enthält {{ $product->units_per_case }} sorgfältig verpackte
+                            Einheiten,
+                            die für ihre Langlebigkeit und Effizienz bekannt sind. Darüber hinaus ist dieses Produkt
+                            {{ $product->recyclable_package ? 'in einer umweltfreundlichen, recycelbaren Verpackung' : 'leider nicht recycelbar' }},
+                            was es zu einer ausgezeichneten Wahl für umweltbewusste Verbraucher macht. Mit einem
+                            Bruttogewicht von
+                            {{ $product->gross_weight }} kg bietet es eine robuste und stabile Lösung für Ihre
+                            Bedürfnisse.
+                            Zudem ist es {{ $product->low_fat ? 'fettarm' : 'nicht fettarm' }}, was es zu einer
+                            gesünderen Option
+                            für ernährungsbewusste Kunden macht.
                           </p>
-                        </div>
-                        <div class="single-des">
-                          <p>
-                            Suspendisse consequatur voluptates lorem nobis
-                            accumsan natus mattis. Optio pede, optio qui
-                            metus, delectus! Ultricies impedit, minus tempor
-                            fuga, quasi, pede felis commodo bibendum
-                            voluptas nisi? Voluptatem risus tempore tempora.
-                            Quaerat aspernatur? Error praesent laoreet, cras
-                            in fames hac ea, massa montes diamlorem nec
-                            quaerat, quos occaecati leo nam aliquet
-                            corporis, ab recusandae parturient, etiam
-                            fermentum, a quasi possimus commodi, mollis
-                            voluptate mauris mollis, quisque donec
-                          </p>
-                        </div>
-                        <div class="single-des">
-                          <h4>Product Features:</h4>
-                          <ul>
-                            <li>long established fact.</li>
-                            <li>has a more-or-less normal distribution.</li>
-                            <li>lmany variations of passages of.</li>
-                            <li>generators on the Interne.</li>
-                          </ul>
                         </div>
                       </div>
                     </div>
@@ -152,7 +141,7 @@
                 </div>
                 <!--/ End Description Tab -->
                 <!-- Reviews Tab -->
-                
+
                 <!--/ End Reviews Tab -->
               </div>
             </div>
@@ -164,8 +153,8 @@
 </section>
 <!--/ End Shop Single -->
 
-<!-- Start Most Popular -->
-<div class="product-area most-popular related-product section">
+<!-- Start Similar -->
+<div class="product-area most-popular section">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -178,140 +167,56 @@
       <div class="col-12">
         <div class="owl-carousel popular-slider">
           <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-                <span class="out-of-stock">Hot</span>
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
-              </h3>
-              <div class="product-price">
-                <span class="old">$60.00</span>
-                <span>$50.00</span>
-              </div>
-            </div>
+          @foreach($products->take(6) as $product)
+        <div class="single-product">
+        <div class="product-img">
+          <a href="{{ route('product', ['id' => $product->product_id]) }}">
+          <img class="default-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+            alt="{{ $product->product_name }}" />
+          <img class="hover-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+            alt="{{ $product->product_name }}" />
+          <span class="out-of-stock">Hot</span>
+          </a>
+          <div class="button-head">
+          <form style="width: 100%;">
+            @csrf
+            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+            <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
+          </form>
           </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
-              </h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
+        </div>
+        <div class="product-content">
+          <h3>
+          <a href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
+          </h3>
+          <div class="product-price">
+          <span class="old">{{ $product->old_price }} €</span>
+          <span>{{ $product->retail_price }} €</span>
           </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-                <span class="new">Neu</span>
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
-          </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
-              </h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
-          </div>
+        </div>
+        </div>
+      @endforeach
           <!-- End Single Product -->
         </div>
+      </div>
+      <div class="product-action-2">
+        <a title="Add to cart" href="#">In den Warenkorb</a>
+      </div>
+      <div class="product-action-2">
+        <a title="Add to cart" href="#">In den Warenkorb</a>
       </div>
     </div>
   </div>
 </div>
-<!-- End Most Popular Area -->
+<!-- End Similar -->
 
-<!-- Start Alternative Empfehlungsfunktion -->
-<div class="product-area most-popular related-product section">
+<!-- Start Alternatives -->
+<div class="product-area most-popular section">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Alternative Empfehlungsfunktion</h2>
+          <h2>Alternativen</h2>
         </div>
       </div>
     </div>
@@ -319,132 +224,42 @@
       <div class="col-12">
         <div class="owl-carousel popular-slider">
           <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-                <span class="out-of-stock">Hot</span>
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Black Sunglass For Women</a>
-              </h3>
-              <div class="product-price">
-                <span class="old">$60.00</span>
-                <span>$50.00</span>
-              </div>
-            </div>
+          @foreach($products->take(6) as $product)
+        <div class="single-product">
+        <div class="product-img">
+          <a href="{{ route('product', ['id' => $product->product_id]) }}">
+          <img class="default-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+            alt="{{ $product->product_name }}" />
+          <img class="hover-img" src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+            alt="{{ $product->product_name }}" />
+          <span class="out-of-stock">Hot</span>
+          </a>
+          <div class="button-head">
+          <form style="width: 100%;">
+            @csrf
+            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+            <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
+          </form>
           </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Women Hot Collection</a>
-              </h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
+        </div>
+        <div class="product-content">
+          <h3>
+          <a href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
+          </h3>
+          <div class="product-price">
+          <span class="old">{{ $product->old_price }} €</span>
+          <span>{{ $product->retail_price }} €</span>
           </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-                <span class="new">Neu</span>
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3><a href="{{ route('shop-single') }}">Awesome Pink Show</a></h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
-          </div>
-          <!-- End Single Product -->
-          <!-- Start Single Product -->
-          <div class="single-product">
-            <div class="product-img">
-              <a href="{{ route('shop-single') }}">
-                <img class="default-img" src="https://placehold.co/550x750" alt="#" />
-                <img class="hover-img" src="https://placehold.co/550x750" alt="#" />
-              </a>
-              <div class="button-head">
-                <div class="product-action">
-                  <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i
-                      class="ti-eye"></i><span>Schnellansicht</span></a>
-                  <a title="Wishlist" href="#"><i class="ti-heart"></i><span>Zur Wunschliste hinzufügen</span></a>
-                  <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Zum Vergleich
-                      hinzufügen</span></a>
-                </div>
-                <div class="product-action-2">
-                  <a title="Add to cart" href="#">In den Warenkorb</a>
-                </div>
-              </div>
-            </div>
-            <div class="product-content">
-              <h3>
-                <a href="{{ route('shop-single') }}">Awesome Bags Collection</a>
-              </h3>
-              <div class="product-price">
-                <span>$50.00</span>
-              </div>
-            </div>
-          </div>
+        </div>
+        </div>
+      @endforeach
           <!-- End Single Product -->
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- End Alternative Empfehlungsfunktion Area -->
+<!-- End Alternatives -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">

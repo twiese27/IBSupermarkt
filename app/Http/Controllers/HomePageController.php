@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
 {
@@ -13,6 +14,10 @@ class HomePageController extends Controller
             ->limit(20)
             ->get();
 
-        return view('index', ['products' => $products]);
+        $user = Auth::user();
+        $customer = $user ? $user->customer : null;
+
+        return view('index', compact('products', 'user', 'customer'));
     }
+
 }

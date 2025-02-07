@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title Tag -->
     <title>@yield('title', 'Eshop - eCommerce HTML5 Template')</title>
     <!-- Favicon -->
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.min.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/niceselect.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
@@ -33,10 +34,14 @@
     <link rel="stylesheet" href="{{ asset('css/color/color2.css') }}">
     <link rel="stylesheet" href="#" id="colors" />
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
     @stack('styles')
 </head>
 
 <body class="js">
+    
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-inner">
@@ -60,6 +65,7 @@
     @include('partials.footer')
 
     <!-- JS Files -->
+    <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-3.0.0.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
@@ -69,11 +75,10 @@
     <script src="{{ asset('js/slicknav.min.js') }}"></script>
     <script src="{{ asset('js/owl-carousel.js') }}"></script>
     <script src="{{ asset('js/magnific-popup.js') }}"></script>
-    <script src="{{ asset('js/facnybox.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/fancybox.min.js') }}"></script> -->
     <script src="{{ asset('js/waypoints.min.js') }}"></script>
     <script src="{{ asset('js/finalcountdown.min.js') }}"></script>
     <script src="{{ asset('js/nicesellect.js') }}"></script>
-    <script src="{{ asset('js/ytplayer.min.js') }}"></script>
     <script src="{{ asset('js/flex-slider.js') }}"></script>
     <script src="{{ asset('js/scrollup.js') }}"></script>
     <script src="{{ asset('js/onepage-nav.min.js') }}"></script>

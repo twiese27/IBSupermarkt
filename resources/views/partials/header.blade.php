@@ -1,4 +1,3 @@
-<!-- Header -->
 <header class="header shop">
     <div class="middle-inner">
         <div class="container">
@@ -7,7 +6,7 @@
                     <!-- Logo -->
                     <div class="logo">
                         <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}"
-                                alt="#" /></a>
+                                                           alt="#"/></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -17,7 +16,7 @@
                         </div>
                         <div class="search-top">
                             <form class="search-form">
-                                <input type="text" placeholder="Hier suchen..." name="search" />
+                                <input type="text" placeholder="Hier suchen..." name="search"/>
                                 <button value="search" type="submit">
                                     <i class="ti-search"></i>
                                 </button>
@@ -27,22 +26,38 @@
                     <!--/ End Search Form -->
                     <div class="mobile-nav"></div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <form>
-                                <input name="search" placeholder="Produkte hier suchen..." type="search" />
+                <form action="{{ route('search') }}" method="GET">
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="search-bar-top">
+                            <div class="search-bar">
+                                <input name="search" placeholder="Produkte hier suchen..." type="search"/>
                                 <button class="btnn"><i class="ti-search"></i></button>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            @if(session()->has('user'))
+                                @php
+                                    $user = session('user');
+                                    $cusomter = session('customer');
+                                @endphp
+                                <div class="user-info">
+                                    <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o"
+                                                                                            aria-hidden="true"></i></a>
+
+                                </div>
+                            @else
+                                <div class="guest-info">
+                                    <a href="{{ route('login') }}" class="single-icon"><i class="fa fa-user-circle-o"
+                                                                                          aria-hidden="true"></i></a>
+                                </div>
+                            @endif
                         </div>
+                        <!-- Warenkorb Button im Header -->
                         <div class="sinlge-bar shopping">
                             @php
                                 $cartItems = session('cart', []);
@@ -56,31 +71,33 @@
                                     }
                                 }
                             @endphp
-                            <a href="#" class="single-icon">
+                            <a href="{{ route('cart') }}" class="single-icon">
                                 <i class="ti-bag"></i>
                                 <span class="total-count">{{ $totalCount }}</span>
+                                <!-- Dynamische Anzeige der Anzahl -->
                             </a>
-                            <!-- Shopping Item -->
+                            <!-- Warenkorb anzeigen -->
                             <div class="shopping-item">
-                                @if($productsInCart)
-                                    <ul class="shopping-list">
-                                        @foreach($productsInCart as $info)
-                                            <li>{{ $info }}</li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p>Warenkorb ist leer</p>
-                                @endif
+                                <ul class="shopping-list">
+                                    @if($productsInCart)
+                                        <ul class="shopping-list">
+                                            @foreach($productsInCart as $info)
+                                                <li>{{ $info }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <p>Warenkorb ist leer</p>
+                                    @endif
+                                </ul>
                                 <div class="dropdown-cart-header">
                                     <span>{{ $totalCount }} Artikel</span>
-                                    <a href="{{route('cart')}}">Warenkorb ansehen</a>
+                                    <a href="{{ route('cart') }}">Warenkorb ansehen</a>
                                 </div>
                                 <div class="bottom">
                                     <div class="total">
                                         <a href="{{ route('checkout') }}" class="btn animate">Zur Kasse</a>
                                     </div>
                                 </div>
-                                <!--/ End Shopping Item -->
                             </div>
                         </div>
                     </div>
@@ -100,8 +117,8 @@
                                         <div class="nav-inner">
                                             <ul class="nav main-menu menu navbar-nav">
                                                 <!-- Dynamische Kategorien -->
-                                                @include('partials.category', ['categories' => $categories, 'level' => 0])
-                                                <!-- Statische Menüpunkte -->
+                                            @include('partials.category', ['categories' => $categories, 'level' => 0])
+                                            <!-- Statische Menüpunkte -->
                                                 <li><a href="#">Service</a></li>
                                                 <li><a href="#">Kontakt</a></li>
                                             </ul>
@@ -115,7 +132,6 @@
                 </div>
             </div>
         </div>
-
         <!--/ End Header Inner -->
 </header>
 <!--/ End Header -->
