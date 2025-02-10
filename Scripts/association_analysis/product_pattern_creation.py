@@ -37,13 +37,14 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
                 print(f"Start Time: {start_time}")
 
                 # Precompute available product IDs
-                available_product_ids = [x for x in range(1, 32001) if x not in product_ids]
+                available_product_ids = [x for x in range(1, 32382) if x not in product_ids]
 
                 for i in range(num_carts):
                     print(f"Inserting shopping cart {i + 1} of {num_carts}")
                     
                     cart_id = start_id + i
                     created_on = get_random_datetime()
+                    random_customer_id = random.randint(1, 10103)
                     
                     # Add extra random products
                     num_extra_products = random.randint(1, 5)
@@ -53,8 +54,8 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
 
                     # Insert shopping cart
                     cursor.execute(
-                        "INSERT INTO SHOPPING_CART (SHOPPING_CART_ID, CREATED_ON, AMOUNT_OF_PRODUCTS) VALUES (:1, :2, :3)", 
-                        (cart_id, created_on, amount_of_products)
+                        "INSERT INTO SHOPPING_CART (SHOPPING_CART_ID, CREATED_ON, AMOUNT_OF_PRODUCTS, CUSTOMER_ID) VALUES (:1, :2, :3, :4)", 
+                        (cart_id, created_on, amount_of_products, random_customer_id)
                     )
                     
                     shopping_cart_ids.append(cart_id)
@@ -71,9 +72,10 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
                     )
 
                     # Insert shopping order
+                    random_employee_id = random.randint(104, 108)
                     cursor.execute(
-                        "INSERT INTO SHOPPING_ORDER (ORDER_ID, ORDER_TIME, SHOPPING_CART_ID) VALUES (:1, :2, :3)",
-                        (cart_id, created_on, cart_id)
+                        "INSERT INTO SHOPPING_ORDER (ORDER_ID, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, STATUS) VALUES (:1, :2, :3, :4, :5)",
+                        (cart_id, created_on, cart_id, random_employee_id, "Delivered")
                     )
 
                 # Commit all inserts at once
