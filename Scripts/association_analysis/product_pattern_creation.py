@@ -71,11 +71,17 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
                         products_to_insert
                     )
 
+                    # Fetch the total price of all products
+                    product_ids_str = ",".join(map(str, total_products))
+                    cursor.execute(f"SELECT SUM(retail_price) FROM PRODUCT WHERE product_id IN ({product_ids_str})")
+                    sum_of_prices = cursor.fetchone()[0] or 0
+
                     # Insert shopping order
                     random_employee_id = random.randint(104, 108)
                     cursor.execute(
-                        "INSERT INTO SHOPPING_ORDER (ORDER_ID, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, STATUS) VALUES (:1, :2, :3, :4, :5)",
-                        (cart_id, created_on, cart_id, random_employee_id, "Delivered")
+                        "INSERT INTO SHOPPING_ORDER (ORDER_ID, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, STATUS, TOTAL_PRICE) "
+                        "VALUES (:1, :2, :3, :4, :5, :6)",
+                        (cart_id, created_on, cart_id, random_employee_id, "delivered", sum_of_prices)
                     )
 
                 # Commit all inserts at once
@@ -127,7 +133,7 @@ def delete_shopping_carts(start_id: int, num_carts: int):
 
 def main():
     product_ids = [420, 690]  # Example product IDs
-    num_carts = 5   # Number of shopping carts to create
+    num_carts = 3   # Number of shopping carts to create
     start_id = 176328  # Starting ID for shopping carts
 
     usr_input = input("Do you want to create or delete shopping carts? (c/d): ")
