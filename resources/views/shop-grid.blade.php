@@ -78,6 +78,7 @@
   </div>
 </section>
 <!--/ End Hero Area 2 -->
+
 <section>
   <br>
   <br>
@@ -91,9 +92,18 @@
     <div class="col-lg-12 col-md-8 col-12">
       <div class="row" id="product-grid">
         @foreach($products as $product)
-      @include('partials.product', ['product' => $product])
-    @endforeach
+          @include('partials.product', ['product' => $product])
+        @endforeach
       </div>
+      <!-- Paginierung -->
+      <div class="pagination-container mt-4 d-flex justify-content-center">
+        <nav>
+            <ul class="pagination d-flex flex-wrap">
+                {{ $products->links('pagination::bootstrap-4') }}
+            </ul>
+        </nav>
+      </div>
+
     </div>
   </div>
 </section>

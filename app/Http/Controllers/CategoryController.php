@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class CategoryController extends Controller
 {
@@ -25,41 +27,57 @@ class CategoryController extends Controller
             abort(404, 'Kategorie nicht gefunden');
         }
 
-        $products = Product::query()
+        // Hole alle Produkte der Hauptkategorie (ohne Limit)
+        $mainProducts = Product::query()
             ->where('product_category_id', '=', $category->product_category_id)
-            ->limit(20)
             ->get();
 
-        if ($products->count() < 20) {
-            $moreProducts = $this->getProductsFromSubcategories($category, 20 - $products->count());
-            $products = $products->merge($moreProducts);
-        }
+        // Hole rekursiv alle Produkte aus den Unterkategorien
+        $subProducts = $this->getProductsFromSubcategories($category);
 
-        return view('shop-grid', ['products' => $products, 'categoryName' => $category->name]);
+        // Zusammenführen beider Collections
+        $allProducts = $mainProducts->merge($subProducts);
+        
+        // Optional: Sortierung (z.B. nach Datum oder einem anderen Kriterium)
+        // $allProducts = $allProducts->sortByDesc('created_at');
+
+        // Paginierung einrichten
+        $perPage = 20;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $paginatedProducts = new LengthAwarePaginator(
+            $currentItems,
+            $allProducts->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path'  => $request->url(),
+                'query' => $request->query(),
+            ]
+        );
+
+        return view('shop-grid', ['products' => $paginatedProducts, 'categoryName' => $category->name]);
     }
 
-    private function getProductsFromSubcategories(ProductCategory $category, int $remainingCount)
+    private function getProductsFromSubcategories(ProductCategory $category): Collection
     {
         $products = collect();
 
+        // Hole alle Unterkategorien der aktuellen Kategorie
         $subcategories = ProductCategory::where('parent_category', $category->product_category_id)->get();
 
         foreach ($subcategories as $subcategory) {
+            // Alle Produkte der Unterkategorie abrufen (ohne Limit)
             $subProducts = Product::query()
                 ->where('product_category_id', '=', $subcategory->product_category_id)
-                ->limit($remainingCount - $products->count())
                 ->get();
 
+            // Mit der aktuellen Collection zusammenführen
             $products = $products->merge($subProducts);
 
-            if ($products->count() < $remainingCount) {
-                $moreProducts = $this->getProductsFromSubcategories($subcategory, $remainingCount - $products->count());
-                $products = $products->merge($moreProducts);
-            }
-
-            if ($products->count() >= $remainingCount) {
-                break;
-            }
+            // Rekursiver Aufruf, um auch die Produkte weiter untergeordneter Kategorien zu sammeln
+            $products = $products->merge($this->getProductsFromSubcategories($subcategory));
         }
 
         return $products;
