@@ -3,7 +3,6 @@ from mlxtend.preprocessing import TransactionEncoder
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
-from memory_profiler import profile
 
 def get_db_connection():
     # Create a connection to the Oracle database using SQLAlchemy
@@ -101,8 +100,8 @@ def main():
     df_encoded = pd.DataFrame(te_ary, columns=te.columns_)
 
     # Apply Apriori algorithm to find frequent itemsets
-    print("Applying Apriori algorithm with min_support=0.02...")
-    frequent_itemsets = apriori(df_encoded, min_support=0.02, use_colnames=True)
+    print("Applying Apriori algorithm with min_support=0.01...")
+    frequent_itemsets = apriori(df_encoded, min_support=0.01, use_colnames=True)
 
     # Generate association rules
     print("Generating association rules with confidence >= 0.2...")
