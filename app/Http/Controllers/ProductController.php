@@ -34,6 +34,31 @@ class ProductController extends Controller
         return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
     }
 
+    
+    protected function checkForSqlInjections($variable) {
+        // Überprüfen, ob die Variable leer ist
+        if (empty($variable)) {
+          return true;
+        }
+      
+        // Überprüfen, ob die Variable eine Zahl ist
+        if (is_numeric($variable)) {
+          return true;
+        }
+      
+        // Überprüfen, ob die Variable ein String ist
+        if (is_string($variable)) {
+          // Entfernen von Sonderzeichen und Escape-Zeichen
+          $variable = preg_replace('/[^a-zA-Z0-9\s]/', '', $variable);
+          $variable = addslashes($variable);
+      
+          return true;
+        }
+      
+        // Die Variable ist nicht sicher
+        return false;
+      }
+
     //original and working search: name should be search
     public function searchOG(Request $request){
         $query = $request->input('search');
@@ -57,24 +82,23 @@ class ProductController extends Controller
         {
             $query = $request->input('search');
 
-            // 1️⃣ Kein Suchbegriff? Leere Pagination zurückgeben
-            if (!$query) {
-                $products = new LengthAwarePaginator([], 0, 16);
-                return view('searchResults', ['products' => $products, 'query' => $query]);
+            // 1️ Auf SQL-Injections prüfen
+            if($this->checkForSqlInjections($query) == false){
+                return view('index');
             }
 
-            // 2️⃣ Suche nach Herstellername
+            // 2️ Suche nach Herstellername
             $productsFromProducerName = Product::join('producer', 'product.producer_id', '=', 'producer.producer_id')
                 ->whereRaw('LOWER(producer.name) LIKE LOWER(?)', ["%{$query}%"])
                 ->select('product.*')
                 ->get(); // Keine Pagination hier, da wir später alles zusammenfassen
 
-            // 3️⃣ Suche nach Produktname
+            // 3️ Suche nach Produktname
             $productFromProductName = Product::whereRaw('LOWER(product.product_name) LIKE LOWER(?)', ["%{$query}%"])
                 ->select('product.*')
                 ->get();
 
-            // 4️⃣ Kategoriesuche inkl. Unterkategorien
+            // 4️ Kategoriesuche inkl. Unterkategorien
             $category = ProductCategory::whereRaw('LOWER(name) LIKE LOWER(?)', ["%{$query}%"])->first();
 
             $categoryIds = collect();
@@ -94,14 +118,14 @@ class ProductController extends Controller
                 ->select('product.*')
                 ->get();
 
-            // 5️⃣ Produkte zusammenführen & doppelte entfernen
+            // 5️ Produkte zusammenführen & doppelte entfernen
             $products = $productsFromProducerName
                 ->merge($productFromProductName)
                 ->merge($productsFromCategoryName)
                 ->unique('product_id') // Verhindert doppelte Einträge
                 ->values();
 
-            // 6️⃣ Manuelle Pagination für Laravel Collection
+            // 6️ Manuelle Pagination für Laravel Collection
             $page = request()->input('page', 1); // Aktuelle Seite holen
             $perPage = 16; // Produkte pro Seite
 
@@ -113,7 +137,7 @@ class ProductController extends Controller
                 ['path' => request()->url(), 'query' => request()->query()] // URL für Pagination-Links
             );
 
-            // 7️⃣ View zurückgeben
+            // 7️ View zurückgeben
             return view('searchResults', ['products' => $paginatedProducts, 'query' => $query]);
         
         }
