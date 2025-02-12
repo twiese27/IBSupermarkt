@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Product;
+use App\Models\CustomerRecommendation;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,9 +73,22 @@ class LoginController extends Controller
 
         // Versuche den Login mit der Customer-ID
         if (Auth::attempt(['customer_id' => $customer->customer_id, 'password' => $request->password])) {
+            $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
+            $productIds = collect($customerRecommendations)->pluck('suggested_product_id');
+            $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
+            session()->put('recommendedProducts', $recommendedProducts);
+        
             return redirect()->intended('/');
         }
+        
 
         return back()->withErrors(['password' => 'Falsches Passwort']);
     }
+    public function getCustomerRecommendations($customer_id)
+    {
+        $customerRecommendations = collect();
+        $customerRecommendations = CustomerRecommendation::where('customer_id', $customer_id)->get();
+        return $customerRecommendations;
+    }
+
 }
