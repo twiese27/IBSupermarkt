@@ -1,65 +1,65 @@
 @extends('layouts.app')
 
-@section('title', 'AGB')
+@section('title', 'T&C')
 
 @section('content')
 
 
     <section>
         <div style="max-width: 600px; margin: 0 auto; text-align: left;">
-            <h2 style="text-align: center; margin-bottom: 50px;">Allgemeine Geschäftsbedingungen</h2>
+            <h2 style="text-align: center; margin-bottom: 50px;">Terms and Conditions</h2>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">1. Geltungsbereich</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">1. Scope of Application</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Bestellungen,
-                die über den Webshop unseres Supermarktes getätigt werden. Abweichende Bedingungen des
-                Kunden werden nicht anerkannt, es sei denn, wir stimmen ihnen ausdrücklich zu.
+                These Terms and Conditions apply to all orders placed through the webshop of our supermarket.
+                Deviating conditions from the customer will not be accepted unless we explicitly agree to them.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">2. Vertragspartner, Vertragsschluss</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">2. Contractual Partner, Conclusion of Contract</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Der Kaufvertrag kommt zustande mit IBSupermarkt.
-                Durch Anklicken des Bestellbuttons geben Sie eine verbindliche Bestellung der im
-                Warenkorb enthaltenen Waren ab. Die Bestätigung des Eingangs der Bestellung erfolgt
-                per E-Mail. Der Vertrag kommt erst mit unserer separaten Auftragsbestätigung oder Lieferung der Ware zustande.
+                The purchase contract is concluded with IBSupermarkt.
+                By clicking the order button, you submit a binding order for the items in your shopping cart.
+                Confirmation of the order receipt will be sent via email. The contract is only concluded
+                when we send a separate order confirmation or when the goods are delivered.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">3. Preise und Bezahlung</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">3. Prices and Payment</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Alle Preise sind in Euro angegeben und enthalten die gesetzliche Mehrwertsteuer.
-                Die Bezahlung erfolgt wahlweise per Kreditkarte, PayPal oder Sofortüberweisung.
-                Wir behalten uns das Recht vor, einzelne Zahlungsarten auszuschließen.
+                All prices are stated in Euros and include the statutory value-added tax (VAT).
+                Payment can be made via credit card, PayPal, or instant bank transfer.
+                We reserve the right to exclude certain payment methods.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">4. Lieferung und Lieferbedingungen</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">4. Delivery and Delivery Terms</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Die Lieferung erfolgt an die vom Kunden angegebene Adresse innerhalb des im Webshop
-                angegebenen Liefergebiets. Lieferzeiten können je nach Verfügbarkeit der Ware variieren.
-                Sollte ein Artikel nicht lieferbar sein, informieren wir den Kunden umgehend.
+                Delivery will be made to the address provided by the customer
+                within the delivery area specified in the webshop.
+                Delivery times may vary depending on the availability of the goods.
+                If an item is unavailable, we will promptly inform the customer.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">5. Widerrufsrecht</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">5. Right of Withdrawal</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Verbraucher haben das gesetzliche Widerrufsrecht von 14 Tagen. Ausgenommen sind
-                verderbliche Waren und versiegelte Lebensmittel, die aus Hygienegründen nicht
-                zurückgegeben werden können.
+                Consumers have the statutory right of withdrawal within 14 days.
+                Exceptions to this right include perishable goods and sealed food items,
+                which cannot be returned for hygiene reasons.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">6. Gewährleistung und Haftung</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">6. Warranty and Liability</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Es gelten die gesetzlichen Gewährleistungsrechte. Unsere Haftung ist auf Vorsatz und
-                grobe Fahrlässigkeit beschränkt, soweit gesetzlich zulässig.
+                The statutory warranty rights apply. Our liability is limited to intent and gross negligence,
+                as far as permitted by law.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">7. Datenschutz</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">7. Data Protection</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Ihre personenbezogenen Daten werden gemäß unserer Datenschutzerklärung verarbeitet und nicht an unbefugte Dritte weitergegeben.
+                Your personal data will be processed in accordance with our Privacy Policy and will not be shared with unauthorized third parties.
             </p>
 
-            <p style="font-weight: bold; margin-bottom: 5px;">8. Schlussbestimmungen</p>
+            <p style="font-weight: bold; margin-bottom: 5px;">8. Final Provisions</p>
             <p style="text-align: justify; margin-bottom: 15px;">
-                Es gilt das Recht der Bundesrepublik Deutschland. Sollten einzelne Bestimmungen dieser AGB unwirksam sein,
-                bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+                The law of the Federal Republic of Germany applies. If any provision of these Terms and Conditions is invalid,
+                the validity of the remaining provisions shall remain unaffected.
             </p>
 
             <p style="text-align: center; margin-top: 20px;margin-bottom: 50px;">IBSupermarkt</p>

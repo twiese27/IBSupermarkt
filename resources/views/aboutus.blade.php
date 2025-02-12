@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Über uns')
+@section('title', 'About us')
 
 @section('content')
 
@@ -9,31 +9,33 @@
             <h2 style="text-align: center; margin-bottom: 50px;">Über uns - IBSupermarkt</h2>
 
             <p style="text-align: justify; margin-bottom: 15px;">
-                Lerndruck? Wir haben Nervennahrung. Nacht durchgemacht?
-                Energy-Drinks in rauen Mengen. Hunger, aber keine Lust, das Haus zu verlassen?
-                Kein Problem – wir retten dich!
+                Study pressure? We've got brain fuel. Pulled an all-nighter?
+                Tons of energy drinks. Hungry but don't feel like leaving the house?
+                No problem – we've got you covered!
             </p>
 
             <p style="text-align: justify; margin-bottom: 15px;">
-                Bei IBSupermarkt findest du alles, was du für deinen Alltag brauchst –
-                von frischen Lebensmitteln und schnellen Snacks bis hin zu echtem Soulfood für stressige Tage.
-                Egal ob Frühstück, Mitternachtssnack oder Koffein-Nachschub: Wir liefern deine Vorräte direkt zu
-                dir nach Hause – schnell, unkompliziert und ohne Schlepperei.
+                At IBSupermarkt, you’ll find everything you need for your daily life –
+                from fresh groceries and quick snacks to real soul food for stressful days.
+                Whether it’s breakfast, a midnight snack, or a caffeine refill:
+                we deliver your supplies straight to your door – fast, easy, and hassle-free.
             </p>
 
             <p style="text-align: justify; margin-bottom: 15px;">
-                Wir wissen, dass Zeit oft Mangelware ist – ob zwischen Vorlesungen, Meetings oder einer spontanen
-                Netflix-Marathon-Nacht. Deshalb machen wir den Einkauf so einfach wie möglich: Mit wenigen Klicks
-                bestellst du genau das, worauf du Lust hast, und wir kümmern uns um den Rest. Keine langen Warteschlangen,
-                keine schweren Tüten, keine vergeudete Zeit.
+                We know that time is often in short supply – whether between lectures, meetings,
+                or an impromptu Netflix marathon night.
+                That’s why we make shopping as easy as possible: with just a few clicks,
+                you can order exactly what you’re craving, and we’ll take care of the rest.
+                No long lines, no heavy bags, no wasted time.
             </p>
 
             <p style="text-align: justify; margin-bottom: 15px;">
-                Also, Schluss mit leeren Kühlschränken und Last-Minute-Panik! Lehne dich zurück, bestelle, was du
-                brauchst, und lass es dir bequem nach Hause liefern. IBSupermarkt – dein Retter in jeder Alltagssituation!
+                So, no more empty fridges and last-minute panic!
+                Sit back, order what you need, and have it delivered straight to your door.
+                IBSupermarkt – your lifesaver in any everyday situation!
             </p>
 
-            <p style="text-align: center; margin-top: 20px;margin-bottom: 50px;">Ihr IBSupermarkt</p>
+            <p style="text-align: center; margin-top: 20px;margin-bottom: 50px;">IBSupermarkt</p>
         </div>
     </section>
 
