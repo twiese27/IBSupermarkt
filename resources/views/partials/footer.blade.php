@@ -11,16 +11,16 @@
               <a href="{{ route('home') }}"><img src="{{ asset('images/IBSupermarkt Logo.png') }}" alt="#" style="width: 300px; height: auto;"/></a>
             </div>
             <p class="text" style="margin-bottom: 5px;">
-                Klausurenstress? Wir haben Kaffee. Durchgemachte Nacht? Energy-Drinks en masse.
+                Exam stress? We’ve got coffee. All-nighter? Energy drinks in bulk.
             </p>
               <p class="text" style="margin-bottom: 5px;">
-                  Unser Motto: "Immer Besser Studi (Stuber)!"
+                  Our motto: "IBS - Immer besser Studi!"
               </p>
               <p class="text">
-                  Also, nicht prokrastinieren – vorbeikommen, Vorräte bunkern und durchstarten!
+                  So, no procrastinating – stop by, stock up, and get started!
               </p>
             <p class="call">
-              Haben Sie eine Frage? Rufen Sie uns 24/7 an<span><a href="tel:0441 9722120">0441 9722120</a></span>
+                Have a question? Call us 24/7 <span><a href="tel:0441 9722120">0441 9722120</a></span>
             </p>
           </div>
           <!-- End Single Widget -->
@@ -30,11 +30,11 @@
           <div class="single-footer links">
             <h4>Informationen</h4>
             <ul>
-              <li><a href="{{ route('aboutus') }}">Über uns</a></li>
+              <li><a href="{{ route('aboutus') }}">About us</a></li>
               <li><a href="{{ route('faq') }}">FAQ</a></li>
-              <li><a href="{{ route('agb') }}">AGB</a></li>
-              <li><a href="#">Kontakt</a></li>
-              <li><a href="#">Hilfe</a></li>
+              <li><a href="{{ route('agb') }}">T&C</a></li>
+              <li>Contact</li>
+              <li>Help</li>
             </ul>
           </div>
           <!-- End Single Widget -->
@@ -42,13 +42,13 @@
         <div class="col-lg-2 col-md-6 col-12">
           <!-- Single Widget -->
           <div class="single-footer links">
-            <h4>Kundendienst</h4>
+            <h4>Customer Service</h4>
             <ul>
-              <li><a href="#">Zahlungsmethoden</a></li>
-              <li><a href="#">Geld-zurück-Garantie</a></li>
-              <li><a href="#">Retouren</a></li>
-              <li><a href="#">Versand</a></li>
-              <li><a href="#">Datenschutzrichtlinie</a></li>
+              <li>Payment Methods</li>
+              <li>Money-Back Guarantee</li>
+              <li>Returns</li>
+              <li>Shipping</li>
+              <li>Privacy Policy</li>
             </ul>
           </div>
           <!-- End Single Widget -->
@@ -56,7 +56,7 @@
         <div class="col-lg-3 col-md-6 col-12">
           <!-- Single Widget -->
           <div class="single-footer social">
-            <h4>Kontakt aufnehmen</h4>
+            <h4>Contact Us</h4>
             <!-- Single Widget -->
             <div class="contact">
               <ul>
