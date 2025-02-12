@@ -33,8 +33,8 @@
               <li><a href="{{ route('aboutus') }}">About us</a></li>
               <li><a href="{{ route('faq') }}">FAQ</a></li>
               <li><a href="{{ route('agb') }}">T&C</a></li>
-              <li>Contact</li>
-              <li>Help</li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Help</a></li>
             </ul>
           </div>
           <!-- End Single Widget -->
@@ -44,11 +44,11 @@
           <div class="single-footer links">
             <h4>Customer Service</h4>
             <ul>
-              <li>Payment Methods</li>
-              <li>Money-Back Guarantee</li>
-              <li>Returns</li>
-              <li>Shipping</li>
-              <li>Privacy Policy</li>
+              <li><a href="#">Payment Methods</a></li>
+              <li><a href="#">Money-Back Guarantee</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Privacy Policy</a></li>
             </ul>
           </div>
           <!-- End Single Widget -->
