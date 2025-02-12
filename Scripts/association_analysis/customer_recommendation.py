@@ -33,18 +33,19 @@ print(f"Fetched {len(customer_purchases)} customer purchases.")
 # 2. Antezedenzprodukte abrufen
 print("Querying antecedents...")
 antecedents_query = """
-    WITH AntecedentCounts AS (
-        SELECT a.association_rule_id, COUNT(DISTINCT b.product_id) AS antecedent_count
-        FROM association_rule a
-        JOIN rule_antecedent b ON a.association_rule_id = b.association_rule_id
-        GROUP BY a.association_rule_id
-    )
-    SELECT b.product_id AS antecedent, c.product_id AS consequent
+    SELECT 
+        a.association_rule_id, 
+        b.product_id AS antecedent, 
+        c.product_id AS consequent, 
+        b.rule_antecedent_id, 
+        c.rule_consequent_id
     FROM association_rule a
     JOIN rule_antecedent b ON a.association_rule_id = b.association_rule_id
     JOIN rule_consequent c ON a.association_rule_id = c.association_rule_id
-    JOIN AntecedentCounts ac ON a.association_rule_id = ac.association_rule_id
-    WHERE ac.antecedent_count = 1
+    WHERE 
+        (SELECT COUNT(DISTINCT b2.product_id) 
+         FROM rule_antecedent b2 
+         WHERE b2.association_rule_id = a.association_rule_id) = 1
 """
 antecedents = pd.read_sql(antecedents_query, engine)
 print(f"Fetched {len(antecedents)} antecedent items.")
