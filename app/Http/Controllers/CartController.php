@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use Illuminate\Http\Request;
-use App\Models\Cart;
 
 class CartController extends Controller
 {
@@ -29,31 +28,35 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $productId = $request->input('product_id');
-        $cart = session('cart', []);
+        $product = Product::find($productId);
 
-        if (!isset($cart[$productId])) {
-            $cart[$productId] = 0;
-        }
-        $cart[$productId]++;
-        session(['cart' => $cart]);
-        $totalCount = array_sum($cart);
-
-        // Produktinformationen holen
-        $productsInCart = [];
-        foreach ($cart as $prodId => $qty) {
-            $product = \App\Models\Product::find($prodId);
-            if ($product) {
-                $productsInCart[] = "{$qty} x {$product->product_name}";
-            }
+        if (!$product) {
+            return response()->json(['error' => 'Produkt nicht gefunden.'], 404);
         }
 
-        // Antwort zurückgeben
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity']++;
+        } else {
+            $cart[$productId] = [
+                'name' => $product->product_name,
+                'quantity' => 1,
+                'price' => $product->retail_price,
+            ];
+        }
+
+        session()->put('cart', $cart);
+
+        $totalCount = array_sum(array_column($cart, 'quantity'));
+
         return response()->json([
-            'message' => 'Produkt hinzugefügt',
-            'totalCount' => $totalCount,
-            'productsInCart' => $productsInCart,
+            'cart' => $cart,
+            'totalCount' => $totalCount
         ]);
     }
+
+
 
 
     public function remove(Request $request)

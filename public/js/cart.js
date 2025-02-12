@@ -17,19 +17,20 @@ function addProductToCart(productId) {
 }
 
 function updateCartIcon(data) {
-    $('.total-count').text(data.totalCount);
+    // Update the total count in the cart icon
+    let totalCount = data.totalCount;
+    $('.shopping .single-icon span').text(totalCount);
+    $('.dropdown-cart-header span').text(totalCount);
 
-    let shoppingList = $('.shopping-list');
-    shoppingList.empty(); // Zuerst leeren
+    // Optionally, update the shopping list in the header as well
+    let shoppingList = '';
+    $.each(data.cart, function(productId, item) {
+        shoppingList += `<li><strong>${item.name}</strong> - Menge: ${item.quantity}</li>`;
+    });
 
-    if (data.productsInCart.length > 0) {
-        data.productsInCart.forEach(function(product) {
-            shoppingList.append('<li>' + product + '</li>');
-        });
-    } else {
-        shoppingList.append('<li>Warenkorb ist leer</li>');
-    }
+    $('.shopping-item .shopping-list').html(shoppingList);
 }
+
 
 function increaseProduct(productId) {
     let inputField = $("#quantity-" + productId);

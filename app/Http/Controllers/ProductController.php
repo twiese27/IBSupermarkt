@@ -34,30 +34,30 @@ class ProductController extends Controller
         return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
     }
 
-    
+
     protected function checkForSqlInjections($variable) {
         // Überprüfen, ob die Variable leer ist
         if (empty($variable)) {
-          return true;
+            return true;
         }
-      
+
         // Überprüfen, ob die Variable eine Zahl ist
         if (is_numeric($variable)) {
-          return true;
+            return true;
         }
-      
+
         // Überprüfen, ob die Variable ein String ist
         if (is_string($variable)) {
-          // Entfernen von Sonderzeichen und Escape-Zeichen
-          $variable = preg_replace('/[^a-zA-Z0-9\s]/', '', $variable);
-          $variable = addslashes($variable);
-      
-          return true;
+            // Entfernen von Sonderzeichen und Escape-Zeichen
+            $variable = preg_replace('/[^a-zA-Z0-9\s]/', '', $variable);
+            $variable = addslashes($variable);
+
+            return true;
         }
-      
+
         // Die Variable ist nicht sicher
         return false;
-      }
+    }
 
     //original and working search: name should be search
     public function searchOG(Request $request){
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
             if ($category) {
                 $categoryIds = DB::select("
-                    SELECT product_category_id 
+                    SELECT product_category_id
                     FROM product_category
                     START WITH product_category_id = ?
                     CONNECT BY PRIOR product_category_id = parent_category
@@ -140,7 +140,7 @@ class ProductController extends Controller
 
             // 7️ View zurückgeben
             return view('searchResults', ['products' => $paginatedProducts, 'query' => $query]);
-        
+
         }
     }
 }

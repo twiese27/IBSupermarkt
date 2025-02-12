@@ -1,23 +1,21 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShopController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [HomePageController::class, 'index'])->name('home');
+
+Auth::routes();
 
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
-
-// Startseite
-//Route::middleware([CategoryMiddleware::class])->group(function () {
-Route::get('/', [HomePageController::class, 'index'])
-    ->name('home');
-//});
 
 //Suchbutton
 Route::get('/search', [HomePageController::class, 'search'])->name('search');
@@ -36,11 +34,11 @@ Route::post('/cart/total-cart-price', [CartController::class, 'getTotalCartPrice
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
 // Login und Registrierung
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'store'])->name('register.store');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+//Route::get('/login', [AuthController::class, 'login'])->name('login');
+//Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
+//Route::get('/register', [AuthController::class, 'register'])->name('register');
+//Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+//Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Shop
 Route::get('/shop-grid', [ShopController::class, 'grid'])->name('shop-grid');

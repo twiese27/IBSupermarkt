@@ -34,4 +34,10 @@ class ShoppingCart extends Model
         'amount_of_products' => 'integer',
         'customer_id' => 'integer',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_to_shopping_cart', 'SHOPPING_CART_ID', 'PRODUCT_ID')
+            ->withPivot('TOTAL_AMOUNT');
+    }
 }

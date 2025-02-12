@@ -12,11 +12,11 @@
             <div class="col-lg-8 col-12">
                 <div class="profile-form">
                     <h2>Profil</h2>
-                    @if(session('user'))
+                    @if(\Illuminate\Support\Facades\Auth::check())
                         @php
-                            $user = session('user');
-                            $customer = session('customer');
-                            $ordersData = session('ordersData');
+                            // $user = session('user');
+                            // $customer = session('customer');
+                            // $ordersData = session('ordersData');
                         @endphp
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12">
@@ -104,17 +104,17 @@
                                          x-transition:leave="transition ease-in duration-200"
                                          x-transition:leave-start="opacity-100"
                                          x-transition:leave-end="opacity-0">
-                                        
+
                                         <div @click.away="open = false"
                                              class="bg-white rounded-lg shadow-lg p-6 w-96">
-                                             
+
                                             <!-- Modal Header
                                             <div class="flex justify-between items-center border-b pb-2">
                                                 <h2 class="text-lg font-semibold">Bestellungsdetails</h2>
                                                 <button @click="open = false" class="text-gray-500 hover:text-gray-700">&times;</button>
                                             </div> -->
 
-                                            
+
                                             <!-- Modal Body -->
                                             <div class="mt-4">
                                                 <p><strong>Bestellnummer: </strong> {{$order['order_id']}} </p>

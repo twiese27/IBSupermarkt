@@ -17,24 +17,24 @@ def table_exists(table_name):
 def process_sales_data(interval, target_table):
     """
     Führt eine Verkaufsanalyse für den angegebenen Zeitraum aus und speichert sie in der Ziel-Tabelle.
-    
+
     - interval = '1' MONTH → letzter Monat
     - interval = '12' MONTH → letztes Jahr
     - interval = None → alle Zeiten
     """
     cursor = connection.cursor()
-    
+
     # Dynamische SQL-Abfrage je nach Zeitraum
     if interval:
         sales_query = f"""
-            SELECT 
-                ptc.Product_ID, 
+            SELECT
+                ptc.Product_ID,
                 COALESCE(SUM(ptc.Total_Amount), 0) AS total_count
             FROM Product_To_Shopping_Cart ptc
-            JOIN Shopping_Order so 
+            JOIN Shopping_Order so
                 ON ptc.Shopping_Cart_ID = so.Shopping_Cart_ID
-            WHERE so.Order_Time BETWEEN 
-                  (SELECT MAX(Order_Time) FROM Shopping_Order) - INTERVAL '{interval}' MONTH 
+            WHERE so.Order_Time BETWEEN
+                  (SELECT MAX(Order_Time) FROM Shopping_Order) - INTERVAL '{interval}' MONTH
                   AND (SELECT MAX(Order_Time) FROM Shopping_Order)
             GROUP BY ptc.Product_ID
             ORDER BY total_count ASC
@@ -42,11 +42,11 @@ def process_sales_data(interval, target_table):
     else:
         # Ohne WHERE-Bedingung für "alle Zeiten"
         sales_query = """
-            SELECT 
-                ptc.Product_ID, 
+            SELECT
+                ptc.Product_ID,
                 COALESCE(SUM(ptc.Total_Amount), 0) AS total_count
             FROM Product_To_Shopping_Cart ptc
-            JOIN Shopping_Order so 
+            JOIN Shopping_Order so
                 ON ptc.Shopping_Cart_ID = so.Shopping_Cart_ID
             GROUP BY ptc.Product_ID
             ORDER BY total_count ASC
@@ -68,7 +68,7 @@ def process_sales_data(interval, target_table):
     if not table_exists(temp_table):
         cursor.execute(f"""
             CREATE GLOBAL TEMPORARY TABLE {temp_table}
-            ON COMMIT PRESERVE ROWS 
+            ON COMMIT PRESERVE ROWS
             AS SELECT PRODUCT_ID, SALES FROM {target_table} WHERE 1=0
         """)
 

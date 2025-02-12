@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
         // Zusammenführen beider Collections
         $allProducts = $mainProducts->merge($subProducts);
-        
+
         // Optional: Sortierung (z.B. nach Datum oder einem anderen Kriterium)
         // $allProducts = $allProducts->sortByDesc('created_at');
 

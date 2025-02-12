@@ -40,7 +40,7 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar">
-                            @if(session()->has('user'))
+                            @if(\Illuminate\Support\Facades\Auth::check())
                                 @php
                                     $user = session('user');
                                     $cusomter = session('customer');
@@ -58,39 +58,31 @@
                             @endif
                         </div>
                         <!-- Warenkorb Button im Header -->
+                    @php
+                        $cartItems = session('cart', []);
+                        $totalCount = array_sum(array_column($cartItems, 'quantity'));
+                    @endphp
+
+                    <!-- Warenkorb Button im Header -->
                         <div class="sinlge-bar shopping">
-                            @php
-                                $cartItems = session('cart', []);
-                                $totalCount = 0;
-                                $productsInCart = [];
-                                foreach ($cartItems as $prodId => $qty) {
-                                    $totalCount += $qty;
-                                    $product = \App\Models\Product::find($prodId);
-                                    if ($product) {
-                                        $productsInCart[] = "{$qty} x {$product->product_name}";
-                                    }
-                                }
-                            @endphp
                             <a href="{{ route('cart') }}" class="single-icon">
                                 <i class="ti-bag"></i>
-                                <span class="total-count">{{ $totalCount }}</span>
-                                <!-- Dynamische Anzeige der Anzahl -->
+                                <span>{{ $totalCount }}</span>
                             </a>
-                            <!-- Warenkorb anzeigen -->
                             <div class="shopping-item">
                                 <ul class="shopping-list">
-                                    @if($productsInCart)
-                                        <ul class="shopping-list">
-                                            @foreach($productsInCart as $info)
-                                                <li>{{ $info }}</li>
-                                            @endforeach
-                                        </ul>
+                                    @if(count($cartItems) > 0)
+                                        @foreach($cartItems as $item)
+                                            <li>
+                                                <strong>{{ $item['name'] }}</strong> - Menge: {{ $item['quantity'] }}
+                                            </li>
+                                        @endforeach
                                     @else
                                         <p>Warenkorb ist leer</p>
                                     @endif
                                 </ul>
                                 <div class="dropdown-cart-header">
-                                    <span>{{ $totalCount }} Artikel</span>
+                                    <span class="total-count">{{ $totalCount }} Artikel</span>
                                     <a href="{{ route('cart') }}">Warenkorb ansehen</a>
                                 </div>
                                 <div class="bottom">

@@ -37,4 +37,8 @@ class ShoppingOrder extends Model
         'delivery_service_id' => 'integer',
         'total_price' => 'decimal:2',  // Der Gesamtpreis mit 2 Dezimalstellen
     ];
+
+    public function shoppingCart() {
+        return $this->belongsTo(ShoppingCart::class, 'SHOPPING_CART_ID', 'SHOPPING_CART_ID');
+    }
 }
