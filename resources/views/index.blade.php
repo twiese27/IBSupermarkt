@@ -10,9 +10,20 @@
             <div class="row">
                 <div class="col-12">
                     <div class="home-slider-4">
-                        @foreach ($products->take(5) as $product)
-                            <div class="big-content"
-                                 style="background-image: url('{{ $product->image_url ?? 'https://placehold.co/1160x560' }}')">
+                        @php
+                            $recommendedProducts = session('recommendedProducts', collect());
+                            $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
+                            
+                        @endphp
+
+                        @foreach ($displayProducts as $product)
+                            @php
+                                $imagePath = asset("images/product_category_images/{$product->product_id}.png");
+                                $imageExists = file_exists(public_path("images/product_category_images/{$product->product_id}.png"));
+                                $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/1160x560';
+                            @endphp
+
+                            <div class="big-content" style="background-image: url('{{ $backgroundImage }}')">
                                 <div class="inner">
                                     <h4 class="title">{{ $product->product_name }}</h4>
                                     <p class="des">
@@ -27,6 +38,7 @@
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
