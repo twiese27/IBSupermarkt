@@ -20,7 +20,7 @@
                                 <button value="search" type="submit">
                                     <i class="ti-search"></i>
                                 </button>
-                            </form>-->
+                            </form>
                         </div>
                     </div>
                     <!--/ End Search Form -->
