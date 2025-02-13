@@ -94,15 +94,19 @@
                     @foreach($products as $product)
                         @include('partials.product', ['product' => $product])
                     @endforeach
+                    <div class="col-12 text-center mt-4">
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
                 <!-- Paginierung -->
+                 <!--
                 <div class="pagination-container mt-4 d-flex justify-content-center">
                     <nav>
                         <ul class="pagination d-flex flex-wrap">
                             {{ $products->links('pagination::bootstrap-4') }}
                         </ul>
                     </nav>
-                </div>
+                </div>-->
 
             </div>
         </div>
