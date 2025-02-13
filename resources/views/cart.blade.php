@@ -15,9 +15,9 @@
                         <tr class="main-hading">
                             <th>PRODUKT</th>
                             <th>NAME</th>
-                            <th class="text-center">STÜCKPREIS</th>
-                            <th class="text-center">MENGE</th>
-                            <th class="text-center">GESAMT</th>
+                            <th class="text-center">Piece Price</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Total</th>
                             <th class="text-center">
                                 <form action="{{ route('cart.clear') }}" method="POST">
                                     @csrf
@@ -100,12 +100,12 @@
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Zwischensumme<span id="subtotal">{{ $subtotal }} €</span></li>
-                                        <li>Versand<span>Kostenlos</span></li>
-                                        <li class="last">Sie zahlen<span id="total">{{ $subtotal }} €</span></li>
+                                        <li>Subtotal<span id="subtotal">{{ $subtotal }} €</span></li>
+                                        <li>Shipping<span>Free</span></li>
+                                        <li class="last">You pay<span id="total">{{ $subtotal }} €</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="{{ route('checkout') }}" class="btn">Zur Kasse</a>
+                                        <a href="{{ route('checkout') }}" class="btn">to the checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -203,12 +203,12 @@
                                     <!--/ End Input Order -->
                                 </div>
                                 <div class="add-to-cart">
-                                    <a href="#" class="btn">In den Warenkorb</a>
+                                    <a href="#" class="btn">Add to shopping cart</a>
                                     <a href="#" class="btn min"><i class="ti-heart"></i></a>
                                     <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
                                 </div>
                                 <div class="default-social">
-                                    <h4 class="share-now">Teilen:</h4>
+                                    <h4 class="share-now">Share:</h4>
                                     <ul>
                                         <li>
                                             <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>

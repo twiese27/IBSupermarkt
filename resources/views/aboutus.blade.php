@@ -6,7 +6,7 @@
 
     <section>
         <div style="max-width: 600px; margin: 0 auto; text-align: left;">
-            <h2 style="text-align: center; margin-bottom: 50px;">Über uns - IBSupermarkt</h2>
+            <h2 style="text-align: center; margin-bottom: 50px;">About us - IBSupermarkt</h2>
 
             <p style="text-align: justify; margin-bottom: 15px;">
                 Study pressure? We've got brain fuel. Pulled an all-nighter?

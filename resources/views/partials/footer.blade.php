@@ -28,7 +28,7 @@
         <div class="col-lg-2 col-md-6 col-12">
           <!-- Single Widget -->
           <div class="single-footer links">
-            <h4>Informationen</h4>
+            <h4>Information</h4>
             <ul>
               <li><a href="{{ route('aboutus') }}">About us</a></li>
               <li><a href="{{ route('faq') }}">FAQ</a></li>
