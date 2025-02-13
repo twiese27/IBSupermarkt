@@ -29,14 +29,17 @@ def process_sales_data(interval, target_table):
         sales_query = f"""
             SELECT
                 ptc.Product_ID,
+                p.product_category_id,
                 COALESCE(SUM(ptc.Total_Amount), 0) AS total_count
             FROM Product_To_Shopping_Cart ptc
             JOIN Shopping_Order so
                 ON ptc.Shopping_Cart_ID = so.Shopping_Cart_ID
+            JOIN Product p
+                ON ptc.Product_ID = p.Product_ID
             WHERE so.Order_Time BETWEEN
-                  (SELECT MAX(Order_Time) FROM Shopping_Order) - INTERVAL '{interval}' MONTH
-                  AND (SELECT MAX(Order_Time) FROM Shopping_Order)
-            GROUP BY ptc.Product_ID
+                (SELECT MAX(Order_Time) FROM Shopping_Order) - INTERVAL '{interval}' MONTH
+                AND (SELECT MAX(Order_Time) FROM Shopping_Order)
+            GROUP BY ptc.Product_ID, p.product_category_id
             ORDER BY total_count ASC
         """
     else:
@@ -44,11 +47,14 @@ def process_sales_data(interval, target_table):
         sales_query = """
             SELECT
                 ptc.Product_ID,
+                p.product_category_id,
                 COALESCE(SUM(ptc.Total_Amount), 0) AS total_count
             FROM Product_To_Shopping_Cart ptc
             JOIN Shopping_Order so
                 ON ptc.Shopping_Cart_ID = so.Shopping_Cart_ID
-            GROUP BY ptc.Product_ID
+            JOIN Product p
+                ON ptc.Product_ID = p.Product_ID
+            GROUP BY ptc.Product_ID, p.product_category_id
             ORDER BY total_count ASC
         """
 
@@ -69,7 +75,7 @@ def process_sales_data(interval, target_table):
         cursor.execute(f"""
             CREATE GLOBAL TEMPORARY TABLE {temp_table}
             ON COMMIT PRESERVE ROWS
-            AS SELECT PRODUCT_ID, SALES FROM {target_table} WHERE 1=0
+            AS SELECT PRODUCT_ID, PRODUCT_CATEGORY_ID, SALES FROM {target_table} WHERE 1=0
         """)
 
     # Temporäre Tabelle leeren
@@ -77,7 +83,7 @@ def process_sales_data(interval, target_table):
 
     # Daten in die temporäre Tabelle einfügen
     cursor.executemany(
-        f"INSERT INTO {temp_table} (PRODUCT_ID, SALES) VALUES (:1, :2)",
+        f"INSERT INTO {temp_table} (PRODUCT_ID, PRODUCT_CATEGORY_ID, SALES) VALUES (:1, :2, :3)",
         sales_data
     )
 
@@ -87,9 +93,12 @@ def process_sales_data(interval, target_table):
         USING {temp_table} s
         ON (t.PRODUCT_ID = s.PRODUCT_ID)
         WHEN MATCHED THEN
-            UPDATE SET t.SALES = s.SALES
+            UPDATE SET 
+                t.SALES = s.SALES,
+                t.PRODUCT_CATEGORY_ID = s.PRODUCT_CATEGORY_ID
         WHEN NOT MATCHED THEN
-            INSERT (PRODUCT_ID, SALES) VALUES (s.PRODUCT_ID, s.SALES)
+            INSERT (PRODUCT_ID, PRODUCT_CATEGORY_ID, SALES) 
+            VALUES (s.PRODUCT_ID, s.PRODUCT_CATEGORY_ID, s.SALES)
     """
     cursor.execute(merge_sql)
 

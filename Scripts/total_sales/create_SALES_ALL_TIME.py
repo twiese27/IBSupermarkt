@@ -12,7 +12,8 @@ def create_sales_table():
         CREATE TABLE SALES_ALL_TIME (
             SALES_ALL_TIME_ID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
             PRODUCT_ID NUMBER NOT NULL,
-            SALES NUMBER NOT NULL
+            SALES NUMBER NOT NULL,
+            PRODUCT_CATEGORY_ID NUMBER NOT NULL
         )
     """
     
