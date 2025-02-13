@@ -16,13 +16,13 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Vorname<span>*</span></label>
+                  <label>Forename<span>*</span></label>
                   <input type="text" name="name" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Nachname<span>*</span></label>
+                  <label>Lastname<span>*</span></label>
                   <input type="text" name="name" placeholder="" required="required" />
                 </div>
               </div>
@@ -34,13 +34,13 @@
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Telefonnummer<span>*</span></label>
+                  <label>Telephone<span>*</span></label>
                   <input type="text" name="number" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Land<span>*</span></label>
+                  <label>Country<<span>*</span></label>
                   <select name="country_name" id="country">
                     <option value="AF">Afghanistan</option>
                     <option value="AX">Ålandinseln</option>
@@ -302,32 +302,32 @@
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Stadt<span>*</span></label>
+                  <label>City<span>*</span></label>
                   <input type="text" name="city" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Straße<span>*</span></label>
+                  <label>Street<span>*</span></label>
                   <input type="text" name="street" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Hausnummer<span>*</span></label>
+                  <label>House number<span>*</span></label>
                   <input type="text" name="house" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
-                  <label>Postleitzahl<span>*</span></label>
+                  <label>postcode<span>*</span></label>
                   <input type="text" name="post" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group create-account">
                   <input id="cbox" type="checkbox" />
-                  <label>Ein Konto erstellen?</label>
+                  <label>Create Account?</label>
                 </div>
               </div>
             </div>
@@ -339,23 +339,23 @@
         <div class="order-details">
           <!-- Order Widget -->
           <div class="single-widget">
-            <h2>Bestellübersicht</h2>
+            <h2>Shopping Cart</h2>
             <div class="content">
               <ul>
-                <li>Zwischensumme<span>330,00€</span></li>
-                <li>(+) Versand<span>Kostenlos</span></li>
-                <li class="last">Gesamt<span>330,00€</span></li>
+                <li>Subtotal<span>330,00€</span></li>
+                <li>(+) Shipping<span>Free</span></li>
+                <li class="last">Total<span>330,00€</span></li>
               </ul>
             </div>
           </div>
           <!--/ End Order Widget -->
           <!-- Order Widget -->
           <div class="single-widget">
-            <h2>Bezahlmethode</h2>
+            <h2>Payment method</h2>
             <div class="content">
               <div class="checkbox">
                 <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox" />
-                  Lastschrift</label>
+                  Debit</label>
                 <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" />
                   Klarna</label>
                 <label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox" />
@@ -375,7 +375,7 @@
           <div class="single-widget get-button">
             <div class="content">
               <div class="button">
-                <a href="#" class="btn">Kostenpflichtig bestellen</a>
+                <a href="#" class="btn">Order now</a>
               </div>
             </div>
           </div>

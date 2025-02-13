@@ -18,7 +18,7 @@
 
                         @foreach ($displayProducts as $product)
                             @php
-                                $imagePath = asset("images/product_category_images/{$product->product_id}.png");
+                                $imagePath = asset("images/product_category_images/{$product->product_id}_00001.png");
                                 $imageExists = file_exists(public_path("images/product_category_images/{$product->product_id}.png"));
                                 $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/1160x560';
                             @endphp
@@ -46,90 +46,13 @@
     </section>
     <!--/ End Hero Area 2 -->
 
-    <!-- Start Test Zugriff auf eingeloggten Nutzer -->
-    <!--
-@if(session('status'))
-        <p>{{ session('status') }}</p>
-@endif
-
-    @if(session('user'))
-        <p>Willkommen, {{ session('user')->user_account_id }}</p>
-@endif
-        -->
-
-    <!-- Ende Test Zugriff auf eingeloggten Nutzer -->
-
-    <!-- Start Small Banner  -->
-    <!--
-    <section class="small-banner section">
-      <div class="container">
-        <div class="row">
-    -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="single-banner">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Man's Collectons</p>
-                <h3>
-                  Summer travel <br />
-                  collection
-                </h3>
-                <a href="#">Jetzt Entdecken</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="single-banner">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Bag Collectons</p>
-                <h3>
-                  Awesome Bag <br />
-                  2020
-                </h3>
-                <a href="#">Jetzt Einkaufen</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-12">
-            <div class="single-banner tab-height">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Flash Sale</p>
-                <h3>
-                  Mid Season <br />
-                  Up to <span>40%</span> Off
-                </h3>
-                <a href="#">Jetzt Entdecken</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!--
-        </div>
-      </div>
-    </section>
-    -->
-    <!-- End Small Banner -->
-
     <!-- Start Produktbereich -->
     <div class="product-area section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h1>Trendartikel</h1>
+                        <h1>Trending Products</h1>
                     </div>
                 </div>
             </div>
@@ -159,7 +82,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="shop-section-title">
-                                        <h1>Geheimtipp</h1>
+                                        <h1>Insider Tip</h1>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +92,12 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="list-image overlay">
-                                                <img src="{{ $product->image_url ?? 'https://placehold.co/115x140' }}"
+                                                @php
+                                                    $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                                                    $imageExists = file_exists(public_path($imagePath));
+                                                    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/115x115';
+                                                @endphp
+                                                <img src="{{ $backgroundImage}}"
                                                      alt="{{ $product->product_name }}" />
                                                 <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy"><i
                                                         class="fa fa-shopping-bag"></i></a>
@@ -193,7 +121,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="shop-section-title">
-                                        <h1>Bewusster Leben</h1>
+                                        <h1>Conscious living</h1>
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +131,12 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="list-image overlay">
-                                                <img src="{{ $product->image_url ?? 'https://placehold.co/115x140' }}"
+                                                @php
+                                                    $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                                                    $imageExists = file_exists(public_path($imagePath));
+                                                    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/115x115';
+                                                @endphp
+                                                <img src="{{ $backgroundImage}}"
                                                      alt="{{ $product->product_name }}" />
                                                 <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy"><i
                                                         class="fa fa-shopping-bag"></i></a>
@@ -237,7 +170,12 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="list-image overlay">
-                                                <img src="{{ $product->image_url ?? 'https://placehold.co/115x140' }}"
+                                                @php
+                                                    $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                                                    $imageExists = file_exists(public_path($imagePath));
+                                                    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/115x115';
+                                                @endphp
+                                                <img src="{{ $backgroundImage}}"
                                                      alt="{{ $product->product_name }}" />
                                                 <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy"><i
                                                         class="fa fa-shopping-bag"></i></a>
@@ -280,19 +218,23 @@
                                     <div class="single-product">
                                         <div class="product-img">
                                             <a href="{{ route('product', ['id' => $product->product_id]) }}">
+                                                @php
+                                                    $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                                                    $imageExists = file_exists(public_path($imagePath));
+                                                    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
+                                                @endphp
                                                 <img class="default-img"
-                                                     src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+                                                     src="{{ $backgroundImage}}"
                                                      alt="{{ $product->product_name }}"/>
                                                 <img class="hover-img"
-                                                     src="{{ $product->image_url ?? 'https://placehold.co/550x750' }}"
+                                                     src="{{ $backgroundImage}}"
                                                      alt="{{ $product->product_name }}"/>
                                                 <span class="out-of-stock">Hot</span>
                                             </a>
                                             <div class="button-head">
                                                 <div class="button">
-                                                    <a href="#" class="btn"
-                                                       onclick="addProductToCart({{ $product->product_id }})">In den
-                                                        Warenkorb</a>
+                                                    <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -302,7 +244,6 @@
                                                     href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
                                             </h3>
                                             <div class="product-price">
-                                                <span class="old">{{ $product->old_price }} €</span>
                                                 <span>{{ $product->retail_price }} €</span>
                                             </div>
                                         </div>
@@ -322,18 +263,34 @@
                         <div class="row">
                             <div class="col-lg-6 col-12 padding-right">
                                 <div class="image">
-                                    <img src="https://placehold.co/750x590" alt="#" />
+                                    @php
+                                        $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                                        $imageExists = file_exists(public_path($imagePath));
+                                        $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
+                                    @endphp
+                                    
+                                    <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy">
+                                        <img src="{{ $backgroundImage}}" alt="{{ $product->product_name }}" />
+                                    </a>
+                                    <div class="button-head">
+                                        <div class="button">
+                                            <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12 padding-left">
                                 <div class="content">
                                     <div class="heading-block">
-                                        <p class="small-title">Geheimtipp</p>
+                                        <p class="small-title">Insider Tip</p>
                                         <h3 class="title">Beatutyful dress for women</h3>
                                         <p class="text">
                                             Suspendisse massa leo, vestibulum cursus nulla sit amet,
                                             frungilla placerat lorem. Cars fermentum, sapien.
                                         </p>
+                                        <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
+
+
                                         <h1 class="price">$1200 <s>$1890</s></h1>
                                         <div class="coming-time">
                                             <div class="clearfix" data-countdown="2025/02/30"></div>
@@ -452,7 +409,7 @@
                                     <!--/ End Input Order -->
                                 </div>
                                 <div class="add-to-cart">
-                                    <a href="#" class="btn">In den Warenkorb</a>
+                                    <a href="#" class="btn">Add to shopping cart</a>
                                     <a href="#" class="btn min"><i class="ti-heart"></i></a>
                                     <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
                                 </div>

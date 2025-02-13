@@ -24,22 +24,22 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
-                  <label>Ihre E-Mail<span>*</span></label>
+                  <label>Your E-Mail<span>*</span></label>
                   <input type="email" name="email" placeholder="John.Doe@example.com" required="required" />
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
-                  <label>Ihr Passwort<span>*</span></label>
+                  <label>Your password<span>*</span></label>
                   <input type="password" name="password" placeholder="********" required="required" />
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group login-btn">
                   <button class="btn" type="submit">Anmelden</button>
-                  <a href="{{ route('register') }}" class="btn">Registrieren</a>
+                  <a href="{{ route('register') }}" class="btn">Register</a>
                 </div>
-                <a href="#" class="lost-pass">Passwort vergessen?</a>
+                <a href="#" class="lost-pass">Forgot password?</a>
               </div>
             </div>
           </form>
