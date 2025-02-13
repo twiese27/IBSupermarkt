@@ -46,73 +46,6 @@
     </section>
     <!--/ End Hero Area 2 -->
 
-
-    <!-- Ende Test Zugriff auf eingeloggten Nutzer -->
-
-    <!-- Start Small Banner  -->
-    <!--
-    <section class="small-banner section">
-      <div class="container">
-        <div class="row">
-    -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="single-banner">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Man's Collectons</p>
-                <h3>
-                  Summer travel <br />
-                  collection
-                </h3>
-                <a href="#">Jetzt Entdecken</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="single-banner">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Bag Collectons</p>
-                <h3>
-                  Awesome Bag <br />
-                  2020
-                </h3>
-                <a href="#">Jetzt Einkaufen</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!-- Single Banner  -->
-    <!--
-          <div class="col-lg-4 col-12">
-            <div class="single-banner tab-height">
-              <img src="https://placehold.co/600x370" alt="#" />
-              <div class="content">
-                <p>Flash Sale</p>
-                <h3>
-                  Mid Season <br />
-                  Up to <span>40%</span> Off
-                </h3>
-                <a href="#">Jetzt Entdecken</a>
-              </div>
-            </div>
-          </div>
-    -->
-    <!-- /End Single Banner  -->
-    <!--
-        </div>
-      </div>
-    </section>
-    -->
-    <!-- End Small Banner -->
-
     <!-- Start Produktbereich -->
     <div class="product-area section">
         <div class="container">
@@ -300,10 +233,7 @@
                                             </a>
                                             <div class="button-head">
                                                 <div class="button">
-                                                    <!--<a href="#" class="btn"
-                                                       onclick="addProductToCart({{ $product->product_id }})">In den
-                                                        Warenkorb</a>-->
-                                                    <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">In den Warenkorb</a>
+                                                    <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
                                                     
                                                 </div>
                                             </div>
@@ -344,7 +274,7 @@
                                     </a>
                                     <div class="button-head">
                                         <div class="button">
-                                            <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">In den Warenkorb</a>
+                                            <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -358,7 +288,7 @@
                                             Suspendisse massa leo, vestibulum cursus nulla sit amet,
                                             frungilla placerat lorem. Cars fermentum, sapien.
                                         </p>
-                                        <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">In den Warenkorb</a>
+                                        <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
 
 
                                         <h1 class="price">$1200 <s>$1890</s></h1>

@@ -12,7 +12,7 @@
             </a>
             <div class="button-head">
                 <div class="button">
-                    <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})">In den Warenkorb</a>
+                    <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})">Add to shopping cart</a>
                 </div>
             </div>
         </div>
