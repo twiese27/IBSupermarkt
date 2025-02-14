@@ -78,16 +78,16 @@
                                             </li>
                                         @endforeach
                                     @else
-                                        <p>Warenkorb ist leer</p>
+                                        <p>shopping cart is empty</p>
                                     @endif
                                 </ul>
                                 <div class="dropdown-cart-header">
-                                    <span class="total-count">{{ $totalCount }} Artikel</span>
-                                    <a href="{{ route('cart') }}">Warenkorb ansehen</a>
+                                    <span class="total-count">{{ $totalCount }} article</span>
+                                    <a href="{{ route('cart') }}">view shopping cart</a>
                                 </div>
                                 <div class="bottom">
                                     <div class="total">
-                                        <a href="{{ route('checkout') }}" class="btn animate">Zur Kasse</a>
+                                        <a href="{{ route('checkout') }}" class="btn animate">Go to checkout</a>
                                     </div>
                                 </div>
                             </div>
