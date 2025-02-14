@@ -30,7 +30,7 @@
                     <div class="col-lg-8 col-md-7 col-12">
                         <div class="search-bar-top">
                             <div class="search-bar">
-                                <input name="search" placeholder="Produkte hier suchen..." type="search"/>
+                                <input name="search" placeholder="Search for products here..." type="search"/>
                                 <button class="btnn"><i class="ti-search"></i></button>
                             </div>
                         </div>
