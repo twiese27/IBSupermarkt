@@ -83,7 +83,7 @@
         <br>
         <div style="text-align: center;">
             <!--<h1></h1>-->
-            <h1>SEARCH RESULTS FOR:" {{ $query }} "</h1>
+            <h1>SEARCH RESULTS FOR: "{{ $query }}"</h1>
         </div>
     </section>
     <section class="product-area shop-sidebar shop section">

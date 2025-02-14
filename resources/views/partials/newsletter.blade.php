@@ -8,12 +8,12 @@
                     <div class="inner">
                         <h4>Newsletter</h4>
                         <p>
-                            Abonnieren Sie unseren Newsletter und erhalten Sie
-                            <span>10%</span> Rabatt auf Ihren ersten Einkauf
+                            Subscribe our newsletter to get
+                            <span>10%</span> discount on your first order.
                         </p>
                         <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                            <input name="EMAIL" placeholder="Ihre E-Mail-Adresse" required="" type="email" />
-                            <button class="btn">Abonnieren</button>
+                            <input name="EMAIL" placeholder="Your E-Mail" required="" type="email" />
+                            <button class="btn">Subscribe</button>
                         </form>
                     </div>
                     <!-- End Newsletter Inner -->
