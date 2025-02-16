@@ -8,7 +8,7 @@
         <br>
         <br>
         <div style="text-align: center;">
-            <h1> Trendprodukte </h1>
+            <h1> Trending products </h1>
         </div>
     </section>
 
@@ -18,60 +18,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="home-slider-4">
-                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-                            <div class="inner">
-                                <h4 class="title">
-                                    make your <br />
-                                    site stunning with <br />
-                                    large title
-                                </h4>
-                                <p class="des">
-                                    Hipster style is a fashion trending for Gentleman and
-                                    Lady<br />with tattoos. You’ll become so cool and attractive
-                                    with your’s girl.<br />
-                                    Now let come hare and grab it now !
-                                </p>
-                                <div class="button">
-                                    <a href="#" class="btn">Jetzt Einkaufen</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-                            <div class="inner">
-                                <h4 class="title">
-                                    make your <br />
-                                    site stunning with <br />
-                                    large title
-                                </h4>
-                                <p class="des">
-                                    Hipster style is a fashion trending for Gentleman and
-                                    Lady<br />with tattoos. You’ll become so cool and attractive
-                                    with your’s girl.<br />
-                                    Now let come hare and grab it now !
-                                </p>
-                                <div class="button">
-                                    <a href="#" class="btn">Jetzt Einkaufen</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="big-content" style="background-image: url('https://placehold.co/1160x560')">
-                            <div class="inner">
-                                <h4 class="title">
-                                    make your <br />
-                                    site stunning with <br />
-                                    large title
-                                </h4>
-                                <p class="des">
-                                    Hipster style is a fashion trending for Gentleman and
-                                    Lady<br />with tattoos. You’ll become so cool and attractive
-                                    with your’s girl.<br />
-                                    Now let come hare and grab it now !
-                                </p>
-                                <div class="button">
-                                    <a href="#" class="btn">Jetzt Einkaufen</a>
-                                </div>
-                            </div>
-                        </div>
+                        @foreach ($trendingProducts as $product)
+                            @include('partials.sliderElement', ['product' => $product])
+                            
+                        @endforeach
                     </div>
                 </div>
             </div>

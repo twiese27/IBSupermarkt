@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\SalesLastMonth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -57,7 +58,32 @@ class CategoryController extends Controller
             ]
         );
 
-        return view('shop-grid', ['products' => $paginatedProducts, 'categoryName' => $category->name]);
+
+        // get trending products
+        // Get the trending products sorted by SALES for a specific category
+        $topSalesLastMonth = SalesLastMonth::where('product_category_id', $categoryId)
+        ->orderByDesc('sales')
+        ->limit(20)
+        ->get();
+
+        // Manuell Produkt-IDs extrahieren, ohne pluck()
+        $productIds = [];
+        foreach ($topSalesLastMonth as $sale) {
+        $productIds[] = $sale->product_id;
+        }
+
+        if (empty($productIds)) {
+        $trendingProducts = collect(); // Falls keine IDs gefunden wurden
+        } else {
+        // Produkte abrufen und in der ursprünglichen Reihenfolge sortieren
+        $trendingProducts = Product::whereIn('product_id', $productIds)
+            ->get()
+            ->sortBy(function ($product) use ($productIds) {
+                return array_search($product->product_id, $productIds);
+            })->values();
+
+        }
+        return view('shop-grid', ['products' => $paginatedProducts, 'trendingProducts' => $trendingProducts, 'categoryName' => $category->name]);
     }
 
     private function getProductsFromSubcategories(ProductCategory $category): Collection
