@@ -47,6 +47,8 @@
     <!--/ End Hero Area 2 -->
 
     <!-- Start Produktbereich -->
+    
+    
     <div class="product-area section">
         <div class="container">
             <div class="row">
@@ -64,8 +66,12 @@
                         <div class="tab-pane fade show active" id="man" role="tabpanel">
                             <div class="tab-single">
                                 <div class="row">
-                                    @foreach($products as $product)
+                                    <!--@foreach($products as $product)
                                         @include('partials.product', ['product' => $product])
+                                    @endforeach-->
+                                    @foreach ($trendingProducts as $product)
+                                        @include('partials.product', ['product' => $product])
+
                                     @endforeach
                                 </div>
                             </div>
