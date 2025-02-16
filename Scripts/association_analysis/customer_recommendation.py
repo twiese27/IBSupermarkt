@@ -30,25 +30,19 @@ customer_purchases_query = """
 customer_purchases = pd.read_sql(customer_purchases_query, engine)
 print(f"Fetched {len(customer_purchases)} customer purchases.")
 
-# 2. Antezedenzprodukte abrufen
-print("Querying antecedents...")
-antecedents_query = """
+# 2. Produktempfehlungen abrufen
+print("Querying product recommendations...")
+recommendations_query = """
     SELECT 
-        a.association_rule_id, 
-        b.product_id AS antecedent, 
-        c.product_id AS consequent, 
-        b.rule_antecedent_id, 
-        c.rule_consequent_id
-    FROM association_rule a
-    JOIN rule_antecedent b ON a.association_rule_id = b.association_rule_id
-    JOIN rule_consequent c ON a.association_rule_id = c.association_rule_id
-    WHERE 
-        (SELECT COUNT(DISTINCT b2.product_id) 
-         FROM rule_antecedent b2 
-         WHERE b2.association_rule_id = a.association_rule_id) = 1
+        pr.ANTECEDENT_ID,
+        pr.CONSEQUENT_ID,
+        pr.RECOMMENDATION_SCORE
+    FROM PRODUCT_RECOMMENDATION pr
+    WHERE pr.RECOMMENDATION_SCORE > 1
+    ORDER BY pr.RECOMMENDATION_SCORE DESC
 """
-antecedents = pd.read_sql(antecedents_query, engine)
-print(f"Fetched {len(antecedents)} antecedent items.")
+product_recommendations = pd.read_sql(recommendations_query, engine)
+print(f"Fetched {len(product_recommendations)} product recommendations.")
 
 # 3. Empfehlungen berechnen
 print("Generating recommendations...")
@@ -61,15 +55,16 @@ for _, row in customer_purchases.iterrows():
     if customer_id not in customer_recommendations:
         customer_recommendations[customer_id] = set()
     
-    matching_rules = antecedents[
-        (antecedents['antecedent'] == purchased_product)
-        & ~antecedents['consequent'].isin(
+    # Find recommendations based on pre-calculated product recommendations
+    matching_recommendations = product_recommendations[
+        (product_recommendations['antecedent_id'] == purchased_product)
+        & ~product_recommendations['consequent_id'].isin(
             customer_purchases[customer_purchases['customer_id'] == customer_id]['product_id']
         )
     ]
     
-    for _, rule in matching_rules.iterrows():
-        customer_recommendations[customer_id].add(rule['consequent'])
+    for _, rec in matching_recommendations.iterrows():
+        customer_recommendations[customer_id].add(rec['consequent_id'])
 
 # Convert dictionary of sets to list of tuples
 recommendations = [
