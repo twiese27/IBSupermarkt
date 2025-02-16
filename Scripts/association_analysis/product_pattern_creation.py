@@ -20,9 +20,11 @@ def get_correlated_products(base_products: List[int], available_products: List[i
     """Generate a list of products with varied correlation probabilities, ensuring no duplicates."""
     result = set()
     
-    # Sometimes include the base products
     if random.random() < 0.9:
-        result.update(random.sample(base_products, random.randint(1, len(base_products))))
+        if random.random() < 0.7:
+            result.update(base_products)
+        else:
+            result.update(random.sample(base_products, random.randint(1, len(base_products))))
     
     # Add random products with different probabilities
     num_additional = random.randint(1, 8)
@@ -31,9 +33,7 @@ def get_correlated_products(base_products: List[int], available_products: List[i
     return list(result)
 
 def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int) -> List[int]:
-    """
-    Insert multiple shopping carts with random products in bulk.
-    """
+    """Insert multiple shopping carts with random products in bulk."""
     shopping_cart_ids = []
     
     try:
@@ -65,7 +65,6 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
                     created_on = random_datetimes[i]
                     customer_id = random_customer_ids[i]
                     
-                    # Get correlated products instead of always including base products
                     cart_products = get_correlated_products(product_ids, available_product_ids)
                     amount_of_products = len(cart_products)
                     
@@ -116,13 +115,7 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
     return shopping_cart_ids
 
 def delete_shopping_carts(start_id: int, num_carts: int):
-    """
-    Delete shopping carts within a specified ID range.
-    
-    Args:
-        start_id: Starting ID of shopping carts to delete
-        num_carts: Number of shopping carts to delete
-    """
+    """Delete shopping carts within a specified ID range."""
     try:
         print("Establishing database connection for deletion...")
         with get_db_connection() as conn:
@@ -157,9 +150,14 @@ def delete_shopping_carts(start_id: int, num_carts: int):
         print(f"ERROR: Database error occurred: {e}")
 
 def main():
-    product_ids = [29382, 27289, 20007]  # Example product IDs
-    num_carts = 4500+4500+4500 # Number of shopping carts to create
-    # Original start_id = 176328 
+    product_ids = [29558, 285, 29114]  # Example product IDs
+    num_carts = 4500 # Number of shopping carts to create
+    # Batch 1 start_id = 176328 
+    # Batch 2 start_id = 189828 
+    # Batch 3 start_id = 203328 
+    # Batch 4 start_id = 216828 
+    # Batch 5 start_id = 230328 
+    # End id = 243827
     start_id = 176328  # Starting ID for shopping carts
 
     print("\n=== Shopping Cart Management System ===")
