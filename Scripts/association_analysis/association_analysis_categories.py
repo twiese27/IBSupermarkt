@@ -27,7 +27,7 @@ def fetch_transaction_data():
     """
     chunks = []
     chunk_count = 0
-    for chunk in pd.read_sql(query, engine, chunksize=10000):
+    for chunk in pd.read_sql(query, engine, chunksize=100000):
         chunk_count += 1
         print(f"Processing chunk {chunk_count} ({len(chunk)} rows)...")
         chunks.append(chunk)
