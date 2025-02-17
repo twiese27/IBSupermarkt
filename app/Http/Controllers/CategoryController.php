@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 return array_search($product->product_id, $productIds);
             })->values();
 
-        }
+        } 
         return view('shop-grid', ['products' => $paginatedProducts, 'trendingProducts' => $trendingProducts, 'categoryName' => $category->name]);
     }
 

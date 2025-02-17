@@ -10,14 +10,14 @@
             alt="{{ $product->product_name }}" />
               <img class="hover-img" src="{{ $backgroundImage }}"
             alt="{{ $product->product_name }}" />
-            <span class="out-of-stock">Hot</span>
+            @if($labelText != 'empty')
+                <span class="out-of-stock">{{$labelText}}</span>
+            @endif
         </a>
             <div class="button-head">
-                <form style="width: 100%;">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                    <button type="submit" class="btn" style="width: 100%;">Add to shopping cart</button>
-                </form>
+                <div class="button">
+                    <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})">Add to shopping cart</a>
+                </div>
             </div>
     </div>
     <div class="product-content">
@@ -25,7 +25,6 @@
             <a href="{{ route('product', ['id' => $product->product_id]) }}">{{ $product->product_name }}</a>
         </h3>
         <div class="product-price">
-            <span class="old">{{ $product->old_price }} €</span>
             <span>{{ $product->retail_price }} €</span>
         </div>
     </div>

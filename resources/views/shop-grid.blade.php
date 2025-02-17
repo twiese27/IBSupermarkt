@@ -4,11 +4,12 @@
 
 @section('content')
 
+@if(count($trendingProducts))
     <section>
         <br>
         <br>
         <div style="text-align: center;">
-            <h1> Trending products </h1>
+            <h1> Trending products in this category</h1>
         </div>
     </section>
 
@@ -28,7 +29,7 @@
         </div>
     </section>
     <!--/ End Hero Area 2 -->
-
+@endif
     <section>
         <br>
         <br>
@@ -42,7 +43,7 @@
             <div class="col-lg-12 col-md-8 col-12">
                 <div class="row" id="product-grid">
                     @foreach($products as $product)
-                        @include('partials.product', ['product' => $product])
+                        @include('partials.product', ['product' => $product, 'labelText' => 'none'])
                     @endforeach
                     <div class="col-12 text-center mt-4">
                         {{ $products->links('pagination::bootstrap-5') }}
