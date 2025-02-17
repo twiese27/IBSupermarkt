@@ -94,7 +94,7 @@
                         <p>Keine Produkte gefunden.</p>
                     @else
                         @foreach($products as $product)
-                            @include('partials.product', ['product' => $product])
+                            @include('partials.product', ['product' => $product, 'labelText' => 'none'])
                         @endforeach
                     @endif
                      <!-- Pagination in derselben Row -->
