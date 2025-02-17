@@ -52,16 +52,16 @@
                   <span class="discount">{{$product->retail_price}} €</span>
                 </p>
                 <p class="description">
-                  Dieses herausragende Produkt, hergestellt von dem renommierten Hersteller {{ $producer->name }},
-                  fällt unter die Kategorie {{ $category->name }}. Es zeichnet sich durch seine hohe Qualität und
-                  Zuverlässigkeit aus. Jedes Paket enthält {{ $product->units_per_case }} sorgfältig verpackte
-                  Einheiten,
-                  die für ihre Langlebigkeit und Effizienz bekannt sind. Darüber hinaus ist dieses Produkt
-                  {{ $product->recyclable_package ? 'in einer umweltfreundlichen, recycelbaren Verpackung' : 'leider nicht recycelbar' }},
-                  was es zu einer ausgezeichneten Wahl für umweltbewusste Verbraucher macht. Mit einem Bruttogewicht von
-                  {{ $product->gross_weight }} kg bietet es eine robuste und stabile Lösung für Ihre Bedürfnisse.
-                  Zudem ist es {{ $product->low_fat ? 'fettarm' : 'nicht fettarm' }}, was es zu einer gesünderen Option
-                  für ernährungsbewusste Kunden macht.
+                This outstanding product, produced by the renowned manufacturer {{ $producer->name }},
+                  falls under the category {{ $category->name }}. It is characterized by its high quality and
+                  reliability. Each package contains {{ $product->units_per_case }} carefully packed
+                  units,
+                  known for their durability and efficiency. In addition, this product is
+                  {{ $product->recyclable_package ? 'in an environmentally friendly, recyclable package' : 'unfortunately not recyclable' }},
+                  which makes it an excellent choice for environmentally conscious consumers. With a gross weight of
+                  {{ $product->gross_weight }} kg, it offers a robust and stable solution for your needs.
+                  It is also {{ $product->low_fat ? 'low fat' : 'not low fat' }}, which makes it a healthier option
+                  for nutrition-conscious customers.
                 </p>
               </div>
               <!--/ End Description -->
@@ -72,7 +72,7 @@
                   @csrf
                   <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                   <div class="quantity">
-                    <h6>Menge :</h6>
+                    <h6>Amount :</h6>
                     <!-- Input Order -->
                     <div class="input-group">
                       <div class="button minus">
@@ -91,15 +91,15 @@
                     <!--/ End Input Order -->
                   </div>
                   <div class="add-to-cart">
-                    <button type="submit" class="btn">In den Warenkorb</button>
+                    <button type="submit" class="btn">Add to shopping cart</button>
                   </div>
                 </form>
-                <p style="margin-top: 20px;">Kategorie : {{ $category->name }}</p>
-                <p> Hersteller : {{ $producer->name }} </p>
-                <p>Einheiten pro Karton: {{ $product->units_per_case }}</p>
-                <p>Recycelbare Verpackung: {{ $product->recyclable_package ? 'Ja' : 'Nein' }}</p>
-                <p>Bruttogewicht: {{ $product->gross_weight }} kg</p>
-                <p>Fettarm: {{ $product->low_fat ? 'Ja' : 'Nein' }}</p>
+                <p style="margin-top: 20px;">Category : {{ $category->name }}</p>
+                <p>Producer : {{ $producer->name }} </p>
+                <p>Units per case: {{ $product->units_per_case }}</p>
+                <p>Recycblabel package: {{ $product->recyclable_package ? 'Yes' : 'No' }}</p>
+                <p>Weight: {{ $product->gross_weight }} kg</p>
+                <p>Low fat: {{ $product->low_fat ? 'Yes' : 'No' }}</p>
               </div>
               <!--/ End Product Buy -->
             </div>
@@ -112,7 +112,7 @@
                 <!-- Tab Nav -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Beschreibung</a>
+                    <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
                   </li>
 
                 </ul>
@@ -126,21 +126,21 @@
                       <div class="col-12">
                         <div class="single-des">
                           <p class="dummy-text">
-                            Dieses herausragende Produkt, hergestellt von dem renommierten Hersteller
+                          This outstanding product, produced by the renowned manufacturer
                             {{ $producer->name }},
-                            fällt unter die Kategorie {{ $category->name }}. Es zeichnet sich durch seine hohe Qualität
-                            und
-                            Zuverlässigkeit aus. Jedes Paket enthält {{ $product->units_per_case }} sorgfältig verpackte
-                            Einheiten,
-                            die für ihre Langlebigkeit und Effizienz bekannt sind. Darüber hinaus ist dieses Produkt
-                            {{ $product->recyclable_package ? 'in einer umweltfreundlichen, recycelbaren Verpackung' : 'leider nicht recycelbar' }},
-                            was es zu einer ausgezeichneten Wahl für umweltbewusste Verbraucher macht. Mit einem
-                            Bruttogewicht von
-                            {{ $product->gross_weight }} kg bietet es eine robuste und stabile Lösung für Ihre
-                            Bedürfnisse.
-                            Zudem ist es {{ $product->low_fat ? 'fettarm' : 'nicht fettarm' }}, was es zu einer
-                            gesünderen Option
-                            für ernährungsbewusste Kunden macht.
+                            falls under the category {{ $category->name }}. It is characterized by its high quality
+                            and
+                            reliability. Each package contains {{ $product->units_per_case }} carefully packed
+                            units,
+                            known for their durability and efficiency. In addition, this product is
+                            {{ $product->recyclable_package ? 'in an environmentally friendly, recyclable package' : 'unfortunately not recyclable' }},
+                            which makes it an excellent choice for environmentally conscious consumers. With a
+                            gross weight of
+                            {{ $product->gross_weight }} kg, it offers a robust and stable solution for your
+                            needs.
+                            It is also {{ $product->low_fat ? 'low fat' : 'not low fat' }}, which makes it a
+                            healthier option
+                            for nutrition-conscious customers.
                           </p>
                         </div>
                       </div>
@@ -167,7 +167,7 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Ähnliche Produkte</h2>
+          <h2>Similar products</h2>
         </div>
       </div>
     </div>
@@ -189,7 +189,7 @@
           <form style="width: 100%;">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-            <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
+            <button type="submit" class="btn" style="width: 100%;">Add to shopping cart</button>
           </form>
           </div>
         </div>
@@ -208,10 +208,10 @@
         </div>
       </div>
       <div class="product-action-2">
-        <a title="Add to cart" href="#">In den Warenkorb</a>
+        <a title="Add to cart" href="#">Add to shopping cart</a>
       </div>
       <div class="product-action-2">
-        <a title="Add to cart" href="#">In den Warenkorb</a>
+        <a title="Add to cart" href="#">Add to shopping cart</a>
       </div>
     </div>
   </div>
@@ -224,7 +224,7 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Alternativen</h2>
+          <h2>Alternatives</h2>
         </div>
       </div>
     </div>
@@ -246,7 +246,7 @@
           <form style="width: 100%;">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-            <button type="submit" class="btn" style="width: 100%;">In den Warenkorb</button>
+            <button type="submit" class="btn" style="width: 100%;">Add to shopping cart</button>
           </form>
           </div>
         </div>
@@ -368,7 +368,7 @@
                 <!--/ End Input Order -->
               </div>
               <div class="add-to-cart">
-                <a href="#" class="btn">In den Warenkorb</a>
+                <a href="#" class="btn">Add to shopping cart</a>
                 <a href="#" class="btn min"><i class="ti-heart"></i></a>
                 <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
               </div>
