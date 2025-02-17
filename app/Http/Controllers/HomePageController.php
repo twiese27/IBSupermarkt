@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\SalesLastMonth;
+use App\Models\SalesAllTime;
 use App\Models\ProductToShoppingCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
@@ -45,7 +46,24 @@ class HomePageController extends Controller
                 }
             }
         }
-        return view('index', compact('products', 'user', 'customer', 'trendingProducts'));
+
+
+        // Bestseller abrufen (Top 20 Verkäufe)
+        $bestsales = SalesAllTime::orderBy('sales', 'desc')
+        ->limit(20)
+        ->get();
+
+        // Extrahiere die product_id-Werte
+        $bestsalesProductIds = $bestsales->pluck('product_id');
+
+        // Produkte abrufen, die in den Bestseller-IDs sind
+        $bestseller = Product::whereIn('product_id', $bestsalesProductIds)
+        ->inRandomOrder() // Zufällige Reihenfolge für die Auswahl
+        ->limit(3) // 3 zufällige Bestseller-Produkte auswählen
+        ->get();
+
+    
+        return view('index', compact('products', 'user', 'customer', 'trendingProducts', 'bestseller'));
     }
 
 }

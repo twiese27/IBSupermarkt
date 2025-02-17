@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <!-- Start Single List  -->
-                            @foreach($products->take(3) as $product)
+                            @foreach($bestseller->take(3) as $product)
                                 @include('partials.productHorizontal')
                             @endforeach
                         </div>
