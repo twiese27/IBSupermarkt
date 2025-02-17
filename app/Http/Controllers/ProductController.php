@@ -31,7 +31,35 @@ class ProductController extends Controller
             ->limit(20)
             ->get();
 
-        return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer]);
+        //similiar products
+         // Hole das aktuelle Produkt mit ID = 420
+         $currentProduct = Product::where('product_id', $productId)->first();
+
+         if (!$currentProduct) {
+             return collect(); // Falls das Produkt nicht existiert, leere Collection zurückgeben
+         }
+ 
+         $currentProductName = strtolower($currentProduct->product_name);
+         $categoryId = $currentProduct->product_category_id;
+ 
+         // Generiere Zeichenfolgen (Substrings der Länge 5 aus dem Produktnamen)
+         $substrings = [];
+         for ($i = 0; $i <= strlen($currentProductName) - 5; $i++) {
+             $substrings[] = substr($currentProductName, $i, 5);
+         }
+ 
+         // Suche Produkte mit ähnlichem Namen und gleicher Kategorie (aber ohne das aktuelle Produkt)
+         $similarProducts = Product::where('product_category_id', $categoryId)
+             ->where('product_id', '!=', $productId)
+             ->where(function ($query) use ($substrings) {
+                 foreach ($substrings as $substring) {
+                     $query->orWhereRaw("LOWER(product_name) LIKE ?", ["%$substring%"]);
+                 }
+             })
+             ->get();
+
+        $alternativeProducts = $similarProducts;
+        return view('shop-single', ['products' => $products, 'product' => $product, 'category' => $category, 'producer' => $producer, 'similarProducts' => $similarProducts, 'alternativeProducts' => $alternativeProducts]);
     }
 
 
