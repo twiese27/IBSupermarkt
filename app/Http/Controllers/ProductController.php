@@ -154,12 +154,14 @@ class ProductController extends Controller
             $productsFromProducerName = Product::join('producer', 'product.producer_id', '=', 'producer.producer_id')
                 ->whereRaw('LOWER(producer.name) LIKE LOWER(?)', ["%{$query}%"])
                 ->select('product.*')
-                ->get(); // Keine Pagination hier, da wir später alles zusammenfassen
+                ->get() // Keine Pagination hier, da wir später alles zusammenfassen
+                ->sortByDesc('product_id');
 
             // 3️ Suche nach Produktname
             $productFromProductName = Product::whereRaw('LOWER(product.product_name) LIKE LOWER(?)', ["%{$query}%"])
                 ->select('product.*')
-                ->get();
+                ->get()
+                ->sortByDesc('product_id');
 
             // 4️ Kategoriesuche inkl. Unterkategorien
             $category = ProductCategory::whereRaw('LOWER(name) LIKE LOWER(?)', ["%{$query}%"])->first();
@@ -179,7 +181,8 @@ class ProductController extends Controller
 
             $productsFromCategoryName = Product::whereIn('product_category_id', $categoryIds)
                 ->select('product.*')
-                ->get();
+                ->get()
+                ->sortByDesc('product_id');
 
             // 5️ Produkte zusammenführen & doppelte entfernen
             $products = $productsFromProducerName
