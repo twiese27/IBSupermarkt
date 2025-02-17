@@ -3,7 +3,7 @@
         <div class="product-img">
             <a href="{{ route('product', ['id' => $product->product_id]) }}">  
                 @php
-                    $imagePath = "images\\product_images\\0000{$product->product_id}_00001_.png";
+                    $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
                     $imageExists = file_exists(public_path($imagePath));
                     $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
                 @endphp

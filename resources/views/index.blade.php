@@ -18,7 +18,7 @@
 
                         @foreach ($displayProducts as $product)
                             @php
-                                $imagePath = asset("images/product_category_images/{$product->product_id}_00001.png");
+                                $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
                                 $imageExists = file_exists(public_path("images/product_category_images/{$product->product_id}.png"));
                                 $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/1160x560';
                             @endphp

@@ -14,6 +14,13 @@
             <!-- Product Slider -->
             <div class="product-gallery">
               <!-- Images slider -->
+              @php
+                  $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
+                  $imageExists = file_exists(public_path($imagePath));
+                  $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/512x512';
+              @endphp
+              <img src="{{$backgroundImage}}" alt="#" />
+              <!--
               <div class="flexslider-thumbnails">
                 <ul class="slides">
                   <li data-thumb="https://placehold.co/570x520" rel="adjustX:10, adjustY:">
@@ -30,6 +37,7 @@
                   </li>
                 </ul>
               </div>
+              -->
               <!-- End Images slider -->
             </div>
             <!-- End Product slider -->
