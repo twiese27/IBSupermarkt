@@ -2,7 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import oracledb
 from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.seasonal import seasonal_decompose
+import numpy as np
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import warnings
 warnings.filterwarnings("ignore", message="Non-stationary starting autoregressive parameters")
 
@@ -100,11 +101,6 @@ def filter_valid_products(df, min_days=14):
     return df[df['Product'].isin(valid_products)]
 
 
-#for index, row in df_filtered.iterrows():
-#    print(row['Product'], row['Date'], row['Total_Sold'])
-
-
-
 def forecast_sales(df_filtered, forecast_days=7):
     """
     Erstellt eine ARIMA-Prognose für jedes Produkt über `forecast_days` Tage.
@@ -148,21 +144,156 @@ def export_forecasts_to_csv(average_forecasts, file_path):
 
     print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
 
+
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+import matplotlib.pyplot as plt
+
+
+def generate_acf_pacf(df, num_products=10):
+    """
+    Berechnet und plottet ACF und PACF für die ersten `num_products` Produkte.
+    Die Anzahl der Lags wird dynamisch basierend auf der Anzahl der Datenpunkte angepasst.
+    """
+    # Wir gehen davon aus, dass df eine Zeitreihe pro Produkt enthält
+    unique_products = df['Product'].unique()[:num_products]  # Begrenzung auf die ersten `num_products` Produkte
+
+    for product in unique_products:
+        product_data = df[df['Product'] == product]
+
+        # Um sicherzustellen, dass wir eine Zeitreihe haben, setzen wir das Datum als Index
+        product_data.set_index('Date', inplace=True)
+
+        # Überprüfe, ob es genug Daten gibt, um ACF und PACF zu berechnen
+        if len(product_data) >= 14:
+            # Berechne die maximal zulässige Anzahl von Lags (50% der Anzahl der Datenpunkte)
+            max_lags = len(product_data) // 2  # max 50% der Datenpunkte als Lags
+
+            # Falls mehr als 20 Lags erforderlich sind, setze die Lags auf den kleineren Wert
+            lags = min(max_lags, 20)
+
+            # ACF und PACF berechnen und plotten
+            plt.figure(figsize=(12, 6))
+
+            plt.subplot(121)
+            plot_acf(product_data['Total_Sold'], lags=lags, ax=plt.gca())
+            plt.title(f"ACF für Produkt {product}")
+
+            plt.subplot(122)
+            plot_pacf(product_data['Total_Sold'], lags=lags, ax=plt.gca())
+            plt.title(f"PACF für Produkt {product}")
+
+            plt.tight_layout()
+            plt.show()
+
+def simple_moving_average_forecast(df, forecast_days=7, window=7):
+    """
+    Erstellt eine Vorhersage basierend auf dem einfachen Durchschnitt der letzten X Tage.
+
+    :param df: DataFrame mit den Spalten ['Product', 'Date', 'Total_Sold']
+    :param forecast_days: Anzahl der Tage, für die prognostiziert wird
+    :param window: Anzahl der Tage, über die der Durchschnitt gebildet wird
+    :return: DataFrame mit den Forecasts
+    """
+    forecasts = []
+
+    for product in df['Product'].unique():
+        product_data = df[df['Product'] == product].copy()
+        product_data = product_data.sort_values(by='Date')
+
+        # Berechnung des gleitenden Durchschnitts
+        product_data['SMA'] = product_data['Total_Sold'].rolling(window=window, min_periods=1).mean()
+
+        # Letzten Durchschnittswert nehmen für die Vorhersage
+        last_avg = product_data['SMA'].iloc[-1]
+
+        # Forecast für die nächsten Tage
+        future_dates = pd.date_range(start=product_data['Date'].max() + pd.Timedelta(days=1), periods=forecast_days)
+        forecast_df = pd.DataFrame({'Product': product, 'Date': future_dates, 'Forecast': last_avg})
+
+        forecasts.append(forecast_df)
+
+    return pd.concat(forecasts, ignore_index=True)
+
+
+def print_forecast_for_product(df_forecast, product_id):
+    """
+    Gibt den Forecast für eine bestimmte Produkt-ID aus.
+
+    :param df_forecast: DataFrame mit den Spalten ['Product', 'Date', 'Forecast']
+    :param product_id: Die ID des gewünschten Produkts
+    """
+    product_forecast = df_forecast[df_forecast['Product'] == product_id]
+
+    if product_forecast.empty:
+        print(f"Keine Forecast-Daten für Produkt-ID {product_id} gefunden.")
+    else:
+        print(product_forecast)
+
+
+def exponential_smoothing_forecast(df, alpha=0.3, forecast_days=7):
+    """
+    Wendet exponentielle Glättung auf die Verkaufsdaten für jedes Produkt an und erstellt Vorhersagen für die nächsten Tage.
+
+    :param df: DataFrame mit den Spalten ['Product', 'Date', 'Total_Sold']
+    :param alpha: Glättungsfaktor (zwischen 0 und 1)
+    :param forecast_days: Anzahl der Tage, für die eine Vorhersage erstellt werden soll
+    :return: DataFrame mit den Vorhersagen im Format ['Product', 'Date', 'Wert']
+    """
+    forecast_results = []
+
+    for product in df['Product'].unique():
+        product_data = df[df['Product'] == product].sort_values(by='Date')
+
+        # Starte mit dem ersten Verkaufswert als Basis für die Glättung
+        smoothed_values = [product_data.iloc[0]['Total_Sold']]
+
+        # Exponentielle Glättung auf die vorhandenen Daten anwenden
+        for t in range(1, len(product_data)):
+            smoothed_value = (alpha * product_data.iloc[t]['Total_Sold']) + ((1 - alpha) * smoothed_values[-1])
+            smoothed_values.append(smoothed_value)
+
+        # Prognose für die nächsten 'forecast_days' Tage berechnen
+        last_smoothed_value = smoothed_values[-1]
+        forecast_values = [int(np.round(last_smoothed_value))] * forecast_days  # Vorhersage als ganze Zahl
+
+        # Generiere die zukünftigen Tage für die Vorhersage
+        last_date = product_data['Date'].max()
+        forecast_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=forecast_days, freq='D')
+
+        # Erstelle eine Liste mit den Vorhersagen und den entsprechenden Tagen
+        for date, forecast in zip(forecast_dates, forecast_values):
+            forecast_results.append({'Product': product, 'Date': date.strftime('%d.%m.%Y'), 'Wert': forecast})
+
+    # Erstelle einen DataFrame aus den Vorhersagen
+    df_forecasts = pd.DataFrame(forecast_results)
+
+    return df_forecasts
+
+
 result = get_data()
 df = load_data(result)
 df_filled = fill_missing_dates(df)
 df_aggregated = aggregate_sales(df_filled)
+#generate_acf_pacf(df_aggregated, num_products=10)
+#df_forecast = simple_moving_average_forecast(df_aggregated, forecast_days=7)
+#print_forecast_for_product(df_forecast, 31)
+forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.3, forecast_days=7)
+
+# Ausgabe der Vorhersagen für ein bestimmtes Produkt
+print(forecast_results)
+
+
 #print(df_aggregated[df_aggregated['Product'] == 0])
 
 #df_filtered = filter_valid_products(df_aggregated)
 
 # ARIMA Forecast
-average_forecasts = forecast_sales(df_aggregated)
+#average_forecasts = forecast_sales(df_aggregated)
 #print(average_forecasts)
 
 # Ergebnisse ausgeben
-for product, avg_forecast in average_forecasts.items():
-    print(f"Durchschnittlicher Forecast für Produkt {product}: {avg_forecast:.2f}")
+#for product, avg_forecast in average_forecasts.items():
+#    print(f"Durchschnittlicher Forecast für Produkt {product}: {avg_forecast:.2f}")
 #file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
 #export_forecasts_to_csv(average_forecasts, file_path)
 
