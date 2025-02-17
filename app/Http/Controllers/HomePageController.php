@@ -9,6 +9,7 @@ use App\Models\ProductToShoppingCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 class HomePageController extends Controller
 {
@@ -62,8 +63,25 @@ class HomePageController extends Controller
         ->limit(3) // 3 zufällige Bestseller-Produkte auswählen
         ->get();
 
-    
-        return view('index', compact('products', 'user', 'customer', 'trendingProducts', 'bestseller'));
+        // Insider Tip
+        $salesAllTime = DB::table('product_to_warehouse as ptw')
+            ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
+            ->whereIn('ptw.product_id', function($query) {
+                $query->select('product_id')
+                    ->from('Sales_Last_Month')
+                    ->whereRaw('rownum <= 100');
+            })
+            ->groupBy('ptw.product_id')
+            ->orderBy('total_stock')
+            ->get();
+
+
+        $topStockProducts = $salesAllTime->sortByDesc('total_stock')->take(20);
+        $insiderTipIds = $topStockProducts->pluck('product_id')->shuffle();
+        
+        $insiderTip = Product::whereIn('product_id', $insiderTipIds->toArray())->get();
+
+        return view('index', compact('products', 'user', 'customer', 'trendingProducts', 'bestseller', 'insiderTip'));
     }
 
 }

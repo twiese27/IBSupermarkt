@@ -91,10 +91,10 @@
                                 </div>
                             </div>
                             <!-- Start Single List  -->
-                            @foreach($products->take(3) as $product)
+                            @foreach(collect($insiderTip)->shuffle()->take(3) as $product)
                                 @include('partials.productHorizontal')
-
                             @endforeach
+
                         <!-- End Single List  -->
                         </div>
                         <div class="col-lg-4 col-md-6 col-12">
