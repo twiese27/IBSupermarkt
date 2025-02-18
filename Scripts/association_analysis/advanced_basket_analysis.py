@@ -1,49 +1,55 @@
+from db_connection import get_sqlalchemy_engine
 import networkx as nx
 from collections import defaultdict
 import pandas as pd
 from sqlalchemy import create_engine, text
 
 def get_db_connection():
-    # Create a connection to the Oracle database using SQLAlchemy
-    user = "ONLINESHOP_PROD"
-    password = "onlineshop_prod"
-    host = "134.106.62.237"
-    port = "1521"
-    service_name = "dbprak2"
-
-    dsn = f"oracle+oracledb://{user}:{password}@{host}:{port}/?service_name={service_name}"
-    engine = create_engine(dsn)
-    return engine
+    """Stellt eine Verbindung zur Datenbank über SQLAlchemy her."""
+    return get_sqlalchemy_engine()
 
 def build_product_graph(rules_df):
-    """Erstellt einen gerichteten Graphen aus den Assoziationsregeln"""
+    """
+    Erstellt einen gerichteten Graphen aus Assoziationsregeln.
+    
+    Args:
+        rules_df (DataFrame): DataFrame mit Assoziationsregeln
+    
+    Returns:
+        DiGraph: Gerichteter Graph mit Produktbeziehungen
+    """
     G = nx.DiGraph()
     
     for _, rule in rules_df.iterrows():
         antecedent = rule['antecedent']
         consequent = rule['consequent']
-        
-        # Füge Kante mit Gewicht (lift) hinzu
         G.add_edge(antecedent, consequent, weight=rule['lift'])
     
     return G
 
 def find_connected_products(G, product_id, max_depth=2):
-    """Findet verbundene Produkte bis zur angegebenen Tiefe"""
+    """
+    Identifiziert verbundene Produkte durch Breitensuche im Graphen.
+    
+    Args:
+        G (DiGraph): Produktgraph
+        product_id (int): ID des Ausgangsprodukts
+        max_depth (int): Maximale Suchtiefe, Standard ist 2
+    
+    Returns:
+        dict: Verbundene Produkte mit ihren Gewichtungen
+    """
     connected_products = defaultdict(float)
     
-    # BFS bis zur maximalen Tiefe
     for depth in range(1, max_depth + 1):
         paths = nx.single_source_shortest_path(G, product_id, cutoff=depth)
         
         for target, path in paths.items():
             if target != product_id:
-                # Berechne Gesamtgewicht des Pfades
+                # Berechne Pfadgewicht als Produkt der einzelnen Kantengewichte
                 path_weight = 1.0
                 for i in range(len(path)-1):
                     path_weight *= G[path[i]][path[i+1]]['weight']
-                
-                # Speichere höchstes gefundenes Gewicht
                 connected_products[target] = max(
                     connected_products[target],
                     path_weight
@@ -52,8 +58,17 @@ def find_connected_products(G, product_id, max_depth=2):
     return connected_products
 
 def get_product_recommendations(product_id, engine):
-    """Holt Produktempfehlungen aus der Datenbank"""
-    # Lade Assoziationsregeln
+    """
+    Ermittelt Produktempfehlungen basierend auf Assoziationsregeln.
+    
+    Args:
+        product_id (int): Produkt-ID
+        engine: SQLAlchemy Engine
+    
+    Returns:
+        list: Sortierte Liste von (Produkt-ID, Gewichtung)-Tupeln
+    """
+    # Lade relevante Assoziationsregeln
     query = """
     SELECT DISTINCT
            ar.ASSOCIATION_RULE_ID,
@@ -68,28 +83,26 @@ def get_product_recommendations(product_id, engine):
     """
     rules_df = pd.read_sql(query, engine)
     
-    # Erstelle Graph
     G = build_product_graph(rules_df)
-    
-    # Finde verbundene Produkte
     connected_products = find_connected_products(G, product_id)
     
-    # Sortiere nach Gewicht
-    sorted_products = sorted(
+    return sorted(
         connected_products.items(),
         key=lambda x: x[1],
         reverse=True
     )
-    
-    return sorted_products
 
 def save_recommendations_to_db(engine, recommendations_dict):
-    """Speichert alle Produktempfehlungen in der Datenbank"""
+    """
+    Speichert berechnete Produktempfehlungen in der Datenbank.
+    
+    Args:
+        engine: SQLAlchemy Engine
+        recommendations_dict (dict): Dictionary mit Empfehlungen
+    """
     with engine.connect() as connection:
-        # Lösche alte Empfehlungen
         connection.execute(text("DELETE FROM PRODUCT_RECOMMENDATION"))
         
-        # Füge neue Empfehlungen ein
         for source_id, recommendations in recommendations_dict.items():
             for target_id, score in recommendations:
                 connection.execute(
@@ -109,25 +122,28 @@ def save_recommendations_to_db(engine, recommendations_dict):
         connection.commit()
 
 def get_all_source_products(engine):
-    """Holt alle Produkte, die als Antezedenzien vorkommen"""
-    query = """
-    SELECT DISTINCT PRODUCT_ID 
-    FROM RULE_ANTECEDENT
     """
+    Ermittelt alle Produkte, die als Ausgangspunkt für Empfehlungen dienen.
+    
+    Args:
+        engine: SQLAlchemy Engine
+    
+    Returns:
+        list: Liste von Produkt-IDs
+    """
+    query = "SELECT DISTINCT PRODUCT_ID FROM RULE_ANTECEDENT"
     return pd.read_sql(query, engine)['product_id'].tolist()
 
 def main():
     print("Starting advanced basket analysis...")
     engine = get_db_connection()
     
-    # Hole alle Quellprodukte
     source_products = get_all_source_products(engine)
-    print(f"Found {len(source_products)} source products")
+    print(f"Processing {len(source_products)} products for recommendations")
     
-    # Sammle alle Empfehlungen
     all_recommendations = {}
     for idx, product_id in enumerate(source_products, 1):
-        print(f"Processing product {idx}/{len(source_products)} (ID: {product_id})")
+        print(f"Analyzing product {idx}/{len(source_products)} [ID: {product_id}]")
         recommendations = get_product_recommendations(product_id, engine)
         all_recommendations[product_id] = recommendations
     
