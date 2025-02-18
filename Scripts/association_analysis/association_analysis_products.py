@@ -1,29 +1,32 @@
+from db_connection import get_sqlalchemy_engine
 from mlxtend.frequent_patterns import apriori, association_rules
 from mlxtend.preprocessing import TransactionEncoder
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
-def get_db_connection():
-    # Create a connection to the Oracle database using SQLAlchemy
-    user = "ONLINESHOP_PROD"
-    password = "onlineshop_prod"
-    host = "134.106.62.237"
-    port = "1521"
-    service_name = "dbprak2"
+# --- Datenbankoperationen ---
 
-    dsn = f"oracle+oracledb://{user}:{password}@{host}:{port}/?service_name={service_name}"
-    engine = create_engine(dsn)
-    return engine
+def get_db_connection():
+    """Erstellt eine Datenbankverbindung über SQLAlchemy."""
+    return get_sqlalchemy_engine()
 
 def fetch_transaction_data():
-    print("Connecting to database...")
+    """
+    Lädt Transaktionsdaten aus der Datenbank in Chunks.
+    
+    Returns:
+        DataFrame: Enthält SHOPPING_CART_ID und PRODUCT_ID aller Transaktionen
+    """
+    print("Establishing database connection...")
     engine = get_db_connection()
+    
     print("Fetching transaction data in chunks...")
     query = """
         SELECT SHOPPING_CART_ID, PRODUCT_ID 
         FROM PRODUCT_TO_SHOPPING_CART
     """
+    
     chunks = []
     chunk_count = 0
     for chunk in pd.read_sql(query, engine, chunksize=100000):
@@ -31,48 +34,61 @@ def fetch_transaction_data():
         print(f"Processing chunk {chunk_count} ({len(chunk)} rows)...")
         chunks.append(chunk)
     
-    print(f"Concatenating {chunk_count} chunks...")
+    print(f"Merging {chunk_count} chunks...")
     df = pd.concat(chunks, ignore_index=True)
-    print(f"Total rows loaded: {len(df)}")
+    print(f"Successfully loaded {len(df)} transactions")
     return df
 
 def clear_existing_rules(engine):
-    print("\nClearing existing rules from database...")
+    """
+    Löscht alle existierenden Assoziationsregeln aus der Datenbank.
+    
+    Args:
+        engine: SQLAlchemy Engine-Instanz
+    """
+    print("\nClearing existing association rules...")
     with engine.connect() as connection:
-        print("- Deleting rule consequents...")
+        print("- Removing rule consequents...")
         connection.execute(text("DELETE FROM RULE_CONSEQUENT"))
-        print("- Deleting rule antecedents...")
+        print("- Removing rule antecedents...")
         connection.execute(text("DELETE FROM RULE_ANTECEDENT"))
-        print("- Deleting association rules...")
+        print("- Removing association rules...")
         connection.execute(text("DELETE FROM ASSOCIATION_RULE"))
         connection.commit()
-    print("All existing rules cleared.")
+    print("Successfully cleared all existing rules")
 
 def insert_rules_to_db(rules, engine):
-    print(f"\nPreparing to insert {len(rules)} rules into database...")
+    """
+    Speichert die generierten Assoziationsregeln in der Datenbank.
+    
+    Args:
+        rules (DataFrame): DataFrame mit den berechneten Assoziationsregeln
+        engine: SQLAlchemy Engine-Instanz
+    """
+    print(f"\nStarting database insertion of {len(rules)} rules...")
     
     with engine.connect() as connection:
+        # Bestehende Regeln löschen
         clear_existing_rules(engine)
         
-        total_rules = len(rules)
+        # Neue Regeln einfügen
         for idx, rule in rules.iterrows():
-            # Insert main rule with lift, confidence, and support
-            result = connection.execute(
+            # Hauptregel einfügen
+            rule_id = idx + 1
+            connection.execute(
                 text("""INSERT INTO ASSOCIATION_RULE 
                     (ASSOCIATION_RULE_ID, LIFT, CONFIDENCE, SUPPORT) 
                     VALUES (:id, :lift, :confidence, :support)"""),
                 {
-                    "id": idx + 1,
+                    "id": rule_id,
                     "lift": float(rule['lift']),
                     "confidence": float(rule['confidence']),
                     "support": float(rule['support'])
                 }
             )
-            rule_id = idx + 1
 
-            # Insert antecedents
-            antecedents = list(rule['antecedents'])
-            for ant_idx, product_id in enumerate(antecedents):
+            # Antezedenzien einfügen
+            for ant_idx, product_id in enumerate(list(rule['antecedents'])):
                 connection.execute(
                     text("""INSERT INTO RULE_ANTECEDENT 
                        (ASSOCIATION_RULE_ID, RULE_ANTECEDENT_ID, PRODUCT_ID) 
@@ -84,9 +100,8 @@ def insert_rules_to_db(rules, engine):
                     }
                 )
 
-            # Insert consequents
-            consequents = list(rule['consequents'])
-            for cons_idx, product_id in enumerate(consequents):
+            # Konsequenzen einfügen
+            for cons_idx, product_id in enumerate(list(rule['consequents'])):
                 connection.execute(
                     text("""INSERT INTO RULE_CONSEQUENT 
                        (ASSOCIATION_RULE_ID, RULE_CONSEQUENT_ID, PRODUCT_ID) 
@@ -98,48 +113,59 @@ def insert_rules_to_db(rules, engine):
                     }
                 )
         
-        print("\nCommitting all changes...")
+        print("Saving changes to database...")
         connection.commit()
-    print("Database insertion complete.")
+    print("Successfully stored all rules in database")
+
+# --- Hauptprogramm ---
 
 def main():
+    """Hauptfunktion für die Durchführung der Assoziationsanalyse."""
     print("\n=== Association Rule Mining System ===")
+    
+    # Datenbankverbindung initialisieren
     print("Initializing database connection...")
     engine = get_db_connection()
     
+    # 1. Daten laden
     print("\nStep 1: Data Collection")
-    df = fetch_transaction_data()
+    transaction_df = fetch_transaction_data()
     
+    # 2. Daten vorverarbeiten
     print("\nStep 2: Data Preprocessing")
     print("Grouping transactions by shopping cart...")
-    transactions = df.groupby('shopping_cart_id')['product_id'].apply(list).tolist()
+    transactions = transaction_df.groupby('shopping_cart_id')['product_id'].apply(list).tolist()
     print(f"Found {len(transactions)} unique transactions")
 
+    # 3. Transaktionen kodieren
     print("\nStep 3: Transaction Encoding")
-    te = TransactionEncoder()
-    print("Fitting transaction encoder...")
-    te_ary = te.fit(transactions).transform(transactions)
-    print("Creating encoded dataframe...")
-    df_encoded = pd.DataFrame(te_ary, columns=te.columns_)
+    encoder = TransactionEncoder()
+    print("Encoding transactions...")
+    encoded_array = encoder.fit(transactions).transform(transactions)
+    transaction_matrix = pd.DataFrame(encoded_array, columns=encoder.columns_)
 
+    # 4. Apriori-Algorithmus anwenden
     print("\nStep 4: Applying Apriori Algorithm")
     print("Finding frequent itemsets...")
-    frequent_itemsets = apriori(df_encoded, min_support=0.01, use_colnames=True)
+    frequent_itemsets = apriori(transaction_matrix, min_support=0.01, use_colnames=True)
     print(f"Found {len(frequent_itemsets)} frequent itemsets")
 
+    # 5. Assoziationsregeln generieren
     print("\nStep 5: Generating Association Rules")
     print("Calculating rules...")
     rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.25)
-    rules = rules[rules['lift'] > 1]
+    rules = rules[rules['lift'] > 1]  # Nur relevante Regeln behalten
     print(f"Generated {len(rules)} valid rules (lift > 1)")
     
-    print("\nAssociation Rules Table:")
+    # Regeln anzeigen
+    print("\nAssociation Rules Overview:")
     print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].to_string())
 
+    # 6. Datenbank aktualisieren
     print("\nStep 6: Database Update")
     insert_rules_to_db(rules, engine)
     
-    print("\nAnalysis completed successfully!")
+    print("\nAssociation analysis completed successfully!")
 
 if __name__ == "__main__":
     main()
