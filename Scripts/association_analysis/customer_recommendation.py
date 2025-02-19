@@ -4,9 +4,9 @@ import sqlalchemy
 from db_connection import get_sqlalchemy_engine
 
 # Minimale Anzahl an Käufen eines Produkts durch einen Kunden
-MIN_PURCHASE_COUNT = 2
+MIN_PURCHASE_COUNT = 3
 # Minimaler Empfehlungswert für Produktempfehlungen
-MIN_RECOMMENDATION_SCORE = 1
+MIN_RECOMMENDATION_SCORE = 5
 
 def get_customer_purchases(engine: sqlalchemy.Engine) -> pd.DataFrame:
     """
