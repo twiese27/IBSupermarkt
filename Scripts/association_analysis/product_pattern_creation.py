@@ -164,35 +164,47 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
 
 def delete_shopping_carts(start_id: int, num_carts: int):
     """
-    Löscht alle Einkaufswagen ab der Start-ID.
-    
-    Args:
-        start_id: Start-ID für die zu löschenden Einkaufswagen
-        num_carts: Anzahl der zu löschenden Einkaufswagen
+    Löscht alle Einkaufswagen ab der Start-ID in Batches.
     """
     try:
-        print("Establishing database connection for deletion...")
+        print("Establishing database connection for faster batch deletion...")
         with get_db_connection() as conn:
             with conn.cursor() as cursor:
-                print(f"Starting deletion for shopping carts with IDs >= {start_id}...")
-                
-                # Löschreihenfolge basierend auf Fremdschlüsselbeziehungen
+                start_time = datetime.datetime.now()
+                print(f"Starting deletion for shopping carts from ID {start_id}...")
+
+                batch_size = 3000
+                end_id = start_id + num_carts
+
                 deletion_tables = [
-                    "SHOPPING_ORDER_EXTENSION",
-                    "SHOPPING_CART_EXTENSION",
-                    "PRODUCT_TO_SHOPPING_CART",
-                    "SHOPPING_ORDER",
-                    "SHOPPING_CART"
+                    ("SHOPPING_ORDER_EXTENSION", "ORDER_ID"),
+                    ("SHOPPING_CART_EXTENSION", "SHOPPING_CART_ID"),
+                    ("PRODUCT_TO_SHOPPING_CART", "SHOPPING_CART_ID"),
+                    ("SHOPPING_ORDER", "ORDER_ID"),
+                    ("SHOPPING_CART", "SHOPPING_CART_ID")
                 ]
-                
-                for table in deletion_tables:
-                    print(f"Deleting from {table}...")
-                    id_column = "ORDER_ID" if "ORDER" in table else "SHOPPING_CART_ID"
-                    cursor.execute(f"DELETE FROM {table} WHERE {id_column} >= :1", (start_id,))
-                
-                conn.commit()
-                print("Deletion completed successfully!")
-                
+
+                for table, id_col in deletion_tables:
+                    print(f"\nDeleting from {table} in batches...")
+                    table_deleted = 0
+                    for batch_start in range(start_id, end_id, batch_size):
+                        batch_end = min(batch_start + batch_size, end_id)
+                        cursor.execute(
+                            f"DELETE FROM {table} WHERE {id_col} >= :1 AND {id_col} < :2",
+                            (batch_start, batch_end)
+                        )
+                        count = cursor.rowcount
+                        table_deleted += count
+                        print(f"  Batch {batch_start}-{batch_end - 1}: {count} rows deleted")
+                        conn.commit()
+
+                    print(f"Completed {table}: {table_deleted} total rows deleted.")
+
+                end_time = datetime.datetime.now()
+                duration = (end_time - start_time).total_seconds()
+                print("\nDeletion completed successfully!")
+                print(f"Total duration: {duration:.2f} seconds")
+
     except oracledb.Error as e:
         print(f"ERROR: Database operation failed: {e}")
 
@@ -201,7 +213,7 @@ def main():
     Hauptfunktion zum Erstellen oder Löschen von Einkaufswagen.
     Verwaltet die Batch-IDs für die verschiedenen Durchläufe.
     """
-    product_ids = [29558, 285, 29114]  # Beispiel-Produkt-IDs für Assoziationsanalyse
+    product_ids = [32172, 29382, 32361]  # Beispiel-Produkt-IDs für Assoziationsanalyse
     num_carts = 67500  # Gesamtanzahl der Einkaufswagen
     start_id = 176328  # Start-ID für den ersten Batch
 
@@ -218,6 +230,8 @@ def main():
 
     if usr_input.lower() == "c":
         print(f"\nPreparing to create {num_carts} shopping carts...")
+        print("\nProduct IDs for association analysis:")
+        print(product_ids)
         created_cart_ids = insert_shopping_carts(product_ids, num_carts, start_id)
         print(f"\nOperation completed: Created {len(created_cart_ids)} shopping carts")
     elif usr_input.lower() == "d":
