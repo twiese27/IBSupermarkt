@@ -25,6 +25,7 @@ class ProductCategory extends Model
 
     /** @var string[] */
     protected $fillable = [
+        'product_category_id',
         'name',
         'parent_category',
     ];

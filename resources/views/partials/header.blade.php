@@ -41,10 +41,6 @@
                         <!-- Search Form -->
                         <div class="sinlge-bar">
                             @if(\Illuminate\Support\Facades\Auth::check())
-                                @php
-                                    $user = session('user');
-                                    $cusomter = session('customer');
-                                @endphp
                                 <div class="user-info">
                                     <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o"
                                                                                             aria-hidden="true"></i></a>

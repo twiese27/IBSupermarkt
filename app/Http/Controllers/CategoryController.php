@@ -58,31 +58,9 @@ class CategoryController extends Controller
             ]
         );
 
+        // Get trending products
+        $trendingProducts = $this->getTrendingProducts($category->product_category_id);
 
-        // get trending products
-        // Get the trending products sorted by SALES for a specific category
-        $topSalesLastMonth = SalesLastMonth::where('product_category_id', $categoryId)
-        ->orderByDesc('sales')
-        ->limit(20)
-        ->get();
-
-        // Manuell Produkt-IDs extrahieren, ohne pluck()
-        $productIds = [];
-        foreach ($topSalesLastMonth as $sale) {
-        $productIds[] = $sale->product_id;
-        }
-
-        if (empty($productIds)) {
-        $trendingProducts = collect(); // Falls keine IDs gefunden wurden
-        } else {
-        // Produkte abrufen und in der ursprünglichen Reihenfolge sortieren
-        $trendingProducts = Product::whereIn('product_id', $productIds)
-            ->get()
-            ->sortBy(function ($product) use ($productIds) {
-                return array_search($product->product_id, $productIds);
-            })->values();
-
-        } 
         return view('shop-grid', ['products' => $paginatedProducts, 'trendingProducts' => $trendingProducts, 'categoryName' => $category->name]);
     }
 
@@ -107,5 +85,33 @@ class CategoryController extends Controller
         }
 
         return $products;
+    }
+
+    private function getTrendingProducts(int $categoryId): Collection
+    {
+        // Get the trending products sorted by SALES for a specific category
+        $topSalesLastMonth = SalesLastMonth::query()
+            ->where('product_category_id', $categoryId)
+            ->orderByDesc('sales')
+            ->limit(20)
+            ->get();
+
+        // Manuell Produkt-IDs extrahieren, ohne pluck()
+        $productIds = [];
+        foreach ($topSalesLastMonth as $sale) {
+            $productIds[] = $sale->product_id;
+        }
+
+        if (empty($productIds)) {
+            return collect(); // Falls keine IDs gefunden wurden
+        }
+
+        // Produkte abrufen und in der ursprünglichen Reihenfolge sortieren
+        return Product::query()
+            ->whereIn('product_id', $productIds)
+            ->get()
+            ->sortBy(function ($product) use ($productIds) {
+                return array_search($product->product_id, $productIds);
+            })->values();
     }
 }
