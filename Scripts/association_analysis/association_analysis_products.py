@@ -123,7 +123,6 @@ def insert_rules_to_db(rules, engine):
 def main():
     """Hauptfunktion für die Durchführung der Assoziationsanalyse."""
     start_time = time.time()
-    print("\n=== Association Rule Mining System ===")
     
     # Datenbankverbindung initialisieren
     print("Initializing database connection...")

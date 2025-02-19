@@ -161,7 +161,6 @@ def insert_category_rules_to_db(rules, engine):
 
 def main():
     """Hauptfunktion zur Durchführung der Kategorieanalyse."""
-    print("\n=== Category Association Rule Mining System ===")
     print("Initializing analysis process...")
     
     start_time = time.time()
