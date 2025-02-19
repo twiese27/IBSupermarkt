@@ -86,6 +86,8 @@ def insert_shopping_carts(product_ids: List[int], num_carts: int, start_id: int)
                 print("Generating random timestamps, customer IDs and employee IDs...")
                 random_datetimes = [get_random_datetime() for _ in range(num_carts)]
                 random_customer_ids = [random.randint(1, 10100) for _ in range(num_carts)]
+                # 30% der Einkaufswagen werden einem spezifischen Kunden zugeordnet
+                # random_customer_ids = [12346838 if random.random() < 0.3 else random.randint(1, 10100) for _ in range(num_carts)] 
                 random_employee_ids = [random.randint(104, 108) for _ in range(num_carts)]
                 
                 # Vorbereitende Datenlisten für Masseneinfügung
@@ -213,8 +215,8 @@ def main():
     Hauptfunktion zum Erstellen oder Löschen von Einkaufswagen.
     Verwaltet die Batch-IDs für die verschiedenen Durchläufe.
     """
-    product_ids = [32172, 29382, 32361]  # Beispiel-Produkt-IDs für Assoziationsanalyse
-    num_carts = 67500  # Gesamtanzahl der Einkaufswagen
+    product_ids = [401, 445, 443]  # Beispiel-Produkt-IDs für Assoziationsanalyse
+    num_carts = 4500  # Gesamtanzahl der Einkaufswagen
     start_id = 176328  # Start-ID für den ersten Batch
 
     # Batch 1 start_id = 176328 
@@ -225,7 +227,6 @@ def main():
     # End id = 243827
     # Total = 67500
 
-    print("\n=== Shopping Cart Management System ===")
     usr_input = input("Do you want to create or delete shopping carts? (c/d): ")
 
     if usr_input.lower() == "c":
