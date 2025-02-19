@@ -4,6 +4,7 @@ from mlxtend.preprocessing import TransactionEncoder
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
+import time
 
 def get_db_connection():
     """Erstellt eine Datenbankverbindung über SQLAlchemy."""
@@ -163,6 +164,8 @@ def main():
     print("\n=== Category Association Rule Mining System ===")
     print("Initializing analysis process...")
     
+    start_time = time.time()
+    
     # Datenbankverbindung und Daten laden
     engine = get_db_connection()
     df = fetch_transaction_data()
@@ -177,6 +180,9 @@ def main():
     
     # Regeln in Datenbank speichern
     insert_category_rules_to_db(rules, engine)
+    
+    end_time = time.time()
+    print(f"\nTotal analysis time: {end_time - start_time:.2f} seconds")
     
     print("\nCategory analysis completed successfully!")
     print("==========================================")

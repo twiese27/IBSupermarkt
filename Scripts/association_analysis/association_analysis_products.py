@@ -4,6 +4,7 @@ from mlxtend.preprocessing import TransactionEncoder
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
+import time
 
 # --- Datenbankoperationen ---
 
@@ -121,6 +122,7 @@ def insert_rules_to_db(rules, engine):
 
 def main():
     """Hauptfunktion für die Durchführung der Assoziationsanalyse."""
+    start_time = time.time()
     print("\n=== Association Rule Mining System ===")
     
     # Datenbankverbindung initialisieren
@@ -166,6 +168,8 @@ def main():
     insert_rules_to_db(rules, engine)
     
     print("\nAssociation analysis completed successfully!")
+    end_time = time.time()
+    print(f"\nTotal analysis time: {end_time - start_time:.2f} seconds")
 
 if __name__ == "__main__":
     main()
