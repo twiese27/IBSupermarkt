@@ -1,16 +1,20 @@
-
 @php
     $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
     $imageExists = file_exists(public_path($imagePath));
-    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/1160x560';
+    $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
 @endphp
-<div class="big-content" style="background-image: url('{{ $backgroundImage }}');">
-    <div class="inner">
-        <h4 class="title">
-            {{$product->product_name}}
-        </h4>
+
+<div class="product-item" style="display: flex; align-items: center; gap: 20px; background: #f9f9f9; padding: 20px; border-radius: 8px; width: 100%; max-width: 1024px; margin: auto;">
+    <!-- Left Side: Product Image -->
+    <div class="product-image" style="width: 512px; height: 512px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <img src="{{ $backgroundImage }}" alt="{{ $product->product_name }}" style="width: 512px; height: 512px; border-radius: 8px; object-fit: cover; display: block;">
+    </div>
+    
+    <!-- Right Side: Product Details -->
+    <div class="product-details" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20px;">
+        <h4 class="title" style="margin-bottom: 10px;">{{ $product->product_name }}</h4>
         <div class="button">
-            <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})">Add to shopping cart</a>
+            <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})" style="background: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Add to shopping cart</a>
         </div>
     </div>
 </div>

@@ -32,7 +32,9 @@
 <!-- End trending products in this category -->
 
 <!-- Start Assoziationsanalyse: similiar categories -->
-@include('partials.displayUpToThreeCategorysHorizontal', ['productCategory' => $similarCategorys])
+    @if($similarCategorys->count() > 0)
+        @include('partials.displayUpToThreeCategorysHorizontal', ['productCategory' => $similarCategorys])
+    @endif
 <!-- End Assoziationsanalyse: similiar categories -->
 
 <!-- Start products in this category -->
