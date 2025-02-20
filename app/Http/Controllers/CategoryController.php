@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\AssociationRuleCat;
 use App\Models\SalesLastMonth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -61,7 +62,25 @@ class CategoryController extends Controller
         // Get trending products
         $trendingProducts = $this->getTrendingProducts($category->product_category_id);
 
-        return view('shop-grid', ['products' => $paginatedProducts, 'trendingProducts' => $trendingProducts, 'categoryName' => $category->name]);
+        $consequentIds = AssociationRuleCat::query()
+        ->join('rule_antecedent_cat as b', 'association_rule_cat.association_rule_cat_id', '=', 'b.association_rule_cat_id')
+        ->join('rule_consequent_cat as c', 'association_rule_cat.association_rule_cat_id', '=', 'c.association_rule_cat_id')
+        ->whereRaw('(SELECT COUNT(DISTINCT b2.product_category_id) FROM rule_antecedent_cat b2 WHERE b2.association_rule_cat_id = association_rule_cat.association_rule_cat_id) = 1')
+        ->where('b.product_category_id', $categoryId)
+        ->distinct()
+        ->pluck('c.product_category_id'); // Pluck gibt eine Collection von IDs zurück
+
+        // Hole nun die entsprechenden Category-Modelle
+        $similarCategorys = ProductCategory::whereIn('product_category_id', $consequentIds)->get();
+
+
+       
+
+        return view('shop-grid',
+        ['products' => $paginatedProducts,
+        'trendingProducts' => $trendingProducts,
+        'categoryName' => $category->name,
+        'similarCategorys' => $similarCategorys]);
     }
 
     private function getProductsFromSubcategories(ProductCategory $category): Collection
