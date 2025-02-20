@@ -81,6 +81,7 @@ class HomePageController extends Controller
 
         // Start New Items
             $newProducts = Product::orderBy('product_id', 'desc')->limit(20)->get();
+            $newProducts = $newProducts->shuffle();
         // End New Items
         return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts'));
     }
