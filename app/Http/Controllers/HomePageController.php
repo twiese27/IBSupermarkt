@@ -16,49 +16,41 @@ class HomePageController extends Controller
             ->limit(20)
             ->get();
 
-        $trendingProducts = Cache::remember('trending_products', 1440, function () {
-            $products = collect();
-            Product::query()
-                ->select('product.*', 'Sales_Last_Month.SALES')
-                ->join('Sales_Last_Month', 'product.product_id', '=', 'Sales_Last_Month.PRODUCT_ID')
-                ->orderByDesc('Sales_Last_Month.SALES')
-                ->chunk(100, function ($chunk) use ($products) {
-                    $products = $products->merge($chunk);
-                });
+        // Start Trending products
+            $trendingProducts = Cache::remember('trending_products', 1440, function () {
+                $products = collect();
+                Product::query()
+                    ->select('product.*', 'Sales_Last_Month.SALES')
+                    ->join('Sales_Last_Month', 'product.product_id', '=', 'Sales_Last_Month.PRODUCT_ID')
+                    ->orderByDesc('Sales_Last_Month.SALES')
+                    ->chunk(100, function ($chunk) use ($products) {
+                        $products = $products->merge($chunk);
+                    });
 
-            return $products->toJson();
-        });
+                return $products->toJson();
+            });
 
-        $trendingProducts = collect(json_decode($trendingProducts));
+            $trendingProducts = collect(json_decode($trendingProducts));
+        // Ende Trending products
 
 
-        // Bestseller abrufen (Top 20 Verkäufe)
-        $bestseller = Cache::remember('bestseller_products', 1440, function () {
-            return Product::query()
-                ->select('product.*', 'Sales_All_Time.sales')
-                ->join('Sales_All_Time', 'product.product_id', '=', 'Sales_All_Time.product_id')
-                ->orderByDesc('Sales_All_Time.sales')
-                ->limit(20)
-                ->inRandomOrder() // Zufällige Reihenfolge für die Auswahl
-                ->limit(3) // 3 zufällige Bestseller-Produkte auswählen
-                ->get();
-        });
-        $minSales = SalesAllTime::orderBy('sales', 'desc')
-        ->limit(20)
-        ->pluck('sales')
-        ->last();
+        // Start Bestseller
+            $minSales = SalesAllTime::orderBy('sales', 'desc')
+            ->limit(20)
+            ->pluck('sales')
+            ->last();
 
-        // Die entsprechenden Produkt-IDs abrufen
-        $newItemIds = SalesAllTime::where('sales', '>=', $minSales)
-        ->pluck('product_id')
-        ->unique(); // Falls es doppelte Einträge gibt, diese entfernen
+            // Die entsprechenden Produkt-IDs abrufen
+            $newItemIds = SalesAllTime::where('sales', '>=', $minSales)
+            ->pluck('product_id')
+            ->unique(); // Falls es doppelte Einträge gibt, diese entfernen
 
+            $bestseller = Product::whereIn('product_id', $newItemIds)->inRandomOrder()->get();
+
+            $bestseller = $bestseller->shuffle();
+        // End Bestseller
         
-
-        $bestseller = Product::whereIn('product_id', $newItemIds)->inRandomOrder()->get();
-
-        $bestseller = $bestseller->shuffle();
-        // Start Insider Tip
+        // Start Insider Tip as list
             $salesAllTime = DB::table('product_to_warehouse as ptw')
                 ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
                 ->whereIn('ptw.product_id', function($query) {
@@ -77,13 +69,19 @@ class HomePageController extends Controller
             $insiderTip = Product::query()
                 ->whereIn('product_id', $insiderTipIds->toArray())
                 ->get();
-        // End Insider Tip
+        // End Insider Tip as list
+
+        // Start Insider Tip big
+            $insiderTipBig = Product::whereIn('product_id', [32362, 32372, 32373, 32381, 32366])
+            ->inRandomOrder()
+            ->first();
+        // End Insider Tip big
 
         // Start New Items
             $newProducts = Product::orderBy('product_id', 'desc')->limit(20)->get();
             $newProducts = $newProducts->shuffle();
         // End New Items
-        return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts'));
+        return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts', 'insiderTipBig'));
     }
 
 }

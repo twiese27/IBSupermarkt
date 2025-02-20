@@ -149,11 +149,11 @@
                                     @endphp
                                     
                                     <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy">
-                                        <img src="{{ $backgroundImage}}" alt="{{ $product->product_name }}" />
+                                        <img src="{{ $backgroundImage}}" alt="{{ $insiderTipBig->product_name }}" />
                                     </a>
                                     <div class="button-head">
                                         <div class="button">
-                                            <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
+                                            <a href="#" class="btn" onclick="addProductToCart('{{ $insiderTipBig->product_id }}')">Add to shopping cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -162,17 +162,11 @@
                                 <div class="content">
                                     <div class="heading-block">
                                         <p class="small-title">Insider Tip</p>
-                                        <h3 class="title">Beatutyful dress for women</h3>
-                                        <p class="text">
-                                            Suspendisse massa leo, vestibulum cursus nulla sit amet,
-                                            frungilla placerat lorem. Cars fermentum, sapien.
-                                        </p>
-                                        <a href="#" class="btn" onclick="addProductToCart('{{ $product->product_id }}')">Add to shopping cart</a>
-
-
-                                        <h1 class="price">$1200 <s>$1890</s></h1>
+                                        <h3 class="title">{{ $insiderTipBig->product_name }}</h3>
+                                        <a href="#" class="btn" onclick="addProductToCart('{{ $insiderTipBig->product_id }}')">Add to shopping cart</a>
+                                        <h1 class="price">{{ $insiderTipBig->retail_price }} € <s>{{ $insiderTipBig->retail_price }} €</s></h1>
                                         <div class="coming-time">
-                                            <div class="clearfix" data-countdown="2025/02/30"></div>
+                                            <div class="clearfix" data-countdown="2025/03/14"></div>
                                         </div>
                                     </div>
                                 </div>
