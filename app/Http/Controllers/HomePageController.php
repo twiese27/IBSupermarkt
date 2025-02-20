@@ -43,27 +43,31 @@ class HomePageController extends Controller
                 ->get();
         });
 
-        // Insider Tip
-        $salesAllTime = DB::table('product_to_warehouse as ptw')
-            ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
-            ->whereIn('ptw.product_id', function($query) {
-                $query->select('product_id')
-                    ->from('Sales_Last_Month')
-                    ->whereRaw('rownum <= 100');
-            })
-            ->groupBy('ptw.product_id')
-            ->orderBy('total_stock')
-            ->get();
+        // Start Insider Tip
+            $salesAllTime = DB::table('product_to_warehouse as ptw')
+                ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
+                ->whereIn('ptw.product_id', function($query) {
+                    $query->select('product_id')
+                        ->from('Sales_Last_Month')
+                        ->whereRaw('rownum <= 100');
+                })
+                ->groupBy('ptw.product_id')
+                ->orderBy('total_stock')
+                ->get();
 
 
-        $topStockProducts = $salesAllTime->sortByDesc('total_stock')->take(20);
-        $insiderTipIds = $topStockProducts->pluck('product_id')->shuffle();
+            $topStockProducts = $salesAllTime->sortByDesc('total_stock')->take(20);
+            $insiderTipIds = $topStockProducts->pluck('product_id')->shuffle();
 
-        $insiderTip = Product::query()
-            ->whereIn('product_id', $insiderTipIds->toArray())
-            ->get();
+            $insiderTip = Product::query()
+                ->whereIn('product_id', $insiderTipIds->toArray())
+                ->get();
+        // End Insider Tip
 
-        return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip'));
+        // Start New Items
+            $newProducts = Product::orderBy('product_id', 'desc')->limit(20)->get();
+        // End New Items
+        return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts'));
     }
 
 }

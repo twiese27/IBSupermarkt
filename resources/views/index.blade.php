@@ -132,7 +132,7 @@
             <!-- End Shop Home List  -->
 
             <!-- Start New Items -->
-                @include('partials.sliderOfFourVisibles', ['products' => $products, 'headerText' => 'New Items', 'labelText' => 'New'])
+                @include('partials.sliderOfFourVisibles', ['products' => $newProducts, 'headerText' => 'New Items', 'labelText' => 'New'])
             
             <!-- End New Items Area -->
             <!-- Start Cowndown Area -->
