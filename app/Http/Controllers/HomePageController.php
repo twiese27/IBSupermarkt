@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\SalesAllTime;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
@@ -42,7 +43,21 @@ class HomePageController extends Controller
                 ->limit(3) // 3 zufällige Bestseller-Produkte auswählen
                 ->get();
         });
+        $minSales = SalesAllTime::orderBy('sales', 'desc')
+        ->limit(20)
+        ->pluck('sales')
+        ->last();
 
+        // Die entsprechenden Produkt-IDs abrufen
+        $newItemIds = SalesAllTime::where('sales', '>=', $minSales)
+        ->pluck('product_id')
+        ->unique(); // Falls es doppelte Einträge gibt, diese entfernen
+
+        
+
+        $bestseller = Product::whereIn('product_id', $newItemIds)->inRandomOrder()->get();
+
+        $bestseller = $bestseller->shuffle();
         // Start Insider Tip
             $salesAllTime = DB::table('product_to_warehouse as ptw')
                 ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))

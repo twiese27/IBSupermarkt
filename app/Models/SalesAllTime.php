@@ -10,7 +10,7 @@ class SalesAllTime extends Model
     use HasFactory;
 
     /** @var string */
-    protected $table = 'Sales_All_TIME';
+    protected $table = 'sales_all_time';
 
     /** @var string */
     protected $primaryKey = 'Sales_All_Time_ID';

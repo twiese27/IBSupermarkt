@@ -121,6 +121,9 @@
                                 </div>
                             </div>
                             <!-- Start Single List  -->
+                            @php
+                                $shuffledBestseller = $bestseller->shuffle(); // Laravel Collection in zufällige Reihenfolge bringen
+                            @endphp
                             @foreach($bestseller->take(3) as $product)
                                 @include('partials.productHorizontal')
                             @endforeach
