@@ -4,39 +4,21 @@
 
 @section('content')
 
-    <!-- Start Area 2 -->
+<!-- Start For You Suggestion Slider -->
     <section class="hero-area4">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="home-slider-4">
                         @php
+                            <!-- TJADE, Lennart hat hier nur das Partial eingebunden. Du wolltest ja, die Produkte raussuchen-->
                             $recommendedProducts = session('recommendedProducts', collect());
                             $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
                             
                         @endphp
 
                         @foreach ($displayProducts as $product)
-                            @php
-                                $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
-                                $imageExists = file_exists(public_path($imagePath));
-                                $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/1160x560';
-                            @endphp
-
-                            <div class="big-content" style="background-image: url('{{ $backgroundImage }}')">
-                                <div class="inner">
-                                    <h4 class="title">{{ $product->product_name }}</h4>
-                                    <p class="des">
-                                        Discover our extensive range of high-quality products, <br />
-                                        carefully selected to meet all your daily needs. From fresh fruits and vegetables to pantry essentials
-                                        <br />and indulgent treats, we’ve got you covered. Shop conveniently online and
-                                        <br />enjoy fast delivery straight to your door – because your satisfaction is our top priority!
-                                    </p>
-                                    <div class="button">
-                                        <a href="{{ route('product', ['id' => $product->product_id]) }}" class="btn">Jetzt Einkaufen</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('partials.sliderElement', ['product' => $product])
                         @endforeach
 
                     </div>
@@ -44,7 +26,7 @@
             </div>
         </div>
     </section>
-    <!--/ End Hero Area 2 -->
+<!--/ End For You Suggestion Slider -->
 
     <!-- Start Produktbereich -->
     
