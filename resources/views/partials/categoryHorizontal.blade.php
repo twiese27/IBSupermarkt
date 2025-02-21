@@ -1,6 +1,6 @@
 <div class="single-list">
     <div class="row">
-        <!--<a href="{{ route('category', ['name' => $productCategory->name]) }}?categoryId={{ $productCategory->product_category_id }}">-->
+        <a href="{{ route('category', ['name' => $productCategory->name]) }}?categoryId={{ $productCategory->product_category_id }}" class="d-flex w-100">
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="list-image overlay">
                     
@@ -18,6 +18,6 @@
                     <h5 class="title">{{$productCategory->name}}</h5>                 
                 </div>
             </div>
-        <!--</a>-->
+        </a>
     </div>
 </div>
