@@ -14,7 +14,7 @@
     <div class="product-details" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20px;">
         <h4 class="title" style="margin-bottom: 10px;">{{ $product->product_name }}</h4>
         <div class="button">
-            <a href="#" class="btn" onclick="addProductToCart({{ $product->product_id }})" style="background: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Add to shopping cart</a>
+            <a href="#" id="BuyButton" class="btn" onclick="addProductToCart({{ $product->product_id }})" >Add to shopping cart</a>
         </div>
     </div>
 </div>

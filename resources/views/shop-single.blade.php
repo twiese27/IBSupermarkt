@@ -71,7 +71,7 @@
                     <!--/ End Input Order -->
                   </div>
                   <div class="add-to-cart">
-                    <button type="submit" class="btn">Add to shopping cart</button>
+                    <button type="submit" id="BuyButton" class="btn">Add to shopping cart</button>
                   </div>
                 </form>
                 <p style="margin-top: 20px;">Category : {{ $category->name }}</p>
@@ -93,7 +93,7 @@
 
 <!-- Start ecofriendly Alternatives -->
   @if($ecofriendlyProducts != null)
-    @include('partials.displayUpToThreeProductsHorizontally', ['products' => $ecofriendlyProducts, 'headerText' => 'Ecofriendly Alternatives'])
+    @include('partials.displayUpToThreeProductsHorizontally', ['productsHorizontal' => $ecofriendlyProducts, 'headerText' => 'Ecofriendly Alternatives'])
   @endif
 <!-- End ecofriendly Alternatives -->
 

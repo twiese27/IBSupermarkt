@@ -178,26 +178,7 @@ Version:1.0
 }
 /* End Preloader */
 
-.btn {
-    position: relative;
-    font-weight: 500;
-    font-size:14px;
-    color: #fff;
-    background: #333;
-    display: inline-block;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    z-index: 5;
-    display: inline-block;
-    padding: 13px 32px;
-    border-radius: 0px;
-    text-transform:uppercase;
-}
-.btn:hover{
-    color:#fff;
-    background:#1622ce;
-}
+
 #scrollUp {
     right: 10px;
     z-index: 33;
@@ -5046,3 +5027,53 @@ Version:1.0
 /*=============================
 	End Favourite Bier
 ===============================*/
+
+.btn {
+    position: relative;
+    font-weight: 500;
+    font-size:14px;
+    color: #fff;
+    background: #333;
+    display: inline-block;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    z-index: 5;
+    display: inline-block;
+    padding: 13px 32px;
+    border-radius: 0px;
+    text-transform:uppercase;
+}
+.btn:hover{
+    color:#fff;
+    background:#1622ce;
+}
+
+#BuyButton {
+    background-color: #0088CC; /* Hintergrundfarbe */
+    color: #ffffff; /* Schriftfarbe */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 13px 32px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#BuyButton:hover {
+    background-color: #333; /* Hintergrundfarbe beim Hover */
+    color: #fff; /* Schriftfarbe beim Hover */
+}
+
+
+#BuyButtonHorizontal {
+    background-color: #0088CC; /* Hintergrundfarbe */
+    color: #ffffff; /* Schriftfarbe */
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#BuyButtonHorizontal:hover {
+    background-color: #333; /* Hintergrundfarbe beim Hover */
+    color: #ffffff; /* Schriftfarbe beim Hover */
+}
