@@ -19,6 +19,48 @@ def close_db_connection(connection):
     if connection:
         connection.close()
 
+def table_exists(table_name):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    """Prüft, ob eine Tabelle in der aktuellen Datenbank existiert."""
+    cursor.execute("""
+        SELECT COUNT(*) FROM all_tables WHERE table_name = :1
+    """, (table_name.upper(),))
+    exists = cursor.fetchone()[0] > 0
+    cursor.close()
+    close_db_connection(connection)
+    return exists
+
+def insert_forecast_results(forecast_df):
+    """Fügt die Vorhersage-Daten in die Oracle-Tabelle ein."""
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    if table_exists("TIME_SERIES_ANALYSIS"):
+
+        insert_sql = """
+            INSERT INTO TIME_SERIES_ANALYSIS (PRODUCT_ID, FORECAST) 
+            VALUES (:1, :2)
+        """
+
+        # Konvertiere DataFrame in eine Liste von Tupeln
+        data_to_insert = [tuple(row) for row in forecast_df[['Product', 'Average_Forecast']].values]
+
+
+        try:
+            cursor.executemany(insert_sql, data_to_insert)  # Mehrere Zeilen auf einmal einfügen
+            connection.commit()
+            print(f"{cursor.rowcount} Zeilen erfolgreich eingefügt.")
+        except oracledb.DatabaseError as e:
+            print(f"Fehler beim Einfügen der Daten: {e}")
+        finally:
+            cursor.close()
+            close_db_connection(connection)
+    else:
+        print("Tabelle TIME_SERIES_ANALYSIS existiert nicht.")
+        cursor.close()
+        close_db_connection(connection)
+
 def get_data():
     # Verbindung herstellen
     connection = get_db_connection()
@@ -33,7 +75,7 @@ def get_data():
                     JOIN product_to_shopping_cart ptsc ON p.product_id = ptsc.product_id 
                     JOIN shopping_cart sc ON ptsc.shopping_cart_id = sc.shopping_cart_id 
                 WHERE 
-                    TRUNC(sc.created_on) BETWEEN TO_DATE('2024-06-16', 'YYYY-MM-DD') 
+                    TRUNC(sc.created_on) BETWEEN TO_DATE('2024-05-30', 'YYYY-MM-DD') 
                                           AND TO_DATE('2024-06-30', 'YYYY-MM-DD') 
                 GROUP BY 
                     p.product_id, 
@@ -100,7 +142,7 @@ def filter_valid_products(df, min_days=14):
     valid_products = product_counts[product_counts >= min_days].index
     return df[df['Product'].isin(valid_products)]
 
-
+#ARIMA -START
 def forecast_sales(df_filtered, forecast_days=7):
     """
     Erstellt eine ARIMA-Prognose für jedes Produkt über `forecast_days` Tage.
@@ -128,27 +170,6 @@ def forecast_sales(df_filtered, forecast_days=7):
             average_forecasts[product] = forecast.mean()
 
     return average_forecasts
-
-def export_forecasts_to_csv(average_forecasts, file_path):
-    """
-    Exportiert die durchschnittlichen Forecasts in eine CSV-Datei.
-
-    :param average_forecasts: Dictionary mit Produkt-IDs und den durchschnittlichen Forecast-Werten
-    :param file_path: Der vollständige Speicherort (Pfad) der CSV-Datei
-    """
-    # Umwandlung des average_forecasts Dictionaries in ein DataFrame
-    df_forecasts = pd.DataFrame(list(average_forecasts.items()), columns=['Product', 'Average_Forecast'])
-
-    # Export der Daten als CSV-Datei
-    df_forecasts.to_csv(file_path, index=False, encoding="utf-8")
-
-    print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
-
-
-from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-import matplotlib.pyplot as plt
-
-
 def generate_acf_pacf(df, num_products=10):
     """
     Berechnet und plottet ACF und PACF für die ersten `num_products` Produkte.
@@ -184,6 +205,7 @@ def generate_acf_pacf(df, num_products=10):
 
             plt.tight_layout()
             plt.show()
+#ARIMA -ENDE
 
 def simple_moving_average_forecast(df, forecast_days=7, window=7):
     """
@@ -195,25 +217,81 @@ def simple_moving_average_forecast(df, forecast_days=7, window=7):
     :return: DataFrame mit den Forecasts
     """
     forecasts = []
+    average_forecasts = []
 
     for product in df['Product'].unique():
         product_data = df[df['Product'] == product].copy()
         product_data = product_data.sort_values(by='Date')
 
-        # Berechnung des gleitenden Durchschnitts
+        # Calculate the moving average
         product_data['SMA'] = product_data['Total_Sold'].rolling(window=window, min_periods=1).mean()
 
-        # Letzten Durchschnittswert nehmen für die Vorhersage
+        # Get the last average value for the forecast
         last_avg = product_data['SMA'].iloc[-1]
 
-        # Forecast für die nächsten Tage
+        # Create future dates for the forecast
         future_dates = pd.date_range(start=product_data['Date'].max() + pd.Timedelta(days=1), periods=forecast_days)
         forecast_df = pd.DataFrame({'Product': product, 'Date': future_dates, 'Forecast': last_avg})
 
         forecasts.append(forecast_df)
 
-    return pd.concat(forecasts, ignore_index=True)
+        # Append the average forecast for this product
+        average_forecasts.append({'Product': product, 'Average_Forecast': last_avg})
 
+    # Combine all forecasts into a single DataFrame
+    all_forecasts = pd.concat(forecasts, ignore_index=True)
+
+    # Create a DataFrame for average forecasts per product
+    df_average_forecasts = pd.DataFrame(average_forecasts)
+
+    return df_average_forecasts
+
+def exponential_smoothing_forecast(df, alpha=0.8, forecast_days=7):
+    """
+    Wendet exponentielle Glättung auf die Verkaufsdaten für jedes Produkt an und erstellt Vorhersagen für die nächsten Tage.
+
+    :param df: DataFrame mit den Spalten ['Product', 'Date', 'Total_Sold']
+    :param alpha: Glättungsfaktor (zwischen 0 und 1)
+    :param forecast_days: Anzahl der Tage, für die eine Vorhersage erstellt werden soll
+    :return: DataFrame mit den Vorhersagen im Format ['Product', 'Date', 'Wert']
+    """
+    forecast_results = []
+    average_forecasts = []
+
+    for product in df['Product'].unique():
+        product_data = df[df['Product'] == product].sort_values(by='Date')
+
+        # Start with the first sales value as the base for smoothing
+        smoothed_values = [product_data.iloc[0]['Total_Sold']]
+
+        # Apply exponential smoothing to the existing data
+        for t in range(1, len(product_data)):
+            smoothed_value = (alpha * product_data.iloc[t]['Total_Sold']) + ((1 - alpha) * smoothed_values[-1])
+            smoothed_values.append(smoothed_value)
+
+        # Forecast for the next 'forecast_days' days
+        last_smoothed_value = smoothed_values[-1]
+        forecast_values = [int(np.round(last_smoothed_value))] * forecast_days  # Forecast as integer
+
+        # Generate future dates for the forecast
+        last_date = product_data['Date'].max()
+        forecast_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=forecast_days, freq='D')
+
+        # Create a list with the forecasts and the corresponding dates
+        for date, forecast in zip(forecast_dates, forecast_values):
+            forecast_results.append({'Product': product, 'Date': date.strftime('%d.%m.%Y'), 'Wert': forecast})
+
+        # Calculate the average forecast for this product
+        average_forecast_value = np.mean(forecast_values)
+        average_forecasts.append({'Product': product, 'Average_Forecast': average_forecast_value})
+
+    # Create a DataFrame from the forecasts
+    df_forecasts = pd.DataFrame(forecast_results)
+
+    # Create a DataFrame for average forecasts per product
+    df_average_forecasts = pd.DataFrame(average_forecasts)
+
+    return df_average_forecasts
 
 def print_forecast_for_product(df_forecast, product_id):
     """
@@ -229,46 +307,15 @@ def print_forecast_for_product(df_forecast, product_id):
     else:
         print(product_forecast)
 
-
-def exponential_smoothing_forecast(df, alpha=0.3, forecast_days=7):
+def export_forecast_to_csv(df_forecasts, file_path):
     """
-    Wendet exponentielle Glättung auf die Verkaufsdaten für jedes Produkt an und erstellt Vorhersagen für die nächsten Tage.
+    Exportiert die Vorhersagen in eine CSV-Datei.
 
-    :param df: DataFrame mit den Spalten ['Product', 'Date', 'Total_Sold']
-    :param alpha: Glättungsfaktor (zwischen 0 und 1)
-    :param forecast_days: Anzahl der Tage, für die eine Vorhersage erstellt werden soll
-    :return: DataFrame mit den Vorhersagen im Format ['Product', 'Date', 'Wert']
+    :param df_forecasts: DataFrame mit den Spalten ['Product', 'Date', 'Wert']
+    :param file_path: Der vollständige Speicherort (Pfad) der CSV-Datei
     """
-    forecast_results = []
-
-    for product in df['Product'].unique():
-        product_data = df[df['Product'] == product].sort_values(by='Date')
-
-        # Starte mit dem ersten Verkaufswert als Basis für die Glättung
-        smoothed_values = [product_data.iloc[0]['Total_Sold']]
-
-        # Exponentielle Glättung auf die vorhandenen Daten anwenden
-        for t in range(1, len(product_data)):
-            smoothed_value = (alpha * product_data.iloc[t]['Total_Sold']) + ((1 - alpha) * smoothed_values[-1])
-            smoothed_values.append(smoothed_value)
-
-        # Prognose für die nächsten 'forecast_days' Tage berechnen
-        last_smoothed_value = smoothed_values[-1]
-        forecast_values = [int(np.round(last_smoothed_value))] * forecast_days  # Vorhersage als ganze Zahl
-
-        # Generiere die zukünftigen Tage für die Vorhersage
-        last_date = product_data['Date'].max()
-        forecast_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=forecast_days, freq='D')
-
-        # Erstelle eine Liste mit den Vorhersagen und den entsprechenden Tagen
-        for date, forecast in zip(forecast_dates, forecast_values):
-            forecast_results.append({'Product': product, 'Date': date.strftime('%d.%m.%Y'), 'Wert': forecast})
-
-    # Erstelle einen DataFrame aus den Vorhersagen
-    df_forecasts = pd.DataFrame(forecast_results)
-
-    return df_forecasts
-
+    df_forecasts.to_csv(file_path, index=False, encoding="utf-8")
+    print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
 
 result = get_data()
 df = load_data(result)
@@ -276,11 +323,13 @@ df_filled = fill_missing_dates(df)
 df_aggregated = aggregate_sales(df_filled)
 #generate_acf_pacf(df_aggregated, num_products=10)
 #df_forecast = simple_moving_average_forecast(df_aggregated, forecast_days=7)
-#print_forecast_for_product(df_forecast, 31)
-forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.3, forecast_days=7)
+#file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
+forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.8, forecast_days=7)
+#insert_forecast_results(forecast_results)
+#export_forecast_to_csv(df_forecast, file_path)
 
 # Ausgabe der Vorhersagen für ein bestimmtes Produkt
-print(forecast_results)
+#(forecast_results)
 
 
 #print(df_aggregated[df_aggregated['Product'] == 0])
@@ -296,53 +345,3 @@ print(forecast_results)
 #    print(f"Durchschnittlicher Forecast für Produkt {product}: {avg_forecast:.2f}")
 #file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
 #export_forecasts_to_csv(average_forecasts, file_path)
-
-
-
-#--------------------------------------------------------------------
-# Plot für alle Produkte
-#plt.figure(figsize=(12, 6))
-
-# Für jede Produkt-ID separat analysieren - Saisonale Dekomposition
-#for product_id, group in df_filtered.groupby("Product"):
-    # Index auf Datum setzen
-    #group = group.set_index("Date")
-
-    # Fehlende Daten mit täglicher Frequenz auffüllen
-    #sales_series = group["Sales"].asfreq("D").interpolate()
-
-    # Saisonale Dekomposition
-    #decomposition = seasonal_decompose(sales_series, model="additive", period=3)
-    #trend = decomposition.trend
-
-    # Trend speichern
-    #trends[product_id] = trend
-
-    # Trend visualisieren
-    #plt.plot(trend, label=f"Produkt {product_id}")
-
-# Diagramm formatieren
-#plt.title("Trendanalyse für verschiedene Produkte")
-#plt.xlabel("Datum")
-#plt.ylabel("Verkaufszahlen")
-#plt.legend()
-#plt.show()
-
-# Korrelationen zwischen Produkten berechnen
-#df_pivot = df_filtered.pivot(index="Date", columns="Product", values="Sales").fillna(0)
-#corr_matrix = df_pivot.corr()
-#print("Korrelationsmatrix zwischen Produkten:")
-#print(corr_matrix)
-
-# ARIMA-Vorhersage für ein Beispielprodukt (z. B. Produkt 8)
-#product_to_forecast = 31
-#sales_series = df_pivot[product_to_forecast].asfreq("D").interpolate()
-
-# ARIMA-Modell anpassen und Prognose erstellen
-#model = ARIMA(sales_series, order=(1, 1, 1))
-#model_fit = model.fit()
-#forecast = model_fit.forecast(steps=7)  # Vorhersage für die nächsten 7 Tage
-#average_forecast = forecast.mean()
-
-#print("7-Tage-Prognose für Produkt {product_to_forecast}:")
-#print(forecast)
