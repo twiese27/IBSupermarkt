@@ -42,13 +42,19 @@
                         <div class="sinlge-bar">
                             @if(\Illuminate\Support\Facades\Auth::check())
                                 <div class="user-info">
-                                    <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o"
-                                                                                            aria-hidden="true"></i></a>
+                                    <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 
                                 </div>
                             @else
                                 <div class="guest-info">
-                                    <a href="{{ route('login') }}" class="single-icon"><i class="fa fa-user-circle-o"
+<!-- Prüfe hier den Status den Kunden auf seinen Status. 
+ profilicon0 ist gold,
+ profilicon1 silver,
+ profilicon2 bronze,
+ profilicon0 schwarz
+  zu definieren in public/css/style.css zeile 1019 ff.
+ -->
+                                    <a href="{{ route('login') }}" id="profilicon0" class="single-icon"><i class="fa fa-user-circle-o"
                                                                                           aria-hidden="true"></i></a>
                                 </div>
                             @endif

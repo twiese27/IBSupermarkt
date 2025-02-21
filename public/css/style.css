@@ -1016,6 +1016,19 @@ Version:1.0
 .header.shop .right-bar .sinlge-bar.top-search a:hover {
     color:#F7941D;
 }
+#profilicon0{
+    color: #ffd700;
+}
+#profilicon1{
+    color: #d0d0d0;
+}
+#profilicon2{
+    color: #bf8970 ;
+}
+#profilicon3{
+    color:#333;
+}
+/* profilicon*/
 .header.shop .right-bar .sinlge-bar .single-icon{
     color:#333;
     font-size:20px;
