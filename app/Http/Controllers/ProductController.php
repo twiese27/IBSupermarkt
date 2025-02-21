@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producer;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductRecommendation;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -31,69 +32,76 @@ class ProductController extends Controller
             ->limit(20)
             ->get();
 
-        //similiar products
-        // Hole das aktuelle Produkt mit ID = 420
-        $currentProduct = Product::where('product_id', $productId)->first();
+        // Start similar Products
+            // Hole das aktuelle Produkt mit ID = 420
+            $currentProduct = Product::where('product_id', $productId)->first();
 
-        if (!$currentProduct) {
-            return collect(); // Falls das Produkt nicht existiert, leere Collection zurückgeben
-        }
-
-        $currentProductName = strtolower($currentProduct->product_name);
-        $categoryId = $currentProduct->product_category_id;
-
-        // Generiere Zeichenfolgen (Substrings der Länge 5 aus dem Produktnamen)
-        $substrings = [];
-        for ($i = 0; $i <= strlen($currentProductName) - 5; $i++) {
-            $substrings[] = substr($currentProductName, $i, 5);
-        }
-
-        // Suche Produkte mit ähnlichem Namen und gleicher Kategorie (aber ohne das aktuelle Produkt)
-        $similarProducts = Product::where('product_category_id', $categoryId)
-            ->where('product_id', '!=', $productId)
-            ->where(function ($query) use ($substrings) {
-                foreach ($substrings as $substring) {
-                    $query->orWhereRaw("LOWER(product_name) LIKE ?", ["%$substring%"]);
-                }
-            })
-            ->get();
-
-        // Alternative produkte hat noch keine query
-        $alternativeProducts = $similarProducts;
-
-
-        // Umweltfreundliche Alternativen
-        if ($product->recyclable_package == 0){
-
-            // Extrahiere mögliche Zeichenfolgen aus dem Produktnamen für den Vergleich
-            $produktName = $product->product_name;
-            $patternChunks = [];
-            $length = mb_strlen($produktName, 'UTF-8');
-
-            for ($i = 0; $i <= $length - 5; $i++) {
-            $patternChunks[] = mb_strtolower(mb_substr($produktName, $i, 5, 'UTF-8'));
+            if (!$currentProduct) {
+                return collect(); // Falls das Produkt nicht existiert, leere Collection zurückgeben
             }
 
-            // Baue die Query auf
-            $ecofriendlyProducts = Product::where('product_category_id', $product->product_category_id)
-            ->where('recyclable_package', 1)
-            ->where('producer_id', '<>', $product->producer_id)
-            ->where(function ($query) use ($patternChunks) {
-                foreach ($patternChunks as $chunk) {
-                    $query->orWhereRaw('LOWER(product_name) LIKE ?', ["%{$chunk}%"]);
+            $currentProductName = strtolower($currentProduct->product_name);
+            $categoryId = $currentProduct->product_category_id;
+
+            // Generiere Zeichenfolgen (Substrings der Länge 5 aus dem Produktnamen)
+            $substrings = [];
+            for ($i = 0; $i <= strlen($currentProductName) - 5; $i++) {
+                $substrings[] = substr($currentProductName, $i, 5);
+            }
+
+            $similarProducts = Product::where('product_category_id', $categoryId)
+                ->where('product_id', '!=', $productId)
+                ->where(function ($query) use ($substrings) {
+                    foreach ($substrings as $substring) {
+                        $query->orWhereRaw("LOWER(product_name) LIKE ?", ["%$substring%"]);
+                    }
+                })
+                ->get();
+        // End similar Products
+
+        // Start Customers Also Bought
+            $consequentIds = ProductRecommendation::where('antecedent_id', $productId)->pluck('consequent_id');
+           
+            $customersAlsoBought = collect(); // Leere Collection als Fallback
+            if ($consequentIds->isNotEmpty()) {
+                $customersAlsoBought = Product::whereIn('product_id', $consequentIds)->inRandomOrder()->get();
+            }
+            
+        // End Customers Also Bought
+
+        // Start ecofriendly Products
+            if ($product->recyclable_package == 0){
+
+                // Extrahiere mögliche Zeichenfolgen aus dem Produktnamen für den Vergleich
+                $produktName = $product->product_name;
+                $patternChunks = [];
+                $length = mb_strlen($produktName, 'UTF-8');
+
+                for ($i = 0; $i <= $length - 5; $i++) {
+                $patternChunks[] = mb_strtolower(mb_substr($produktName, $i, 5, 'UTF-8'));
                 }
-            })
-            ->limit(10)
-            ->get();   
-        } else {
-            $ecofriendlyProducts = null;
-        }
+
+                // Baue die Query auf
+                $ecofriendlyProducts = Product::where('product_category_id', $product->product_category_id)
+                ->where('recyclable_package', 1)
+                ->where('producer_id', '<>', $product->producer_id)
+                ->where(function ($query) use ($patternChunks) {
+                    foreach ($patternChunks as $chunk) {
+                        $query->orWhereRaw('LOWER(product_name) LIKE ?', ["%{$chunk}%"]);
+                    }
+                })
+                ->limit(10)
+                ->get();   
+            } else {
+                $ecofriendlyProducts = null;
+            }
+        // End ecofriendly Products
         return view('shop-single', ['products' => $products,
             'product' => $product,
             'category' => $category,
             'producer' => $producer,
             'similarProducts' => $similarProducts,
-            'alternativeProducts' => $alternativeProducts,
+            'customersAlsoBought' => $customersAlsoBought,
             'ecofriendlyProducts' => $ecofriendlyProducts]);
     }
 

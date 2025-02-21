@@ -16,7 +16,7 @@
               @php
                   $imagePath = "images/product_images/" . str_pad($product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
                   $imageExists = file_exists(public_path($imagePath));
-                  $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/115x115';
+                  $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/512x512';
               @endphp
               <img src="{{$backgroundImage}}" alt="#" />
             </div>
@@ -101,8 +101,11 @@
 @include('partials.sliderOfFourVisibles', ['products' => $similarProducts, 'headerText' => 'Similar Products', 'labelText' => 'Similiar'])
 <!-- End Similar Products -->
 
-<!-- Start Alternatives Products -->
-@include('partials.sliderOfFourVisibles', ['products' => $alternativeProducts, 'headerText' => 'Alternative Products', 'labelText' => 'Alternative'])
-<!-- End Alternatives Products -->
+<!-- Start customers also bought  Products -->
+  @if($customersAlsoBought->count() > 1)
+    @include('partials.sliderOfFourVisibles', ['products' => $customersAlsoBought, 'headerText' => 'Customers Also Bought', 'labelText' => 'none'])
+  @endif
+  
+<!-- End customers also bought Products --> 
 
 @endsection
