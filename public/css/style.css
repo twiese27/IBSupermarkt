@@ -5059,11 +5059,16 @@ Version:1.0
     cursor: pointer;
     text-transform: uppercase;
     transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    align-items: center;
+    justify-content: center;
+    line-height: 25px;
 }
 
 #BuyButton:hover {
     background-color: #333; /* Hintergrundfarbe beim Hover */
     color: #fff; /* Schriftfarbe beim Hover */
+    line-height: 25px;
 }
 
 

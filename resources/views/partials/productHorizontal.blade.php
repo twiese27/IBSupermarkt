@@ -19,9 +19,7 @@
                     <a
                         href="{{ route('product', ['id' => $productHorizontal->product_id]) }}">{{ $productHorizontal->product_name }}</a>
                 </h5>
-                <p id="BuyButtonHorizontal" class="price with-discount">
-                   <a href="#" id="BuyButtonHorizontal" onclick="addProductToCart('{{ $productHorizontal->product_id }}')">{{ $productHorizontal->retail_price }} €</a>
-                </p>
+                <a href="#" class="price with-discount" id="BuyButtonHorizontal" onclick="addProductToCart('{{ $productHorizontal->product_id }}')">{{ $productHorizontal->retail_price }} €</a>
                     
             </div>
         </div>
