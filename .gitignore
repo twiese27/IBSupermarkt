@@ -21,4 +21,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+scripts/association_analysis/__pycache__/association_analysis_categories.cpython-313.pyc
+scripts/association_analysis/__pycache__/association_analysis_products.cpython-313.pyc
 scripts/association_analysis/__pycache__/db_connection.cpython-313.pyc
