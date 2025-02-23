@@ -1,12 +1,7 @@
-# Standard Library Imports
 import random
 import datetime
 from typing import List
-
-# Third Party Imports
 import oracledb
-
-# Local Imports
 from db_connection import get_oracle_connection
 
 def get_db_connection():
@@ -215,7 +210,7 @@ def main():
     Hauptfunktion zum Erstellen oder Löschen von Einkaufswagen.
     Verwaltet die Batch-IDs für die verschiedenen Durchläufe.
     """
-    product_ids = [401, 445, 443]  # Beispiel-Produkt-IDs für Assoziationsanalyse
+    product_ids = [32172, 29382, 32361]  # Beispiel-Produkt-IDs für Assoziationsanalyse
     num_carts = 4500  # Gesamtanzahl der Einkaufswagen
     start_id = 176328  # Start-ID für den ersten Batch
 
