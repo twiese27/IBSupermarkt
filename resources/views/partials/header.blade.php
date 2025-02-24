@@ -76,7 +76,7 @@
                                     @if(count($cartItems) > 0)
                                         @foreach($cartItems as $item)
                                             <li>
-                                                <strong>{{ $item['name'] }}</strong> - Menge: {{ $item['quantity'] }}
+                                                <strong>{{ $item['name'] }}</strong> - Amount: {{ $item['quantity'] }}
                                             </li>
                                         @endforeach
                                     @else
