@@ -4,7 +4,7 @@
 
 @section('content')
 
-<!-- Start For You Suggestion Slider -->
+<!-- Start For You Suggestion Slider, Only when logged in-->
     <section class="hero-area4">
         <div class="container">
             <div class="row">
@@ -27,11 +27,9 @@
             </div>
         </div>
     </section>
-<!--/ End For You Suggestion Slider -->
+<!-- End For You Suggestion Slider, Only when logged in -->
 
-    <!-- Start Produktbereich -->
-    
-    
+<!-- Start Trending Products -->    
     <div class="product-area section">
         <div class="container">
             <div class="row">
@@ -60,8 +58,9 @@
                     </div>
                 </div>
             </div>
+<!-- Ende Trending Products -->    
 
-            <!-- Start Shop Home List  -->
+<!-- Start Insider Tip , Conscious Living, Bestesller  -->
             <section class="shop-home-list section">
                 <div class="container">
                     <div class="row">
@@ -113,12 +112,13 @@
                 </div>
             </section>
             <!-- End Shop Home List  -->
+<!-- End Insider Tip , Conscious Living, Bestesller  -->
 
-            <!-- Start New Items -->
-                @include('partials.sliderOfFourVisibles', ['products' => $newProducts, 'headerText' => 'New Items', 'labelText' => 'New'])
-            
-            <!-- End New Items Area -->
-            <!-- Start Cowndown Area -->
+<!-- Start New Items -->
+    @include('partials.sliderOfFourVisibles', ['products' => $newProducts, 'headerText' => 'New Items', 'labelText' => 'New'])
+<!-- End New Items Area -->
+
+<!-- Start Special Offer -->
             <section class="cown-down">
                 <div class="section-inner">
                     <div class="container-fluid">
@@ -161,9 +161,10 @@
                     </div>
                 </div>
             </section>
-            <!-- /End Cowndown Area -->
+<!-- End Special Offer -->
 
-            <!-- Include Neusletter -->
-        @include('partials.newsletter')
+<!-- Start Include Neusletter -->
+    @include('partials.newsletter')
+<!-- End Include Neusletter -->
 
 @endsection
