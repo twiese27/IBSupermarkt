@@ -5,28 +5,38 @@
 @section('content')
 
 <!-- Start For You Suggestion Slider, Only when logged in-->
-    <section class="hero-area4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="home-slider-4">
-                            <!-- TJADE, Lennart hat hier nur das Partial eingebunden. Du wolltest ja, die Produkte raussuchen-->
+    @if(\Illuminate\Support\Facades\Auth::check())
+    
+        <section class="hero-area4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h1>Recommendations For You</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="home-slider-4">
+                                <!-- TJADE, Lennart hat hier nur das Partial eingebunden. Du wolltest ja, die Produkte raussuchen-->
 
-                        @php
-                            $recommendedProducts = session('recommendedProducts', collect());
-                            $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
-                            
-                        @endphp
+                            @php
+                                $recommendedProducts = session('recommendedProducts', collect());
+                                $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
+                                
+                            @endphp
 
-                        @foreach ($displayProducts as $product)
-                            @include('partials.sliderElement', ['product' => $product])
-                        @endforeach
+                            @foreach ($displayProducts as $product)
+                                @include('partials.sliderElement', ['product' => $product])
+                            @endforeach
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 <!-- End For You Suggestion Slider, Only when logged in -->
 
 <!-- Start Trending Products -->    

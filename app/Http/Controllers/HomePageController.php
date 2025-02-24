@@ -9,6 +9,11 @@ use App\Models\SalesLastMonth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Customer;
+use App\Models\CustomerRecommendation;
+use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
@@ -170,6 +175,21 @@ class HomePageController extends Controller
             $newProducts = $newProducts->shuffle();
         // End New Items
 
+        // Start Recommended Products
+            $recommendedProducts = [];
+            // Start Recommended Products
+            if (Auth::check()) { // Prüft, ob ein Nutzer eingeloggt ist
+            $customer = Auth::user(); // Holt den eingeloggten Nutzer
+
+                if ($customer instanceof Customer) { // Stellt sicher, dass es sich um ein Customer-Modell handelt
+                    $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
+                    $productIds = collect($customerRecommendations)->pluck('suggested_product_id');
+                    $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
+                }
+            }
+// End Recommended Products
+
+        // End Recommended Products
         return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts', 'specialOffer', 'consciousLivingProducts'));
     }
 
