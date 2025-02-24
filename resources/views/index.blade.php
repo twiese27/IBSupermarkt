@@ -131,7 +131,7 @@
                                         $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
                                     @endphp
                                     
-                                    <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy">
+                                    <a href="{{ route('product', ['id' => $specialOffer->product_id]) }}" class="buy">
                                         <img src="{{ $backgroundImage}}" alt="{{ $specialOffer->product_name }}" />
                                     </a>
                                     <div class="button-head">
@@ -147,7 +147,10 @@
                                         <p class="small-title">Special Offer</p>
                                         <h3 class="title">{{ $specialOffer->product_name }}</h3>
                                         <a href="#" class="btn" id="BuyButton" onclick="addProductToCart('{{ $specialOffer->product_id }}')">Add to shopping cart</a>
-                                        <h1 class="price">{{ $specialOffer->retail_price }} € <s>{{ $specialOffer->retail_price }} €</s></h1>
+                                        @php
+                                            $specialOfferIncreasedPrice = $specialOffer->retail_price * 1.2;
+                                        @endphp
+                                        <h1 class="price">{{ $specialOffer->retail_price }} € <s>{{ $specialOfferIncreasedPrice }} €</s></h1>
                                         <div class="coming-time">
                                             <div class="clearfix" data-countdown="2025/03/14"></div>
                                         </div>
