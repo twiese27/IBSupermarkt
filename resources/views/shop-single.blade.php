@@ -92,14 +92,16 @@
 <!--/ End Product Details -->
 
 <!-- Start ecofriendly Alternatives -->
-  @if($ecofriendlyProducts != null)
+  @if(optional($ecofriendlyProducts)->count() > 1)
     @include('partials.displayUpToThreeProductsHorizontally', ['productsHorizontal' => $ecofriendlyProducts, 'headerText' => 'Ecofriendly Alternatives'])
   @endif
 <!-- End ecofriendly Alternatives -->
 
 <!-- Start Similar Products -->
-@include('partials.sliderOfFourVisibles', ['products' => $similarProducts, 'headerText' => 'Similar Products', 'labelText' => 'Similiar'])
-<!-- End Similar Products -->
+  @if($similarProducts->count() > 1)
+    @include('partials.sliderOfFourVisibles', ['products' => $similarProducts, 'headerText' => 'Similar Products', 'labelText' => 'Similiar'])
+  @endif
+  <!-- End Similar Products -->
 
 <!-- Start customers also bought  Products -->
   @if($customersAlsoBought->count() > 1)
