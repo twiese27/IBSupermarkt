@@ -90,12 +90,12 @@ def generate_association_rules(df_encoded):
         DataFrame: Generierte Assoziationsregeln
     """
     print("\nStep 4: Generating association rules...")
-    print("Applying Apriori algorithm (min_support=0.05)...")
-    frequent_itemsets = apriori(df_encoded, min_support=0.05, use_colnames=True)
+    print("Applying Apriori algorithm...")
+    frequent_itemsets = apriori(df_encoded, min_support=0.02, use_colnames=True)
     print(f"Found {len(frequent_itemsets)} frequent itemsets")
 
-    print("Generating association rules (min_confidence=0.2)...")
-    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.2)
+    print("Generating association rules...")
+    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.3)
     rules = rules[rules['lift'] > 1]
     print(f"Generated {len(rules)} valid rules (lift > 1)")
     
