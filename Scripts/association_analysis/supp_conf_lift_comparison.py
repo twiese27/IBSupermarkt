@@ -19,15 +19,15 @@ def get_parameter_ranges(analysis_type):
     """Liefert die passenden Parameterbereiche je nach Analysetyp."""
     if analysis_type == 'p':
         return {
-            'support': [0.005, 0.01, 0.02, 0.03, 0.05, 0.075, 0.1, 0.2],
-            'confidence': [0.1, 0.15, 0.2, 0.3, 0.4, 0.5],
-            'lift': [1.0, 1.2, 1.5, 2.0]
+            'support': [0.005, 0.01, 0.02, 0.03, 0.05],
+            'confidence': [0.1, 0.15, 0.2, 0.25, 0.3, 0.4],
+            'lift': [1.0, 1.5, 2.0]
         }
     else:
         return {
-            'support': [0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3],
+            'support': [0.01, 0.02, 0.05, 0.1, 0.15],
             'confidence': [0.1, 0.15, 0.2, 0.3, 0.4, 0.5],
-            'lift': [1.0, 1.2, 1.5, 2.0]
+            'lift': [1.0, 1.5, 2.0]
         }
 
 def parameter_study(transaction_matrix, analysis_type):
