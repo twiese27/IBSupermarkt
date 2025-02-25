@@ -154,7 +154,7 @@ def main():
     # 5. Assoziationsregeln generieren
     print("\nStep 5: Generating Association Rules")
     print("Calculating rules...")
-    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.25)
+    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.2)
     rules = rules[rules['lift'] > 1]  # Nur relevante Regeln behalten
     print(f"Generated {len(rules)} valid rules (lift > 1)")
     
