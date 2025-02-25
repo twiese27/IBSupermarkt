@@ -67,16 +67,20 @@ def get_data():
     cursor = connection.cursor()
 
     # SQL-Query (abhängig von der Oracle-Version)
-    query = """SELECT p.product_id, p.product_name, TRUNC(sc.created_on) AS sale_date,
-                COUNT(p.product_id) AS sales_count,  -- Anzahl der Einkaufswagen, in denen das Produkt enthalten war
-                SUM(ptsc.total_amount) AS total_sold  -- Summe aller verkauften Einheiten des Produkts
+    query = """SELECT 
+                    p.product_id, 
+                    p.product_name, 
+                    TRUNC(sc.created_on) AS sale_date,
+                    COUNT(p.product_id) AS sales_count,  -- Anzahl der Einkaufswagen, in denen das Produkt enthalten war
+                    SUM(ptsc.total_amount) AS total_sold  -- Summe aller verkauften Einheiten des Produkts
                 FROM 
                     product p 
                     JOIN product_to_shopping_cart ptsc ON p.product_id = ptsc.product_id 
                     JOIN shopping_cart sc ON ptsc.shopping_cart_id = sc.shopping_cart_id 
                 WHERE 
-                    TRUNC(sc.created_on) BETWEEN TO_DATE('2024-05-30', 'YYYY-MM-DD') 
-                                          AND TO_DATE('2024-06-30', 'YYYY-MM-DD') 
+                    TRUNC(sc.created_on) BETWEEN
+                      (SELECT MAX(created_on) FROM Shopping_Cart) - INTERVAL '1' MONTH
+                       AND (SELECT MAX(created_on) FROM Shopping_Cart)
                 GROUP BY 
                     p.product_id, 
                     p.product_name, 
@@ -103,7 +107,7 @@ def load_data(result):
     df['Date'] = pd.to_datetime(df['Date'])  # Datum konvertieren
     return df
 
-def fill_missing_dates(df, start_date="2024-06-16", end_date="2024-06-30"):
+def fill_missing_dates(df, start_date="2024-08-06", end_date="2024-09-06"):
     """
     Erstellt eine vollständige Zeitreihe für jedes Produkt und füllt fehlende Tage mit 0-Werten.
     """
@@ -322,11 +326,11 @@ df = load_data(result)
 df_filled = fill_missing_dates(df)
 df_aggregated = aggregate_sales(df_filled)
 #generate_acf_pacf(df_aggregated, num_products=10)
-#df_forecast = simple_moving_average_forecast(df_aggregated, forecast_days=7)
-#file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
-forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.8, forecast_days=7)
+df_forecast = simple_moving_average_forecast(df_aggregated, forecast_days=7)
+file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
+#forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.8, forecast_days=7)
 #insert_forecast_results(forecast_results)
-#export_forecast_to_csv(df_forecast, file_path)
+export_forecast_to_csv(df_forecast, file_path)
 
 # Ausgabe der Vorhersagen für ein bestimmtes Produkt
 #(forecast_results)
