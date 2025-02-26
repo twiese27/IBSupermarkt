@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\SalesAllTime;
+use App\Models\SalesLastMonth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Customer;
+use App\Models\CustomerRecommendation;
+use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
@@ -18,20 +24,22 @@ class HomePageController extends Controller
             ->get();
 
         // Start Trending products
-            $trendingProducts = Cache::remember('trending_products', 1440, function () {
-                $products = collect();
-                Product::query()
-                    ->select('product.*', 'Sales_Last_Month.SALES')
-                    ->join('Sales_Last_Month', 'product.product_id', '=', 'Sales_Last_Month.PRODUCT_ID')
-                    ->orderByDesc('Sales_Last_Month.SALES')
-                    ->chunk(100, function ($chunk) use ($products) {
-                        $products = $products->merge($chunk);
-                    });
+            $first20Sales = SalesLastMonth::orderBy('sales', 'desc')->take(20)->get();
 
-                return $products->toJson();
-            });
+            $minSales = $first20Sales->last()->sales;
 
-            $trendingProducts = collect(json_decode($trendingProducts));
+            $trendingSalesTies = SalesLastMonth::where('sales', '>=', $minSales)
+                ->orderBy('sales', 'desc')
+                ->get();
+
+            $trendingProductsTies = $trendingSalesTies->pluck('product_id');
+            $first20SalesTies = $first20Sales->pluck('product_id');
+
+
+            $combinedProductIds = $trendingProductsTies->merge($first20SalesTies)->unique();
+            
+            $trendingProducts = Product::whereIn('product_id', $combinedProductIds)->get();
+    
         // Ende Trending products
 
         // Start Conscious Living Products
@@ -166,6 +174,22 @@ class HomePageController extends Controller
             $newProducts = Product::orderBy('product_id', 'desc')->limit(20)->get();
             $newProducts = $newProducts->shuffle();
         // End New Items
+
+        // Start Recommended Products
+            $recommendedProducts = [];
+            // Start Recommended Products
+            if (Auth::check()) { // Prüft, ob ein Nutzer eingeloggt ist
+            $customer = Auth::user(); // Holt den eingeloggten Nutzer
+
+                if ($customer instanceof Customer) { // Stellt sicher, dass es sich um ein Customer-Modell handelt
+                    $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
+                    $productIds = collect($customerRecommendations)->pluck('suggested_product_id');
+                    $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
+                }
+            }
+// End Recommended Products
+
+        // End Recommended Products
         return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts', 'specialOffer', 'consciousLivingProducts'));
     }
 

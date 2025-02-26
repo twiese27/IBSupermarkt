@@ -4,34 +4,42 @@
 
 @section('content')
 
-<!-- Start For You Suggestion Slider -->
-    <section class="hero-area4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="home-slider-4">
-                            <!-- TJADE, Lennart hat hier nur das Partial eingebunden. Du wolltest ja, die Produkte raussuchen-->
+<!-- Start For You Suggestion Slider, Only when logged in-->
+    @if(\Illuminate\Support\Facades\Auth::check())
+    
+        <section class="hero-area4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h1>Recommendations For You</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="home-slider-4">
+                                <!-- TJADE, Lennart hat hier nur das Partial eingebunden. Du wolltest ja, die Produkte raussuchen-->
 
-                        @php
-                            $recommendedProducts = session('recommendedProducts', collect());
-                            $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
-                            
-                        @endphp
+                            @php
+                                $recommendedProducts = session('recommendedProducts', collect());
+                                $displayProducts = Auth::check() ? $recommendedProducts : $products->take(5);
+                                
+                            @endphp
 
-                        @foreach ($displayProducts as $product)
-                            @include('partials.sliderElement', ['product' => $product])
-                        @endforeach
+                            @foreach ($displayProducts as $product)
+                                @include('partials.sliderElement', ['product' => $product])
+                            @endforeach
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-<!--/ End For You Suggestion Slider -->
+        </section>
+    @endif
+<!-- End For You Suggestion Slider, Only when logged in -->
 
-    <!-- Start Produktbereich -->
-    
-    
+<!-- Start Trending Products -->    
     <div class="product-area section">
         <div class="container">
             <div class="row">
@@ -60,8 +68,9 @@
                     </div>
                 </div>
             </div>
+<!-- Ende Trending Products -->    
 
-            <!-- Start Shop Home List  -->
+<!-- Start Insider Tip , Conscious Living, Bestesller  -->
             <section class="shop-home-list section">
                 <div class="container">
                     <div class="row">
@@ -113,12 +122,13 @@
                 </div>
             </section>
             <!-- End Shop Home List  -->
+<!-- End Insider Tip , Conscious Living, Bestesller  -->
 
-            <!-- Start New Items -->
-                @include('partials.sliderOfFourVisibles', ['products' => $newProducts, 'headerText' => 'New Items', 'labelText' => 'New'])
-            
-            <!-- End New Items Area -->
-            <!-- Start Cowndown Area -->
+<!-- Start New Items -->
+    @include('partials.sliderOfFourVisibles', ['products' => $newProducts, 'headerText' => 'New Items', 'labelText' => 'New'])
+<!-- End New Items Area -->
+
+<!-- Start Special Offer -->
             <section class="cown-down">
                 <div class="section-inner">
                     <div class="container-fluid">
@@ -131,7 +141,7 @@
                                         $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
                                     @endphp
                                     
-                                    <a href="{{ route('product', ['id' => $product->product_id]) }}" class="buy">
+                                    <a href="{{ route('product', ['id' => $specialOffer->product_id]) }}" class="buy">
                                         <img src="{{ $backgroundImage}}" alt="{{ $specialOffer->product_name }}" />
                                     </a>
                                     <div class="button-head">
@@ -147,7 +157,10 @@
                                         <p class="small-title">Special Offer</p>
                                         <h3 class="title">{{ $specialOffer->product_name }}</h3>
                                         <a href="#" class="btn" id="BuyButton" onclick="addProductToCart('{{ $specialOffer->product_id }}')">Add to shopping cart</a>
-                                        <h1 class="price">{{ $specialOffer->retail_price }} € <s>{{ $specialOffer->retail_price }} €</s></h1>
+                                        @php
+                                            $specialOfferIncreasedPrice = $specialOffer->retail_price * 1.2;
+                                        @endphp
+                                        <h1 class="price">{{ $specialOffer->retail_price }} € <s>{{ $specialOfferIncreasedPrice }} €</s></h1>
                                         <div class="coming-time">
                                             <div class="clearfix" data-countdown="2025/03/14"></div>
                                         </div>
@@ -158,9 +171,10 @@
                     </div>
                 </div>
             </section>
-            <!-- /End Cowndown Area -->
+<!-- End Special Offer -->
 
-            <!-- Include Neusletter -->
-        @include('partials.newsletter')
+<!-- Start Include Neusletter -->
+    @include('partials.newsletter')
+<!-- End Include Neusletter -->
 
 @endsection
