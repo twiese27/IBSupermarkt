@@ -1,0 +1,205 @@
+=== ÜBERPRÜFUNG DER PARAMETER FÜR KATEGORIEN ===
+Durchgeführt am: 26.02.2025 11:22:59
+
+Support-Wirkung (Itemsets):
+------------------------------------------------------------
+min_support=0.010: 2437 Itemsets
+min_support=0.020: 563 Itemsets (Δ-1874)
+min_support=0.050: 116 Itemsets (Δ-447)
+min_support=0.100:  22 Itemsets (Δ-94)
+min_support=0.150:   7 Itemsets (Δ-15)
+
+Konfidenz-Wirkung bei Support=0.010:
+------------------------------------------------------------
+min_conf=0.10: 7270 Regeln
+  Lift-Analyse für Support=0.010, Konfidenz=0.10:
+  lift >1.0: 7270 Regeln
+  lift >1.5: 5759 Regeln (Δ-1511)
+  lift >2.0: 2774 Regeln (Δ-2985)
+
+min_conf=0.15: 5100 Regeln (Δ-2170)
+  Lift-Analyse für Support=0.010, Konfidenz=0.15:
+  lift >1.0: 5100 Regeln
+  lift >1.5: 4299 Regeln (Δ-801)
+  lift >2.0: 2160 Regeln (Δ-2139)
+
+min_conf=0.20: 3771 Regeln (Δ-1329)
+  Lift-Analyse für Support=0.010, Konfidenz=0.20:
+  lift >1.0: 3771 Regeln
+  lift >1.5: 3274 Regeln (Δ-497)
+  lift >2.0: 1655 Regeln (Δ-1619)
+
+min_conf=0.30: 2547 Regeln (Δ-1224)
+  Lift-Analyse für Support=0.010, Konfidenz=0.30:
+  lift >1.0: 2547 Regeln
+  lift >1.5: 2213 Regeln (Δ-334)
+  lift >2.0: 1003 Regeln (Δ-1210)
+
+min_conf=0.40: 1751 Regeln (Δ-796)
+  Lift-Analyse für Support=0.010, Konfidenz=0.40:
+  lift >1.0: 1751 Regeln
+  lift >1.5: 1530 Regeln (Δ-221)
+  lift >2.0: 521 Regeln (Δ-1009)
+
+min_conf=0.50: 1249 Regeln (Δ-502)
+  Lift-Analyse für Support=0.010, Konfidenz=0.50:
+  lift >1.0: 1249 Regeln
+  lift >1.5: 1128 Regeln (Δ-121)
+  lift >2.0: 301 Regeln (Δ-827)
+
+
+Konfidenz-Wirkung bei Support=0.020:
+------------------------------------------------------------
+min_conf=0.10: 1143 Regeln
+  Lift-Analyse für Support=0.020, Konfidenz=0.10:
+  lift >1.0: 1143 Regeln
+  lift >1.5: 759 Regeln (Δ-384)
+  lift >2.0: 246 Regeln (Δ-513)
+
+min_conf=0.15: 929 Regeln (Δ-214)
+  Lift-Analyse für Support=0.020, Konfidenz=0.15:
+  lift >1.0: 929 Regeln
+  lift >1.5: 654 Regeln (Δ-275)
+  lift >2.0: 221 Regeln (Δ-433)
+
+min_conf=0.20: 758 Regeln (Δ-171)
+  Lift-Analyse für Support=0.020, Konfidenz=0.20:
+  lift >1.0: 758 Regeln
+  lift >1.5: 528 Regeln (Δ-230)
+  lift >2.0: 177 Regeln (Δ-351)
+
+min_conf=0.30: 525 Regeln (Δ-233)
+  Lift-Analyse für Support=0.020, Konfidenz=0.30:
+  lift >1.0: 525 Regeln
+  lift >1.5: 343 Regeln (Δ-182)
+  lift >2.0: 103 Regeln (Δ-240)
+
+min_conf=0.40: 331 Regeln (Δ-194)
+  Lift-Analyse für Support=0.020, Konfidenz=0.40:
+  lift >1.0: 331 Regeln
+  lift >1.5: 208 Regeln (Δ-123)
+  lift >2.0:  40 Regeln (Δ-168)
+
+min_conf=0.50: 251 Regeln (Δ-80)
+  Lift-Analyse für Support=0.020, Konfidenz=0.50:
+  lift >1.0: 251 Regeln
+  lift >1.5: 173 Regeln (Δ-78)
+  lift >2.0:  26 Regeln (Δ-147)
+
+
+Konfidenz-Wirkung bei Support=0.050:
+------------------------------------------------------------
+min_conf=0.10: 104 Regeln
+  Lift-Analyse für Support=0.050, Konfidenz=0.10:
+  lift >1.0: 104 Regeln
+  lift >1.5:  38 Regeln (Δ-66)
+  lift >2.0:   2 Regeln (Δ-36)
+
+min_conf=0.15:  85 Regeln (Δ-19)
+  Lift-Analyse für Support=0.050, Konfidenz=0.15:
+  lift >1.0:  85 Regeln
+  lift >1.5:  33 Regeln (Δ-52)
+  lift >2.0:   2 Regeln (Δ-31)
+
+min_conf=0.20:  70 Regeln (Δ-15)
+  Lift-Analyse für Support=0.050, Konfidenz=0.20:
+  lift >1.0:  70 Regeln
+  lift >1.5:  27 Regeln (Δ-43)
+  lift >2.0:   2 Regeln (Δ-25)
+
+min_conf=0.30:  55 Regeln (Δ-15)
+  Lift-Analyse für Support=0.050, Konfidenz=0.30:
+  lift >1.0:  55 Regeln
+  lift >1.5:  19 Regeln (Δ-36)
+  lift >2.0:   1 Regeln (Δ-18)
+
+min_conf=0.40:  46 Regeln (Δ-9)
+  Lift-Analyse für Support=0.050, Konfidenz=0.40:
+  lift >1.0:  46 Regeln
+  lift >1.5:  16 Regeln (Δ-30)
+  lift >2.0:   1 Regeln (Δ-15)
+
+min_conf=0.50:  38 Regeln (Δ-8)
+  Lift-Analyse für Support=0.050, Konfidenz=0.50:
+  lift >1.0:  38 Regeln
+  lift >1.5:  14 Regeln (Δ-24)
+  lift >2.0:   1 Regeln (Δ-13)
+
+
+Konfidenz-Wirkung bei Support=0.100:
+------------------------------------------------------------
+min_conf=0.10:   6 Regeln
+  Lift-Analyse für Support=0.100, Konfidenz=0.10:
+  lift >1.0:   6 Regeln
+  lift >1.5:   0 Regeln (Δ-6)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.15:   6 Regeln (Δ0)
+  Lift-Analyse für Support=0.100, Konfidenz=0.15:
+  lift >1.0:   6 Regeln
+  lift >1.5:   0 Regeln (Δ-6)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.20:   6 Regeln (Δ0)
+  Lift-Analyse für Support=0.100, Konfidenz=0.20:
+  lift >1.0:   6 Regeln
+  lift >1.5:   0 Regeln (Δ-6)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.30:   5 Regeln (Δ-1)
+  Lift-Analyse für Support=0.100, Konfidenz=0.30:
+  lift >1.0:   5 Regeln
+  lift >1.5:   0 Regeln (Δ-5)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.40:   4 Regeln (Δ-1)
+  Lift-Analyse für Support=0.100, Konfidenz=0.40:
+  lift >1.0:   4 Regeln
+  lift >1.5:   0 Regeln (Δ-4)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.50:   3 Regeln (Δ-1)
+  Lift-Analyse für Support=0.100, Konfidenz=0.50:
+  lift >1.0:   3 Regeln
+  lift >1.5:   0 Regeln (Δ-3)
+  lift >2.0:   0 Regeln (Δ0)
+
+
+Konfidenz-Wirkung bei Support=0.150:
+------------------------------------------------------------
+min_conf=0.10:   2 Regeln
+  Lift-Analyse für Support=0.150, Konfidenz=0.10:
+  lift >1.0:   2 Regeln
+  lift >1.5:   0 Regeln (Δ-2)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.15:   2 Regeln (Δ0)
+  Lift-Analyse für Support=0.150, Konfidenz=0.15:
+  lift >1.0:   2 Regeln
+  lift >1.5:   0 Regeln (Δ-2)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.20:   2 Regeln (Δ0)
+  Lift-Analyse für Support=0.150, Konfidenz=0.20:
+  lift >1.0:   2 Regeln
+  lift >1.5:   0 Regeln (Δ-2)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.30:   2 Regeln (Δ0)
+  Lift-Analyse für Support=0.150, Konfidenz=0.30:
+  lift >1.0:   2 Regeln
+  lift >1.5:   0 Regeln (Δ-2)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.40:   2 Regeln (Δ0)
+  Lift-Analyse für Support=0.150, Konfidenz=0.40:
+  lift >1.0:   2 Regeln
+  lift >1.5:   0 Regeln (Δ-2)
+  lift >2.0:   0 Regeln (Δ0)
+
+min_conf=0.50:   1 Regeln (Δ-1)
+  Lift-Analyse für Support=0.150, Konfidenz=0.50:
+  lift >1.0:   1 Regeln
+  lift >1.5:   0 Regeln (Δ-1)
+  lift >2.0:   0 Regeln (Δ0)
+
