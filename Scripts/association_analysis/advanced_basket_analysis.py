@@ -103,6 +103,8 @@ def save_recommendations_to_db(engine, recommendations_dict):
     with engine.connect() as connection:
         connection.execute(text("DELETE FROM PRODUCT_RECOMMENDATION"))
         
+        recommendation_id = 1
+        
         for source_id, recommendations in recommendations_dict.items():
             for target_id, score in recommendations:
                 connection.execute(
@@ -111,14 +113,16 @@ def save_recommendations_to_db(engine, recommendations_dict):
                     (PRODUCT_RECOMMENDATION_ID, ANTECEDENT_ID, CONSEQUENT_ID, 
                      RECOMMENDATION_SCORE)
                     VALUES 
-                    (RECOMMENDATION_SEQ.NEXTVAL, :source, :target, :score)
+                    (:recommendation_id, :source, :target, :score)
                     """),
                     {
+                        "recommendation_id": recommendation_id,
                         "source": source_id,
                         "target": target_id,
                         "score": float(score)
                     }
                 )
+                recommendation_id += 1
         connection.commit()
 
 def get_all_source_products(engine):
