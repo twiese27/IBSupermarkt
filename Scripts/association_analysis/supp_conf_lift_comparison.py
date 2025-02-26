@@ -31,7 +31,7 @@ def get_parameter_ranges(analysis_type):
         }
 
 def parameter_study(transaction_matrix, analysis_type):
-    """Führt Parameterstudie für Support, Konfidenz und Lift durch."""
+    """Führt Überprüfung der Parameter für Support, Konfidenz und Lift durch."""
     results = {
         'support': [],
         'confidence_by_support': {},
@@ -41,7 +41,7 @@ def parameter_study(transaction_matrix, analysis_type):
     # Parameter je nach Analysetyp wählen
     params = get_parameter_ranges(analysis_type)
     
-    print(f"\n=== PARAMETERSTUDIE FÜR {'PRODUKTE' if analysis_type == 'p' else 'KATEGORIEN'} ===")
+    print(f"\n=== ÜBERPRÜFUNG DER PARAMETER FÜR {'PRODUKTE' if analysis_type == 'p' else 'KATEGORIEN'} ===")
     
     for s in params['support']:
         # Support-Analyse
@@ -70,7 +70,7 @@ def parameter_study(transaction_matrix, analysis_type):
     return results
 
 def save_results_to_file(study_results, analysis_type):
-    """Speichert die Ergebnisse der Parameterstudie in eine Datei."""
+    """Speichert die Ergebnisse des Tests in eine Datei."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"parameter_study_{'products' if analysis_type == 'p' else 'categories'}_{timestamp}.txt"
     filepath = os.path.join(os.path.dirname(__file__), 'results', filename)
@@ -79,7 +79,7 @@ def save_results_to_file(study_results, analysis_type):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     
     with open(filepath, 'w', encoding='utf-8') as f:
-        f.write(f"=== PARAMETERSTUDIE FÜR {'PRODUKTE' if analysis_type == 'p' else 'KATEGORIEN'} ===\n")
+        f.write(f"=== ÜBERPRÜFUNG DER PARAMETER FÜR {'PRODUKTE' if analysis_type == 'p' else 'KATEGORIEN'} ===\n")
         f.write(f"Durchgeführt am: {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}\n\n")
         
         # Support-Analyse
@@ -135,7 +135,7 @@ def main():
     transaction_matrix = pd.DataFrame(encoder.fit_transform(transactions), columns=encoder.columns_)
 
     # Parameterstudie durchführen
-    print("\n=== START PARAMETERSTUDIE ===")
+    print("\n=== START ÜBERPRÜFUNG DER PARAMETER ===")
     study_results = parameter_study(transaction_matrix, analysis_type)
     
     # Ergebnisse in Datei speichern
