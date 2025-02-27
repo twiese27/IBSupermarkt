@@ -13,7 +13,7 @@ class AssociationRuleCat extends Model
     protected $table = 'association_rule_cat';
 
     /** @var string */
-    protected $primaryKey = 'association_rule_cat_id';
+    protected $primaryKey = 'association_rule_category_id';
 
     /** @var bool */
     public $timestamps = false;

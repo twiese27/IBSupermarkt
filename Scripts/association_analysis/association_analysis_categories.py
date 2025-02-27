@@ -119,7 +119,7 @@ def insert_category_rules_to_db(rules, engine):
             rule_id = idx + 1
             connection.execute(
                 text("""INSERT INTO ASSOCIATION_RULE_CAT 
-                    (ASSOCIATION_RULE_CAT_ID, LIFT, CONFIDENCE, SUPPORT) 
+                    (ASSOCIATION_RULE_CATEGORY_ID, LIFT, CONFIDENCE, SUPPORT) 
                     VALUES (:id, :lift, :confidence, :support)"""),
                 {
                     "id": rule_id,
@@ -133,7 +133,7 @@ def insert_category_rules_to_db(rules, engine):
             for ant_idx, cat_id in enumerate(list(rule['antecedents'])):
                 connection.execute(
                     text("""INSERT INTO RULE_ANTECEDENT_CAT 
-                        (ASSOCIATION_RULE_CAT_ID, RULE_ANTECEDENT_CAT_ID, PRODUCT_CATEGORY_ID) 
+                        (ASSOCIATION_RULE_CATEGORY_ID, RULE_ANTECEDENT_CATEGORY_ID, PRODUCT_CATEGORY_ID) 
                         VALUES (:rule_id, :ant_id, :cat_id)"""),
                     {
                         "rule_id": rule_id,
@@ -146,7 +146,7 @@ def insert_category_rules_to_db(rules, engine):
             for cons_idx, cat_id in enumerate(list(rule['consequents'])):
                 connection.execute(
                     text("""INSERT INTO RULE_CONSEQUENT_CAT 
-                        (ASSOCIATION_RULE_CAT_ID, RULE_CONSEQUENT_CAT_ID, PRODUCT_CATEGORY_ID) 
+                        (ASSOCIATION_RULE_CATEGORY_ID, RULE_CONSEQUENT_CATEGORY_ID, PRODUCT_CATEGORY_ID) 
                         VALUES (:rule_id, :cons_id, :cat_id)"""),
                     {
                         "rule_id": rule_id,
