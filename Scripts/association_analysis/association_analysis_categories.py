@@ -50,11 +50,11 @@ def clear_existing_category_rules(engine):
     print("\nStep 2: Clearing existing category rules...")
     with engine.connect() as connection:
         print("- Removing rule consequents...")
-        connection.execute(text("DELETE FROM RULE_CONSEQUENT_CAT"))
+        connection.execute(text("DELETE FROM RULE_CONSEQUENT_CATEGORY"))
         print("- Removing rule antecedents...")
-        connection.execute(text("DELETE FROM RULE_ANTECEDENT_CAT"))
+        connection.execute(text("DELETE FROM RULE_ANTECEDENT_CATEGORY"))
         print("- Removing association rules...")
-        connection.execute(text("DELETE FROM ASSOCIATION_RULE_CAT"))
+        connection.execute(text("DELETE FROM ASSOCIATION_RULE_CATEGORY"))
         connection.commit()
         print("Successfully cleared all existing category rules.")
 
@@ -118,7 +118,7 @@ def insert_category_rules_to_db(rules, engine):
             # Hauptregel einfügen
             rule_id = idx + 1
             connection.execute(
-                text("""INSERT INTO ASSOCIATION_RULE_CAT 
+                text("""INSERT INTO ASSOCIATION_RULE_CATEGORY 
                     (ASSOCIATION_RULE_CATEGORY_ID, LIFT, CONFIDENCE, SUPPORT) 
                     VALUES (:id, :lift, :confidence, :support)"""),
                 {
@@ -132,7 +132,7 @@ def insert_category_rules_to_db(rules, engine):
             # Bedingungen (Antecedents) einfügen
             for ant_idx, cat_id in enumerate(list(rule['antecedents'])):
                 connection.execute(
-                    text("""INSERT INTO RULE_ANTECEDENT_CAT 
+                    text("""INSERT INTO RULE_ANTECEDENT_CATEGORY
                         (ASSOCIATION_RULE_CATEGORY_ID, RULE_ANTECEDENT_CATEGORY_ID, PRODUCT_CATEGORY_ID) 
                         VALUES (:rule_id, :ant_id, :cat_id)"""),
                     {
@@ -145,7 +145,7 @@ def insert_category_rules_to_db(rules, engine):
             # Folgerungen (Consequents) einfügen
             for cons_idx, cat_id in enumerate(list(rule['consequents'])):
                 connection.execute(
-                    text("""INSERT INTO RULE_CONSEQUENT_CAT 
+                    text("""INSERT INTO RULE_CONSEQUENT_CATEGORY
                         (ASSOCIATION_RULE_CATEGORY_ID, RULE_CONSEQUENT_CATEGORY_ID, PRODUCT_CATEGORY_ID) 
                         VALUES (:rule_id, :cons_id, :cat_id)"""),
                     {

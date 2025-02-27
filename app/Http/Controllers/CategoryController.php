@@ -63,9 +63,9 @@ class CategoryController extends Controller
         $trendingProducts = $this->getTrendingProducts($category->product_category_id);
 
         $consequentIds = AssociationRuleCat::query()
-        ->join('rule_antecedent_cat as b', 'association_rule_cat.association_rule_category_id', '=', 'b.association_rule_category_id')
-        ->join('rule_consequent_cat as c', 'association_rule_cat.association_rule_category_id', '=', 'c.association_rule_category_id')
-        ->whereRaw('(SELECT COUNT(DISTINCT b2.product_category_id) FROM rule_antecedent_cat b2 WHERE b2.association_rule_category_id = association_rule_cat.association_rule_category_id) = 1')
+        ->join('rule_antecedent_category as b', 'association_rule_category .association_rule_category_id', '=', 'b.association_rule_category_id')
+        ->join('rule_consequent_category as c', 'association_rule_category .association_rule_category_id', '=', 'c.association_rule_category_id')
+        ->whereRaw('(SELECT COUNT(DISTINCT b2.product_category_id) FROM rule_antecedent_category b2 WHERE b2.association_rule_category_id = association_rule_category.association_rule_category_id) = 1')
         ->where('b.product_category_id', $categoryId)
         ->distinct()
         ->pluck('c.product_category_id'); // Pluck gibt eine Collection von IDs zurück
