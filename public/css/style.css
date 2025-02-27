@@ -1016,6 +1016,14 @@ Version:1.0
 .header.shop .right-bar .sinlge-bar.top-search a:hover {
     color:#F7941D;
 }
+
+/* Profilicon in Farbe
+0 für Gold
+1 für Silber
+2 für Bronze
+3 für Gruen
+4 für Gast
+*/
 #profilicon0{
     color: #ffd700;
 }
@@ -1026,6 +1034,9 @@ Version:1.0
     color: #bf8970 ;
 }
 #profilicon3{
+    color: #2e6930 ;
+}
+#profilicon4{
     color:#333;
 }
 /* profilicon*/
@@ -5094,4 +5105,25 @@ Version:1.0
 #BuyButtonHorizontal:hover {
     background-color: #333; /* Hintergrundfarbe beim Hover */
     color: #ffffff; /* Schriftfarbe beim Hover */
+}
+
+
+#NavBarGold{
+    color: #FFD700;
+}
+
+#NavBarSilber{
+    color: #c0c0c0;
+}
+
+#NavBarBronze{
+    color: #cd7f32;
+}
+
+#NavBarGreen{
+    color: #2e6930;
+}
+
+#NavBarGuest{
+    color: #FFFFFF;
 }
