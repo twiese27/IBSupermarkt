@@ -78,6 +78,7 @@
                         -->
                         <div class="sinlge-bar">
                             @if(\Illuminate\Support\Facades\Auth::check())
+                            TODO: Abfragen des Kundenstatus
                                 <div class="user-info">
                                     @if(1==1)<!--Goldkunde 0-->
                                         <a id="profilicon0" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
@@ -153,10 +154,10 @@
                                             <!-- Statische Menüpunkte -->
                                                 <li><a href="#">Service</a></li>
                                                 <li><a href="#">Kontakt</a></li>
-                                                
+                                                TODO: Abfragen des Kundenstatus und Loginstatus
                                                 <!-- Unterscheidung, je nach Status des Kunden-->
                                                     <!--(\Illuminate\Support\Facades\Auth::check())-->
-                                                    @if(1==1)
+                                                    @if(1==2)
                                                         @if(1==2)<!--Goldkunde 1-->
                                                             <li><a class="startAnimation" id="NavBarGold" href="#">GOLD Status! 20% discount on your next purchase!</a></li>
 
@@ -173,7 +174,7 @@
                                                         @endif
                                                     @else
                                                         <!--Gastkunde 5-->
-                                                        <li><a id="NavBarGuest" href="#">Sign in to receive personalized discounts</a></li>
+                                                        <li><a id="NavBarGuest" href="{{ route('login') }}">Sign in to receive personalized discounts</a></li>
                                                     @endif
                                             </ul>
                                         </div>
