@@ -9,9 +9,6 @@
                 @endphp
                 <img class="default-img" src="{{ $backgroundImage}}" alt="#" />
                 <img class="hover-img" src="{{ $backgroundImage}}" alt="#" />
-                @if($labelText !== 'none')
-                    <span class="out-of-stock">{{$labelText}}</span>
-                @endif
             </a>
             <div class="button-head">
                 <div class="button">
