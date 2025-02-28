@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
+
 
 def get_db_connection():
     """Erstellt eine Verbindung zur Oracle-Datenbank mit SQLAlchemy."""
@@ -133,6 +134,31 @@ def load_data():
     df = pd.concat([df_2023, df_2022]).reset_index(drop=True)
     return df, df_2024
 
+def table_exists(engine, table_name):
+    """Prüft, ob eine Tabelle in der aktuellen Datenbank existiert."""
+    with engine.connect() as connection:
+        result = connection.execute(
+            text("SELECT COUNT(*) FROM all_tables WHERE table_name = :table"),
+            {"table": table_name.upper()}
+        )
+        return result.scalar() > 0
+
+def insert_dataframe(engine, table_name, df):
+    """Fügt eine Pandas DataFrame in eine bestehende Tabelle ein."""
+    if df.empty:
+        print("DataFrame ist leer. Kein Einfügen erforderlich.")
+        return
+
+    with engine.connect() as connection:
+        transaction = connection.begin()
+        try:
+            df.to_sql(table_name, con=engine, if_exists='append', index=False)
+            transaction.commit()
+            print(f"DataFrame erfolgreich in {table_name} eingefügt.")
+        except Exception as e:
+            transaction.rollback()
+            print(f"Fehler beim Einfügen in {table_name}: {e}")
+
 def preprocess_data(df):
     # === Überprüfe auf fehlende Werte ===
     if df.isnull().any().any():
@@ -168,17 +194,48 @@ def make_predictions_and_export(df_2024, model, model_type='linear'):
     predicted_sales_angepasst = np.maximum(y_pred, 0)
     predicted_sales_df = pd.DataFrame({
         'CUSTOMER_ID': df_2024['customer_id'],
-        'predicted_sales': predicted_sales_angepasst
+        'PREDICTED_SALES': predicted_sales_angepasst,
+        'CLUSTER_ID':df_2024['cluster_id']
     })
 
-    file_path = r"path_to_export_file.csv"  # Hier den Pfad anpassen
+    file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"  # Hier den Pfad anpassen
     export_forecast_to_csv(predicted_sales_df, file_path)
 
+    return predicted_sales_df
+
+def assign_cluster(df):
+    """
+    Weist jedem Kunden basierend auf predicted_sales eine Cluster-ID zu.
+
+    Kriterien:
+    1: > 3000€
+    2: > 1000€
+    3: > 500€
+    4: > 100€
+    5: 0-100€
+
+    :param df: DataFrame mit Spalten 'customer_id' und 'predicted_sales'
+    :return: DataFrame mit neuer Spalte 'cluster_id'
+    """
+
+    def get_cluster(sales):
+        if sales > 3000:
+            return 1
+        elif sales > 1000:
+            return 2
+        elif sales > 500:
+            return 3
+        elif sales > 100:
+            return 4
+        else:
+            return 5
+
+    df['cluster_id'] = df['predicted_sales'].apply(get_cluster)
+    return df
 
 def export_forecast_to_csv(df_forecasts, file_path):
     df_forecasts.to_csv(file_path, index=False, encoding="utf-8")
     print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
-
 
 def main():
     df, df_2024 = load_data()
@@ -200,7 +257,14 @@ def main():
 
     # Vorhersagen für 2024
     print("=== Vorhersagen für 2024 (lineares Modell) ===")
-    make_predictions_and_export(df_2024, model, model_type='linear')  # Beispiel für lineares Modell
+    df_2024_features = df_2024[X_train.columns]  # Nur relevante Spalten auswählen
+    df_2024['predicted_sales'] = model.predict(df_2024_features)
+    df_2024 = assign_cluster(df_2024)  # Cluster zuweisen
+    df_2024 = make_predictions_and_export(df_2024, model, model_type='linear')  # Beispiel für lineares Modell
+
+    # Vorhersagen in DB
+    #if table_exists(engine, "REGRESSION_ANALYSIS"):
+    #    insert_dataframe(engine, "REGRESSION_ANALYSIS", df_2024)
 
     # Visualisierung
     plt.figure(figsize=(10, 6))
@@ -215,6 +279,9 @@ def main():
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+
+
 
 
 # Hauptfunktion ausführen
