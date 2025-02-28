@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import oracledb
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 from statsmodels.tsa.arima.model import ARIMA
 import numpy as np
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
@@ -90,13 +92,44 @@ def get_data():
                     sales_count DESC"""
 
     cursor.execute(query)
-
-    results = cursor.fetchall()
+    results = cursor.fetchall()  # Ergebnisse nach dem ersten Query abrufen
 
     # Verbindung schließen
     close_db_connection(connection)
 
-    # Ergebnisse abrufen
+    # Ergebnisse zurückgeben
+    return results
+
+def get_data_test():
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    query_einzeln="""SELECT 
+                    p.product_id, 
+                    p.product_name, 
+                    TRUNC(sc.created_on) AS sale_date,
+                    COUNT(p.product_id) AS sales_count,  -- Anzahl der Einkaufswagen, in denen das Produkt enthalten war
+                    SUM(ptsc.total_amount) AS total_sold  -- Summe aller verkauften Einheiten des Produkts
+                FROM 
+                    product p 
+                    JOIN product_to_shopping_cart ptsc ON p.product_id = ptsc.product_id 
+                    JOIN shopping_cart sc ON ptsc.shopping_cart_id = sc.shopping_cart_id 
+                WHERE 
+                    TRUNC(sc.created_on) BETWEEN
+                      (SELECT MAX(created_on) FROM Shopping_Cart) - INTERVAL '1' MONTH
+                       AND (SELECT MAX(created_on) FROM Shopping_Cart)
+                       AND p.product_id = 444
+                GROUP BY 
+                    p.product_id, 
+                    p.product_name, 
+                    TRUNC(sc.created_on) 
+                ORDER BY 
+                    sale_date DESC, 
+                    sales_count DESC
+    """
+
+    cursor.execute(query_einzeln)
+    results = cursor.fetchall()
+    close_db_connection(connection)
     return results
 
 def load_data(result):
@@ -122,7 +155,6 @@ def fill_missing_dates(df, start_date="2024-08-06", end_date="2024-09-06"):
     df_filled = full_df.merge(df, on=["Product", "Date"], how="left")
 
     # Fehlende Werte mit 0 füllen
-    df_filled["Sales_Count"] = df_filled["Sales_Count"].fillna(0)
     df_filled["Total_Sold"] = df_filled["Total_Sold"].fillna(0)
 
     # Produktnamen wieder hinzufügen
@@ -131,12 +163,6 @@ def fill_missing_dates(df, start_date="2024-08-06", end_date="2024-09-06"):
     # Ergebnis sortieren
     df_filled.sort_values(by=["Product", "Date"], inplace=True)
     return df_filled
-
-def aggregate_sales(df):
-    """
-    Aggregiert die Verkaufszahlen pro Produkt und Tag.
-    """
-    return df.groupby(['Product', 'Date'])['Total_Sold'].sum().reset_index()
 
 def filter_valid_products(df, min_days=14):
     """
@@ -250,7 +276,7 @@ def simple_moving_average_forecast(df, forecast_days=7, window=7):
 
     return df_average_forecasts
 
-def exponential_smoothing_forecast(df, alpha=0.8, forecast_days=7):
+def exponential_smoothing_forecast(df, alpha=0.5, forecast_days=7):
     """
     Wendet exponentielle Glättung auf die Verkaufsdaten für jedes Produkt an und erstellt Vorhersagen für die nächsten Tage.
 
@@ -259,43 +285,106 @@ def exponential_smoothing_forecast(df, alpha=0.8, forecast_days=7):
     :param forecast_days: Anzahl der Tage, für die eine Vorhersage erstellt werden soll
     :return: DataFrame mit den Vorhersagen im Format ['Product', 'Date', 'Wert']
     """
-    forecast_results = []
-    average_forecasts = []
+
+    smoothed_data = {}
 
     for product in df['Product'].unique():
         product_data = df[df['Product'] == product].sort_values(by='Date')
-
-        # Start with the first sales value as the base for smoothing
         smoothed_values = [product_data.iloc[0]['Total_Sold']]
 
-        # Apply exponential smoothing to the existing data
         for t in range(1, len(product_data)):
             smoothed_value = (alpha * product_data.iloc[t]['Total_Sold']) + ((1 - alpha) * smoothed_values[-1])
             smoothed_values.append(smoothed_value)
 
-        # Forecast for the next 'forecast_days' days
-        last_smoothed_value = smoothed_values[-1]
-        forecast_values = [int(np.round(last_smoothed_value))] * forecast_days  # Forecast as integer
+        smoothed_data[product] = smoothed_values
 
-        # Generate future dates for the forecast
-        last_date = product_data['Date'].max()
-        forecast_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=forecast_days, freq='D')
+    return smoothed_data
 
-        # Create a list with the forecasts and the corresponding dates
-        for date, forecast in zip(forecast_dates, forecast_values):
-            forecast_results.append({'Product': product, 'Date': date.strftime('%d.%m.%Y'), 'Wert': forecast})
+def angepasster_forecast_einzeln(smoothed_data):
+    # Features (Zeitpunkte)
+    X = np.arange(len(smoothed_data)).reshape(-1, 1)
+    y = smoothed_data  # Zielvariable
 
-        # Calculate the average forecast for this product
-        average_forecast_value = np.mean(forecast_values)
-        average_forecasts.append({'Product': product, 'Average_Forecast': average_forecast_value})
+    # Polynomiale Features erzeugen (z. B. x²)
+    degree = 3  # 2. Grad (Parabel)
+    poly = PolynomialFeatures(degree=degree)
+    X_poly = poly.fit_transform(X)
 
-    # Create a DataFrame from the forecasts
-    df_forecasts = pd.DataFrame(forecast_results)
+    # Lineare Regression auf polynomiale Features anwenden
+    model = LinearRegression()
+    model.fit(X_poly, y)
 
-    # Create a DataFrame for average forecasts per product
-    df_average_forecasts = pd.DataFrame(average_forecasts)
+    # Zukunftswert-Vorhersage
+    future_X = np.arange(len(smoothed_data) + 5).reshape(-1, 1)  # 5 Werte vorhersagen
+    future_X_poly = poly.transform(future_X)
+    future_y = model.predict(future_X_poly)
 
-    return df_average_forecasts
+    # Vorhersage für x = 37 berechnen
+    x_new = np.array([[35]])  # Stelle x = 35
+    x_new_poly = poly.transform(x_new)  # In polynomiale Features umwandeln
+    y_pred = model.predict(x_new_poly)  # Vorhersage berechnen
+
+    print(f"Vorhersage für x = 35: {y_pred[0]:.2f}")
+
+    # Plot der Daten
+    #plt.scatter(X, data, label="Originaldaten", color="gray", alpha=0.5)
+    #plt.plot(X, smoothed_data, label="Geglättete Daten (EMA)", color="blue")
+    #plt.plot(future_X, future_y, label=f"Forecast (Polynom {degree}. Grades)", color="red", linestyle="dashed")
+    #plt.legend()
+    #plt.xlabel("Zeit")
+    #plt.ylabel("Wert")
+    #plt.show()
+
+def angepasster_forecast(smoothed_data_dict, degree=3, x_value=35):
+    """
+    Erstellt polynomiale Regression, berechnet Vorhersage für x = 35 und visualisiert die Ergebnisse.
+
+    :param smoothed_data_dict: Dictionary mit Produkt als Schlüssel und geglätteten Werten als Listen
+    :param degree: Grad des Polynoms
+    :param x_value: Der x-Wert (z.B. Tag 35), für den eine Vorhersage berechnet wird
+    :return: DataFrame mit den Vorhersagen für jedes Produkt
+    """
+    forecast_results = []
+
+    for product, smoothed_data in smoothed_data_dict.items():
+        X = np.arange(len(smoothed_data)).reshape(-1, 1)
+        y = smoothed_data
+
+        poly = PolynomialFeatures(degree=degree)
+        X_poly = poly.fit_transform(X)
+
+        model = LinearRegression()
+        model.fit(X_poly, y)
+
+        # Zukunftswert-Vorhersage für x = 35
+        x_new = np.array([[x_value]])
+        x_new_poly = poly.transform(x_new)
+        y_pred = model.predict(x_new_poly)
+
+        # 🔹 Keine negativen Werte zulassen
+        forecast_value = max(y_pred[0], 0)
+
+        forecast_results.append({"Product_Id": product, "Forecast": forecast_value})
+
+        # 🔹 Plot erstellen
+        #future_X = np.arange(len(smoothed_data) + 5).reshape(-1, 1)  # 5 zusätzliche Punkte vorhersagen
+        #future_X_poly = poly.transform(future_X)
+        #future_y = model.predict(future_X_poly)
+
+        #plt.figure(figsize=(8, 5))
+        #plt.plot(X, y, label="Geglättete Werte", color="blue", alpha=0.6)
+        #plt.plot(future_X, future_y, label=f"Forecast (Polynom {degree}. Grades)", color="green", linestyle="dashed")
+        #plt.scatter(x_value, y_pred, color="red", label=f"Vorhersage für x={x_value}", zorder=3, s=100)
+
+        #plt.title(f"Produkt: {product} - Prognose für Tag {x_value}")
+        #plt.xlabel("Zeit")
+        #plt.ylabel("Wert")
+        #plt.legend()
+        #plt.grid(True)
+        #plt.show()
+
+    return pd.DataFrame(forecast_results)
+
 
 def print_forecast_for_product(df_forecast, product_id):
     """
@@ -324,28 +413,12 @@ def export_forecast_to_csv(df_forecasts, file_path):
 result = get_data()
 df = load_data(result)
 df_filled = fill_missing_dates(df)
-df_aggregated = aggregate_sales(df_filled)
-#generate_acf_pacf(df_aggregated, num_products=10)
-df_forecast = simple_moving_average_forecast(df_aggregated, forecast_days=7)
+# Exponentielle Glättung
+smoothed_values_dict = exponential_smoothing_forecast(df_filled)
+
+# Forecast für Tag 35
+df_forecast = angepasster_forecast(smoothed_values_dict)
+
 file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
-#forecast_results = exponential_smoothing_forecast(df_aggregated, alpha=0.8, forecast_days=7)
-#insert_forecast_results(forecast_results)
 export_forecast_to_csv(df_forecast, file_path)
 
-# Ausgabe der Vorhersagen für ein bestimmtes Produkt
-#(forecast_results)
-
-
-#print(df_aggregated[df_aggregated['Product'] == 0])
-
-#df_filtered = filter_valid_products(df_aggregated)
-
-# ARIMA Forecast
-#average_forecasts = forecast_sales(df_aggregated)
-#print(average_forecasts)
-
-# Ergebnisse ausgeben
-#for product, avg_forecast in average_forecasts.items():
-#    print(f"Durchschnittlicher Forecast für Produkt {product}: {avg_forecast:.2f}")
-#file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
-#export_forecasts_to_csv(average_forecasts, file_path)
