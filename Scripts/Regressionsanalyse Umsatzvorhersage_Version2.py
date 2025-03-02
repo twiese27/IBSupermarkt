@@ -22,6 +22,8 @@ def get_db_connection():
 engine = get_db_connection()
 
 def load_data():
+    """Lädt die Daten aus der Datenbank"""
+    #Trainingsdaten aus dem Jahr 2023
     query_2023 = """
     WITH Letztes_Kaufdatum AS (
         SELECT MAX(CREATED_ON) AS LetztesKaufdatum
@@ -47,7 +49,6 @@ def load_data():
         CROSS JOIN Letztes_Kaufdatum lkd
     WHERE 
         sc.DELETED_ON IS NULL
-        --AND sc.CREATED_ON BETWEEN ADD_MONTHS(lkd.LetztesKaufdatum, -12) AND lkd.LetztesKaufdatum
         AND sc.CREATED_ON BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-12-31', 'YYYY-MM-DD')
         AND sc.customer_id != 12346838
     GROUP BY 
@@ -57,6 +58,7 @@ def load_data():
         gesamtumsatz DESC
     """
 
+    #Trainingsdaten aus dem Jahr 2022
     query_2022 = """
     WITH Letztes_Kaufdatum AS (
         SELECT MAX(CREATED_ON) AS LetztesKaufdatum
@@ -92,6 +94,7 @@ def load_data():
         gesamtumsatz DESC
     """
 
+    #Daten für die die Vorhersagen getroffen werden aus dem Jahr 2024
     query_2024="""
     WITH Letztes_Kaufdatum AS (
         SELECT MAX(CREATED_ON) AS LetztesKaufdatum
@@ -144,7 +147,7 @@ def table_exists(engine, table_name):
         return result.scalar() > 0
 
 def insert_dataframe(engine, table_name, df):
-    """Fügt eine Pandas DataFrame in eine bestehende Tabelle ein."""
+    """Fügt einen DataFrame in eine bestehende Tabelle ein."""
     if df.empty:
         print("DataFrame ist leer. Kein Einfügen erforderlich.")
         return
@@ -160,37 +163,39 @@ def insert_dataframe(engine, table_name, df):
             print(f"Fehler beim Einfügen in {table_name}: {e}")
 
 def preprocess_data(df):
-    # === Überprüfe auf fehlende Werte ===
+    """Überprüft, ob fehlende Werte bei Datensätzen vorhanden sind"""
     if df.isnull().any().any():
         print("Warnung: Es gibt fehlende Werte. Diese werden jetzt entfernt.")
         df = df.dropna()  # Entfernen von Zeilen mit fehlenden Werten
     return df
 
 def define_features_and_target(df):
-    # === Features und Zielvariable definieren ===
-    # Anpassung an die tatsächlichen Spaltennamen
+    """Festlegen der Einfluss- und Zielvariablen"""
     X = df[
-        ['kaufhaeufigkeit', 'durchschnittlicher_warenkorbwert', 'age']]  # Stelle sicher, dass diese Spalten existieren
+        ['kaufhaeufigkeit', 'durchschnittlicher_warenkorbwert', 'age']]
     y = df['gesamtumsatz']
     return X, y
 
 def train_linear_model(X_train, y_train):
+    """Trainieren des Linearen Modells anhand der Daten"""
     model = LinearRegression()
     model.fit(X_train, y_train)
     return model
 
 def evaluate_model(y_true, y_pred):
+    """Evaluieren des Modells anhand verschiedener Kennzahlen"""
     mae = mean_absolute_error(y_true, y_pred)
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     r2 = r2_score(y_true, y_pred)
     return mae, rmse, r2
 
-def make_predictions_and_export(df_2024, model, model_type='linear'):
+def make_predictions(df_2024, model):
+    """Treffen der Vorhersagewerte für die Daten aus 2024"""
     customer_features = df_2024[['kaufhaeufigkeit', 'durchschnittlicher_warenkorbwert', 'age']].values
 
-    if model_type == 'linear':
-        y_pred = model.predict(customer_features)
+    y_pred = model.predict(customer_features)
 
+    #Verhindern von negativen Werten
     predicted_sales_angepasst = np.maximum(y_pred, 0)
     predicted_sales_df = pd.DataFrame({
         'CUSTOMER_ID': df_2024['customer_id'],
@@ -198,14 +203,11 @@ def make_predictions_and_export(df_2024, model, model_type='linear'):
         'CLUSTER_ID':df_2024['cluster_id']
     })
 
-    file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"  # Hier den Pfad anpassen
-    export_forecast_to_csv(predicted_sales_df, file_path)
-
     return predicted_sales_df
 
 def assign_cluster(df):
     """
-    Weist jedem Kunden basierend auf predicted_sales eine Cluster-ID zu.
+    Zuweisen einer Cluster_Id zu jedem Kunden, je nach Umsatzvorehersage
 
     Kriterien:
     1: > 3000€
@@ -233,11 +235,8 @@ def assign_cluster(df):
     df['cluster_id'] = df['predicted_sales'].apply(get_cluster)
     return df
 
-def export_forecast_to_csv(df_forecasts, file_path):
-    df_forecasts.to_csv(file_path, index=False, encoding="utf-8")
-    print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
-
 def main():
+    #Daten aus der Datenbank laden und Variablen für das Modell definieren
     df, df_2024 = load_data()
     df = preprocess_data(df)
     X, y = define_features_and_target(df)
@@ -245,43 +244,38 @@ def main():
     # Daten in Trainings- und Testset aufteilen (80% Training, 20% Test)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Trainiere das lineare Modell
-    print("=== Lineares Modell ===")
+    # Trainieren des lineare Modells
     model = train_linear_model(X_train, y_train)
     y_pred_linear = model.predict(X_test)
 
-    # Modelle bewerten
+    # Modell bewerten
     mae_linear, rmse_linear, r2_linear = evaluate_model(y_test, y_pred_linear)
 
     print(f"Lineares Modell - MAE: {mae_linear}, RMSE: {rmse_linear}, R²: {r2_linear}")
 
-    # Vorhersagen für 2024
-    print("=== Vorhersagen für 2024 (lineares Modell) ===")
-    df_2024_features = df_2024[X_train.columns]  # Nur relevante Spalten auswählen
+    # Vorhersagen des Umsatzes für die Daten aus 2024
+    df_2024_features = df_2024[X_train.columns]
     df_2024['predicted_sales'] = model.predict(df_2024_features)
-    df_2024 = assign_cluster(df_2024)  # Cluster zuweisen
-    df_2024 = make_predictions_and_export(df_2024, model, model_type='linear')  # Beispiel für lineares Modell
+    df_2024 = assign_cluster(df_2024)
+    df_2024 = make_predictions(df_2024, model)
 
-    # Vorhersagen in DB
-    #if table_exists(engine, "REGRESSION_ANALYSIS"):
-    #    insert_dataframe(engine, "REGRESSION_ANALYSIS", df_2024)
+    # Vorhersagen in DB einfügen
+    if table_exists(engine, "REGRESSION_ANALYSIS"):
+        insert_dataframe(engine, "REGRESSION_ANALYSIS", df_2024)
 
-    # Visualisierung
-    plt.figure(figsize=(10, 6))
-    plt.scatter(y_test, y_pred_linear, color='blue', label="Lineares Modell", alpha=0.7)
+    # Visualisierung, bei Bedarf
+    #plt.figure(figsize=(10, 6))
+    #plt.scatter(y_test, y_pred_linear, color='blue', label="Lineares Modell", alpha=0.7)
 
-    plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle="--", color="green",
-             label="Perfekte Übereinstimmung")
-    plt.xlabel("Tatsächlicher Umsatz (€)")
-    plt.ylabel("Vorhergesagter Umsatz (€)")
-    plt.title("Vergleich der Vorhersagen")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-
-
-
+    #plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle="--", color="green",
+    #         label="Perfekte Übereinstimmung")
+    #plt.xlabel("Tatsächlicher Umsatz (€)")
+    #plt.ylabel("Vorhergesagter Umsatz (€)")
+    #plt.title("Vergleich der Vorhersagen")
+    #plt.legend()
+    #plt.grid(True)
+    #plt.tight_layout()
+    #plt.show()
 
 
 # Hauptfunktion ausführen
