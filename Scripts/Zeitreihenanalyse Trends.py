@@ -3,28 +3,26 @@ import matplotlib.pyplot as plt
 import oracledb
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
-from statsmodels.tsa.arima.model import ARIMA
 import numpy as np
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-import warnings
-warnings.filterwarnings("ignore", message="Non-stationary starting autoregressive parameters")
-
 
 def get_db_connection():
+    """Stellt die Verbindung zur Datenbank her"""
     return oracledb.connect(
         user="ONLINESHOP_PROD",
         password="onlineshop_prod",
-        dsn="134.106.62.237:1521/dbprak2"  # Beispiel: "localhost:1521/XEPDB1"
+        dsn="134.106.62.237:1521/dbprak2"
     )
 
 def close_db_connection(connection):
+    """Schließt die Verbindung zur Datenbank"""
     if connection:
         connection.close()
 
 def table_exists(table_name):
+    """Prüft, ob eine Tabelle in der aktuellen Datenbank existiert."""
     connection = get_db_connection()
     cursor = connection.cursor()
-    """Prüft, ob eine Tabelle in der aktuellen Datenbank existiert."""
     cursor.execute("""
         SELECT COUNT(*) FROM all_tables WHERE table_name = :1
     """, (table_name.upper(),))
@@ -45,12 +43,11 @@ def insert_forecast_results(forecast_df):
             VALUES (:1, :2)
         """
 
-        # Konvertiere DataFrame in eine Liste von Tupeln
-        data_to_insert = [tuple(row) for row in forecast_df[['Product', 'Average_Forecast']].values]
-
+        # Konvertiert den DataFrame in eine Liste von Tupeln
+        data_to_insert = [tuple(row) for row in forecast_df[['Product_Id', 'Forecast']].values]
 
         try:
-            cursor.executemany(insert_sql, data_to_insert)  # Mehrere Zeilen auf einmal einfügen
+            cursor.executemany(insert_sql, data_to_insert)
             connection.commit()
             print(f"{cursor.rowcount} Zeilen erfolgreich eingefügt.")
         except oracledb.DatabaseError as e:
@@ -64,11 +61,12 @@ def insert_forecast_results(forecast_df):
         close_db_connection(connection)
 
 def get_data():
+    """Daten aus der Datenbank holen"""
     # Verbindung herstellen
     connection = get_db_connection()
     cursor = connection.cursor()
 
-    # SQL-Query (abhängig von der Oracle-Version)
+    # SQL-Query
     query = """SELECT 
                     p.product_id, 
                     p.product_name, 
@@ -92,44 +90,12 @@ def get_data():
                     sales_count DESC"""
 
     cursor.execute(query)
-    results = cursor.fetchall()  # Ergebnisse nach dem ersten Query abrufen
+    results = cursor.fetchall()
 
     # Verbindung schließen
     close_db_connection(connection)
 
     # Ergebnisse zurückgeben
-    return results
-
-def get_data_test():
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    query_einzeln="""SELECT 
-                    p.product_id, 
-                    p.product_name, 
-                    TRUNC(sc.created_on) AS sale_date,
-                    COUNT(p.product_id) AS sales_count,  -- Anzahl der Einkaufswagen, in denen das Produkt enthalten war
-                    SUM(ptsc.total_amount) AS total_sold  -- Summe aller verkauften Einheiten des Produkts
-                FROM 
-                    product p 
-                    JOIN product_to_shopping_cart ptsc ON p.product_id = ptsc.product_id 
-                    JOIN shopping_cart sc ON ptsc.shopping_cart_id = sc.shopping_cart_id 
-                WHERE 
-                    TRUNC(sc.created_on) BETWEEN
-                      (SELECT MAX(created_on) FROM Shopping_Cart) - INTERVAL '1' MONTH
-                       AND (SELECT MAX(created_on) FROM Shopping_Cart)
-                       AND p.product_id = 444
-                GROUP BY 
-                    p.product_id, 
-                    p.product_name, 
-                    TRUNC(sc.created_on) 
-                ORDER BY 
-                    sale_date DESC, 
-                    sales_count DESC
-    """
-
-    cursor.execute(query_einzeln)
-    results = cursor.fetchall()
-    close_db_connection(connection)
     return results
 
 def load_data(result):
@@ -164,119 +130,7 @@ def fill_missing_dates(df, start_date="2024-08-06", end_date="2024-09-06"):
     df_filled.sort_values(by=["Product", "Date"], inplace=True)
     return df_filled
 
-def filter_valid_products(df, min_days=14):
-    """
-    Filtert nur Produkte, die mindestens `min_days` Tage verkauft wurden.
-    """
-    product_counts = df['Product'].value_counts()
-    valid_products = product_counts[product_counts >= min_days].index
-    return df[df['Product'].isin(valid_products)]
-
-#ARIMA -START
-def forecast_sales(df_filtered, forecast_days=7):
-    """
-    Erstellt eine ARIMA-Prognose für jedes Produkt über `forecast_days` Tage.
-    Gibt die durchschnittlichen Forecasts pro Produkt zurück.
-    """
-    average_forecasts = {}
-
-    for product in df_filtered['Product'].unique():
-        # Daten für das aktuelle Produkt filtern
-        product_data = df_filtered[df_filtered['Product'] == product]
-
-        # Falls das Produkt mindestens 14 Werte hat
-        if len(product_data) >= 14:
-            # Zeitreihe für das Produkt
-            sales_series = product_data.set_index('Date')['Total_Sold'].asfreq('D').interpolate()
-
-            # ARIMA-Modell (Beispiel: (1, 1, 0))
-            model = ARIMA(sales_series, order=(1, 1, 0))
-            model_fit = model.fit()
-
-            # Forecast für die nächsten Tage
-            forecast = model_fit.forecast(steps=forecast_days)
-
-            # Durchschnitt des Forecasts berechnen
-            average_forecasts[product] = forecast.mean()
-
-    return average_forecasts
-def generate_acf_pacf(df, num_products=10):
-    """
-    Berechnet und plottet ACF und PACF für die ersten `num_products` Produkte.
-    Die Anzahl der Lags wird dynamisch basierend auf der Anzahl der Datenpunkte angepasst.
-    """
-    # Wir gehen davon aus, dass df eine Zeitreihe pro Produkt enthält
-    unique_products = df['Product'].unique()[:num_products]  # Begrenzung auf die ersten `num_products` Produkte
-
-    for product in unique_products:
-        product_data = df[df['Product'] == product]
-
-        # Um sicherzustellen, dass wir eine Zeitreihe haben, setzen wir das Datum als Index
-        product_data.set_index('Date', inplace=True)
-
-        # Überprüfe, ob es genug Daten gibt, um ACF und PACF zu berechnen
-        if len(product_data) >= 14:
-            # Berechne die maximal zulässige Anzahl von Lags (50% der Anzahl der Datenpunkte)
-            max_lags = len(product_data) // 2  # max 50% der Datenpunkte als Lags
-
-            # Falls mehr als 20 Lags erforderlich sind, setze die Lags auf den kleineren Wert
-            lags = min(max_lags, 20)
-
-            # ACF und PACF berechnen und plotten
-            plt.figure(figsize=(12, 6))
-
-            plt.subplot(121)
-            plot_acf(product_data['Total_Sold'], lags=lags, ax=plt.gca())
-            plt.title(f"ACF für Produkt {product}")
-
-            plt.subplot(122)
-            plot_pacf(product_data['Total_Sold'], lags=lags, ax=plt.gca())
-            plt.title(f"PACF für Produkt {product}")
-
-            plt.tight_layout()
-            plt.show()
-#ARIMA -ENDE
-
-def simple_moving_average_forecast(df, forecast_days=7, window=7):
-    """
-    Erstellt eine Vorhersage basierend auf dem einfachen Durchschnitt der letzten X Tage.
-
-    :param df: DataFrame mit den Spalten ['Product', 'Date', 'Total_Sold']
-    :param forecast_days: Anzahl der Tage, für die prognostiziert wird
-    :param window: Anzahl der Tage, über die der Durchschnitt gebildet wird
-    :return: DataFrame mit den Forecasts
-    """
-    forecasts = []
-    average_forecasts = []
-
-    for product in df['Product'].unique():
-        product_data = df[df['Product'] == product].copy()
-        product_data = product_data.sort_values(by='Date')
-
-        # Calculate the moving average
-        product_data['SMA'] = product_data['Total_Sold'].rolling(window=window, min_periods=1).mean()
-
-        # Get the last average value for the forecast
-        last_avg = product_data['SMA'].iloc[-1]
-
-        # Create future dates for the forecast
-        future_dates = pd.date_range(start=product_data['Date'].max() + pd.Timedelta(days=1), periods=forecast_days)
-        forecast_df = pd.DataFrame({'Product': product, 'Date': future_dates, 'Forecast': last_avg})
-
-        forecasts.append(forecast_df)
-
-        # Append the average forecast for this product
-        average_forecasts.append({'Product': product, 'Average_Forecast': last_avg})
-
-    # Combine all forecasts into a single DataFrame
-    all_forecasts = pd.concat(forecasts, ignore_index=True)
-
-    # Create a DataFrame for average forecasts per product
-    df_average_forecasts = pd.DataFrame(average_forecasts)
-
-    return df_average_forecasts
-
-def exponential_smoothing_forecast(df, alpha=0.5, forecast_days=7):
+def exponential_smoothing(df, alpha=0.5):
     """
     Wendet exponentielle Glättung auf die Verkaufsdaten für jedes Produkt an und erstellt Vorhersagen für die nächsten Tage.
 
@@ -300,42 +154,7 @@ def exponential_smoothing_forecast(df, alpha=0.5, forecast_days=7):
 
     return smoothed_data
 
-def angepasster_forecast_einzeln(smoothed_data):
-    # Features (Zeitpunkte)
-    X = np.arange(len(smoothed_data)).reshape(-1, 1)
-    y = smoothed_data  # Zielvariable
-
-    # Polynomiale Features erzeugen (z. B. x²)
-    degree = 3  # 2. Grad (Parabel)
-    poly = PolynomialFeatures(degree=degree)
-    X_poly = poly.fit_transform(X)
-
-    # Lineare Regression auf polynomiale Features anwenden
-    model = LinearRegression()
-    model.fit(X_poly, y)
-
-    # Zukunftswert-Vorhersage
-    future_X = np.arange(len(smoothed_data) + 5).reshape(-1, 1)  # 5 Werte vorhersagen
-    future_X_poly = poly.transform(future_X)
-    future_y = model.predict(future_X_poly)
-
-    # Vorhersage für x = 37 berechnen
-    x_new = np.array([[35]])  # Stelle x = 35
-    x_new_poly = poly.transform(x_new)  # In polynomiale Features umwandeln
-    y_pred = model.predict(x_new_poly)  # Vorhersage berechnen
-
-    print(f"Vorhersage für x = 35: {y_pred[0]:.2f}")
-
-    # Plot der Daten
-    #plt.scatter(X, data, label="Originaldaten", color="gray", alpha=0.5)
-    #plt.plot(X, smoothed_data, label="Geglättete Daten (EMA)", color="blue")
-    #plt.plot(future_X, future_y, label=f"Forecast (Polynom {degree}. Grades)", color="red", linestyle="dashed")
-    #plt.legend()
-    #plt.xlabel("Zeit")
-    #plt.ylabel("Wert")
-    #plt.show()
-
-def angepasster_forecast(smoothed_data_dict, degree=3, x_value=35):
+def generating_forecast(smoothed_data_dict, degree=3, x_value=35):
     """
     Erstellt polynomiale Regression, berechnet Vorhersage für x = 35 und visualisiert die Ergebnisse.
 
@@ -361,12 +180,13 @@ def angepasster_forecast(smoothed_data_dict, degree=3, x_value=35):
         x_new_poly = poly.transform(x_new)
         y_pred = model.predict(x_new_poly)
 
-        # 🔹 Keine negativen Werte zulassen
+        # Keine negativen Werte zulassen
         forecast_value = max(y_pred[0], 0)
 
         forecast_results.append({"Product_Id": product, "Forecast": forecast_value})
 
-        # 🔹 Plot erstellen
+        """Visualisierung bei Bedarf möglich"""
+        # Plot erstellen
         #future_X = np.arange(len(smoothed_data) + 5).reshape(-1, 1)  # 5 zusätzliche Punkte vorhersagen
         #future_X_poly = poly.transform(future_X)
         #future_y = model.predict(future_X_poly)
@@ -385,40 +205,22 @@ def angepasster_forecast(smoothed_data_dict, degree=3, x_value=35):
 
     return pd.DataFrame(forecast_results)
 
-
-def print_forecast_for_product(df_forecast, product_id):
-    """
-    Gibt den Forecast für eine bestimmte Produkt-ID aus.
-
-    :param df_forecast: DataFrame mit den Spalten ['Product', 'Date', 'Forecast']
-    :param product_id: Die ID des gewünschten Produkts
-    """
-    product_forecast = df_forecast[df_forecast['Product'] == product_id]
-
-    if product_forecast.empty:
-        print(f"Keine Forecast-Daten für Produkt-ID {product_id} gefunden.")
-    else:
-        print(product_forecast)
-
-def export_forecast_to_csv(df_forecasts, file_path):
-    """
-    Exportiert die Vorhersagen in eine CSV-Datei.
-
-    :param df_forecasts: DataFrame mit den Spalten ['Product', 'Date', 'Wert']
-    :param file_path: Der vollständige Speicherort (Pfad) der CSV-Datei
-    """
-    df_forecasts.to_csv(file_path, index=False, encoding="utf-8")
-    print(f"CSV-Datei erfolgreich gespeichert unter: {file_path}")
-
+#Datenabfrage aus der Datenbank
 result = get_data()
+
+#Laden der Daten aus der Datenbank in ein DataFrame
 df = load_data(result)
+
+#Auffüllen der fehlenden Tage mit Einträgen mit Null-Werten
 df_filled = fill_missing_dates(df)
+
 # Exponentielle Glättung
-smoothed_values_dict = exponential_smoothing_forecast(df_filled)
+smoothed_values_dict = exponential_smoothing(df_filled)
 
 # Forecast für Tag 35
-df_forecast = angepasster_forecast(smoothed_values_dict)
+df_forecast = generating_forecast(smoothed_values_dict)
 
-file_path = r"C:\Users\carag\Desktop\average_forecasts.csv"
-export_forecast_to_csv(df_forecast, file_path)
+#Einfügend der Daten in die Datenbank
+if table_exists("TIME_SERIES_ANALYSIS"):
+    insert_forecast_results(df_forecast)
 
