@@ -32,16 +32,10 @@
                   <span class="discount">{{$product->retail_price}} €</span>
                 </p>
                 <p class="description">
-                This outstanding product, produced by the renowned manufacturer {{ $producer->name }},
-                  falls under the category {{ $category->name }}. It is characterized by its high quality and
-                  reliability. Each package contains {{ $product->units_per_case }} carefully packed
-                  units,
-                  known for their durability and efficiency. In addition, this product is
-                  {{ $product->recyclable_package ? 'in an environmentally friendly, recyclable package' : 'unfortunately not recyclable' }},
-                  which makes it an excellent choice for environmentally conscious consumers. With a gross weight of
-                  {{ $product->gross_weight }} kg, it offers a robust and stable solution for your needs.
-                  It is also {{ $product->low_fat ? 'low fat' : 'not low fat' }}, which makes it a healthier option
-                  for nutrition-conscious customers.
+                Discover the high-quality {{ $category->name }} from {{ $producer->name }}, designed to meet your expectations in both functionality and sustainability. This product comes with a {{ $product->gross_weight }} kg total weight, ensuring optimal use for various needs.
+                We care about environmental responsibility—this product {{ $product->recyclable_package ? 'features a recyclable package' : 'does not come in a recyclable package' }}, aligning with sustainable consumption choices.
+                Additionally, for those mindful of dietary aspects, this product {{ $product->low_fat ? 'is a low-fat option, making it a great choice for a balanced lifestyle' : 'does not fall under the low-fat category' }}.
+                Experience a product that combines quality, thoughtful packaging, and essential attributes to fit seamlessly into your lifestyle.
                 </p>
               </div>
               <!--/ End Description -->
@@ -76,7 +70,6 @@
                 </form>
                 <p style="margin-top: 20px;">Category : {{ $category->name }}</p>
                 <p>Producer : {{ $producer->name }} </p>
-                <p>Units per case: {{ $product->units_per_case }}</p>
                 <p>Recycblabel package: {{ $product->recyclable_package ? 'Yes' : 'No' }}</p>
                 <p>Weight: {{ $product->gross_weight }} kg</p>
                 <p>Low fat: {{ $product->low_fat ? 'Yes' : 'No' }}</p>
