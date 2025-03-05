@@ -1018,25 +1018,29 @@ Version:1.0
 }
 
 /* Profilicon in Farbe
-0 für Gold
-1 für Silber
-2 für Bronze
-3 für Gruen
-4 für Gast
+1 für Gold
+2 für Silber
+3 für Bronze
+4 für Gruen
+5 für Orange
+6 für Gast
 */
-#profilicon0{
+#profilicon1{
     color: #ffd700;
 }
-#profilicon1{
+#profilicon2{
     color: #d0d0d0;
 }
-#profilicon2{
+#profilicon3{
     color: #bf8970 ;
 }
-#profilicon3{
+#profilicon4{
     color: #2e6930 ;
 }
-#profilicon4{
+#profilicon5{
+    color:#0004ff;
+}
+#profilicon6{
     color:#333;
 }
 /* profilicon*/
@@ -5125,5 +5129,9 @@ Version:1.0
 }
 
 #NavBarGuest{
-    color: #FFFFFF;
+    color: #ffffff;
+}
+
+#NavBarBlue{
+    color: #0004ff;
 }

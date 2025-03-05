@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\ClusterCustomerRegressionData;
 use App\Models\CustomerRecommendation;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -76,12 +77,20 @@ class LoginController extends Controller
             $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
             $productIds = collect($customerRecommendations)->pluck('suggested_product_id');
             $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
-            session()->put('recommendedProducts', $recommendedProducts);
-        
+            
+            // Ermittle die Cluster-ID des Customers mithilfe des Modells
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customer->customer_id)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+            
+            session()->put([
+                'recommendedProducts' => $recommendedProducts,
+                'clusterCustomerId' => $clusterCustomerId
+            ]);
+            
             return redirect()->intended('/');
         }
         
-
+        
         return back()->withErrors(['password' => 'Falsches Passwort']);
     }
     public function getCustomerRecommendations($customer_id)

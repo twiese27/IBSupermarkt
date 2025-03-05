@@ -80,20 +80,35 @@
                             @if(\Illuminate\Support\Facades\Auth::check())
                             <!--TODO: Abfragen des Kundenstatus-->
                                 <div class="user-info">
-                                    @if(1==1)<!--Goldkunde 0-->
-                                        <a id="profilicon0" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    @elseif(1==2)<!--Silberkunde 2-->
+                                @php
+                                    $clusterCustomerId = null;
+                                    if (session()->has('clusterCustomerId')) {
+                                        $clusterCustomerId = session('clusterCustomerId');
+                                    } else {
+                                        $clusterCustomerId = null;
+                                    }
+                                @endphp
+                                    @if($clusterCustomerId == 1)<!--Goldkunde 1-->
                                         <a id="profilicon1" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    @elseif(1==2)<!--Bronzekunde 3-->
+                                    
+                                    @elseif($clusterCustomerId == 2)<!--Silberkunde 2-->
                                         <a id="profilicon2" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    @elseif(1==1)<!--Greenkunde 4-->
+                                    
+                                    @elseif($clusterCustomerId == 3)<!--Bronzekunde 3-->
                                         <a id="profilicon3" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    
+                                    @elseif($clusterCustomerId == 4)<!--Greenkunde 4-->
+                                        <a id="profilicon4" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    
+                                    @elseif($clusterCustomerId == 5)<!--Bluekunde 5-->
+                                        <a id="profilicon5" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    
                                     @endif
                                     </div>
                             @else
                                 <div class="guest-info">
 
-                                    <a href="{{ route('login') }}" id="profilicon4" class="single-icon"><i class="fa fa-user-circle-o"
+                                    <a href="{{ route('login') }}" id="profilicon6" class="single-icon"><i class="fa fa-user-circle-o"
                                                                                           aria-hidden="true"></i></a>
                                 </div>
                             @endif
@@ -156,21 +171,26 @@
                                                 <li><a href="#">Kontakt</a></li>
                                                 <!--TODO: Abfragen des Kundenstatus und Loginstatus-->
                                                 <!-- Unterscheidung, je nach Status des Kunden-->
-                                                    <!--(\Illuminate\Support\Facades\Auth::check())-->
-                                                    @if(1==1)
-                                                        @if(1==2)<!--Goldkunde 1-->
+                                                <!--(\Illuminate\Support\Facades\Auth::check())-->
+                                                
+                                                    @if(\Illuminate\Support\Facades\Auth::check())
+                                                        @if($clusterCustomerId == 1)<!--Goldkunde 1: Bulk Buyer (high cart value, few purchases)-->
                                                             <li><a class="startAnimation" id="NavBarGold" href="#">GOLD Status! 20% discount on your next purchase!</a></li>
 
-                                                        
-                                                        @elseif(1==2)<!--Silberkunde 2-->
+                                                        @elseif($clusterCustomerId == 2)<!--Silberkunde 2: Brokie (few orders, low amounts)-->
                                                             <li><a class="startAnimation" id="NavBarSilber" href="#">SILVER Status! 15% discount on your next purchase!</a></li>
 
                                                         
-                                                        @elseif(1==2)<!--Bronzekunde 3-->
+                                                        @elseif($clusterCustomerId == 3)<!--Bronzekunde 3: Cash Cow (high order volume, frequent purchases)-->
                                                             <li><a class="startAnimation" id="NavBarBronze" href="#">BRONCE Status! 10% discount on your next purchase!</a></li>
 
-                                                        @elseif(1==1)<!--Greenkunde 4-->
+                                                        @elseif($clusterCustomerId == 4)<!--Greenkunde 4: Occasional Buyer (irregular purchase behavior)-->
                                                             <li><a class="startAnimation" id="NavBarGreen" href="#">GREEN Status! 5% discount on your next purchase!</a></li>
+                                                        
+                                                        @elseif($clusterCustomerId == 5)<!--Bluekunde 5: Inactive Customer (hardly or no purchases)-->
+                                                            <li><a class="startAnimation" id="NavBarBlue" href="#">ORANGE Status! 1% discount on your next purchase!</a></li>
+                                                        @else
+                                                            <li><a class="startAnimationSad" id="NavBarGuest" href="#">Yet No Status!</a></li>
                                                         @endif
                                                     @else
                                                         <!--Gastkunde 5-->
@@ -203,7 +223,8 @@
                 "NavBarGold": "#FFD700",
                 "NavBarSilber": "#C0C0C0",
                 "NavBarBronze": "#CD7F32",
-                "NavBarGreen": "#2E6930"
+                "NavBarGreen": "#2E6930",
+                "NavBarBlue": "#0004ff",
             };
 
             // Get the ID of the clicked element and determine the color
@@ -228,5 +249,48 @@
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".startAnimationSad").forEach(button => {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            const container = document.querySelector(".confetti-container");
+
+            for (let i = 0; i < 50; i++) {
+                let raindrop = document.createElement("div");
+                raindrop.classList.add("raindrop");
+
+                // Set random positions
+                raindrop.style.left = Math.random() * 100 + "vw";
+                raindrop.style.top = "-5vh"; // Start above the viewport
+                raindrop.style.animationDuration = (Math.random() * 1 + 1.5) + "s";
+
+                container.appendChild(raindrop);
+
+                // Remove raindrop after animation
+                setTimeout(() => raindrop.remove(), 5000);
+            }
+        });
+    });
+});
+
+// CSS für die Regenanimation hinzufügen
+const style = document.createElement("style");
+style.innerHTML = `
+    .raindrop {
+        position: fixed;
+        width: 3px;
+        height: 10px;
+        background-color: #6495ED;
+        opacity: 0.7;
+        animation: raindrop-fall linear infinite;
+    }
+
+    @keyframes raindrop-fall {
+        to {
+            transform: translateY(100vh);
+        }
+    }
+`;
+document.head.appendChild(style);
 
 </script>
