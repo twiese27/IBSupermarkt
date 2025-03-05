@@ -58,13 +58,9 @@
               <!-- Error Inner -->
               <div class="error-inner">
                 <h2>404</h2>
-                <h5>Diese Seite kann nicht gefunden werden</h5>
-                <p>
-                  Oops! Die Seite, die Sie suchen, existiert nicht. Sie könnte
-                  verschoben oder gelöscht worden sein.
-                </p>
+                <h5>Can't load this page.</h5>
                 <div class="button">
-                  <a href="/html/must-have/index4.html" class="btn">Zur Startseite</a>
+                  <a href="/html/must-have/index4.html" class="btn">Back to Homepage</a>
                 </div>
               </div>
               <!--/ End Error Inner -->
