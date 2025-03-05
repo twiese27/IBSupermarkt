@@ -1,6 +1,5 @@
 {
   "private": true,
-  "type": "commonjs",
   "scripts": {
     "dev": "npm run development",
     "development": "mix",
@@ -10,10 +9,16 @@
     "prod": "npm run production",
     "production": "mix --production"
   },
+  "presets": [
+    "@babel/preset-env"
+  ],
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
     "@popperjs/core": "^2.11.6",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.4",
+    "babel-loader": "^10.0.0",
     "bootstrap": "^5.2.3",
     "concurrently": "^9.0.1",
     "laravel-mix": "^6.0.49",

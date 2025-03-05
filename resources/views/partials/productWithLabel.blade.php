@@ -10,9 +10,6 @@
             alt="{{ $product->product_name }}" />
               <img class="hover-img" src="{{ $backgroundImage }}"
             alt="{{ $product->product_name }}" />
-            @if($labelText != 'empty')
-                <span class="out-of-stock">{{$labelText}}</span>
-            @endif
         </a>
             <div class="button-head">
                 <div class="button">

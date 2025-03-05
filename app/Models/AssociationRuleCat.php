@@ -10,10 +10,10 @@ class AssociationRuleCat extends Model
     use HasFactory;
 
     /** @var string */
-    protected $table = 'association_rule_cat';
+    protected $table = 'association_rule_category';
 
     /** @var string */
-    protected $primaryKey = 'association_rule_cat_id';
+    protected $primaryKey = 'association_rule_category_id';
 
     /** @var bool */
     public $timestamps = false;

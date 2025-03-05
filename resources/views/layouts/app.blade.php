@@ -44,7 +44,7 @@
     {{--    @vite(['resources/sass/app.scss', 'resources/js/app.js'])--}}
 </head>
 <body class="js">
-
+<div class="confetti-container"></div>
 <!-- Header -->
 @include('partials.header')
 

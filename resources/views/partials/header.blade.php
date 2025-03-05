@@ -1,3 +1,33 @@
+<style>
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+
 <header class="header shop">
     <div class="middle-inner">
         <div class="container">
@@ -39,22 +69,31 @@
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
+                         <!-- Prüfe hier den Status den Kunden auf seinen Status. 
+                            profilicon0 ist gold,
+                            profilicon1 silver,
+                            profilicon2 bronze,
+                            profilicon3 gruen
+                            zu definieren in public/css/style.css zeile 1019 ff.
+                        -->
                         <div class="sinlge-bar">
                             @if(\Illuminate\Support\Facades\Auth::check())
+                            <!--TODO: Abfragen des Kundenstatus-->
                                 <div class="user-info">
-                                    <a href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-
-                                </div>
+                                    @if(1==1)<!--Goldkunde 0-->
+                                        <a id="profilicon0" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    @elseif(1==2)<!--Silberkunde 2-->
+                                        <a id="profilicon1" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    @elseif(1==2)<!--Bronzekunde 3-->
+                                        <a id="profilicon2" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    @elseif(1==1)<!--Greenkunde 4-->
+                                        <a id="profilicon3" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                    @endif
+                                    </div>
                             @else
                                 <div class="guest-info">
-<!-- Prüfe hier den Status den Kunden auf seinen Status. 
- profilicon0 ist gold,
- profilicon1 silver,
- profilicon2 bronze,
- profilicon0 schwarz
-  zu definieren in public/css/style.css zeile 1019 ff.
- -->
-                                    <a href="{{ route('login') }}" id="profilicon0" class="single-icon"><i class="fa fa-user-circle-o"
+
+                                    <a href="{{ route('login') }}" id="profilicon4" class="single-icon"><i class="fa fa-user-circle-o"
                                                                                           aria-hidden="true"></i></a>
                                 </div>
                             @endif
@@ -115,6 +154,28 @@
                                             <!-- Statische Menüpunkte -->
                                                 <li><a href="#">Service</a></li>
                                                 <li><a href="#">Kontakt</a></li>
+                                                <!--TODO: Abfragen des Kundenstatus und Loginstatus-->
+                                                <!-- Unterscheidung, je nach Status des Kunden-->
+                                                    <!--(\Illuminate\Support\Facades\Auth::check())-->
+                                                    @if(1==1)
+                                                        @if(1==2)<!--Goldkunde 1-->
+                                                            <li><a class="startAnimation" id="NavBarGold" href="#">GOLD Status! 20% discount on your next purchase!</a></li>
+
+                                                        
+                                                        @elseif(1==2)<!--Silberkunde 2-->
+                                                            <li><a class="startAnimation" id="NavBarSilber" href="#">SILVER Status! 15% discount on your next purchase!</a></li>
+
+                                                        
+                                                        @elseif(1==2)<!--Bronzekunde 3-->
+                                                            <li><a class="startAnimation" id="NavBarBronze" href="#">BRONCE Status! 10% discount on your next purchase!</a></li>
+
+                                                        @elseif(1==1)<!--Greenkunde 4-->
+                                                            <li><a class="startAnimation" id="NavBarGreen" href="#">GREEN Status! 5% discount on your next purchase!</a></li>
+                                                        @endif
+                                                    @else
+                                                        <!--Gastkunde 5-->
+                                                        <li><a id="NavBarGuest" href="{{ route('login') }}">Sign in to receive personalized discounts</a></li>
+                                                    @endif
                                             </ul>
                                         </div>
                                     </div>
@@ -129,3 +190,43 @@
         <!--/ End Header Inner -->
 </header>
 <!--/ End Header -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".startAnimation").forEach(button => {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            const container = document.querySelector(".confetti-container");
+
+            // Define color mapping based on the ID of the clicked element
+            const colorMap = {
+                "NavBarGold": "#FFD700",
+                "NavBarSilber": "#C0C0C0",
+                "NavBarBronze": "#CD7F32",
+                "NavBarGreen": "#2E6930"
+            };
+
+            // Get the ID of the clicked element and determine the color
+            const confettiColor = colorMap[this.id] || "#FFFFFF"; // Default to white if not found
+
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+
+                // Set random positions and apply the selected color
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = Math.random() * 50 + "vh"; 
+                confetti.style.backgroundColor = confettiColor;
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+                container.appendChild(confetti);
+
+                // Remove confetti after animation
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        });
+    });
+});
+
+
+</script>
