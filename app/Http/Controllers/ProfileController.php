@@ -35,7 +35,10 @@ class ProfileController
                 'SHOPPING_CART.SHOPPING_CART_ID'
             )
             ->where('CUSTOMER_ID', '=', $customer->customer_id)
+            ->orderBy('SHOPPING_ORDER.SHOPPING_CART_ID', 'DESC')
+            ->limit(10)
             ->get();
+
 
         foreach ($carts as $cart) {
             $order = [
