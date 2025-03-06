@@ -10,9 +10,8 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-12">
                     <div class="login-form">
-                        <h2>Registrieren</h2>
-                        <p>Werde Teil der IBSupermarkt Community</p>
-
+                        <h2>Register</h2>
+                        
                         <!-- Formular -->
                         <form class="form" method="POST" action="{{ route('register') }}">
                         @csrf <!-- CSRF-Schutz für Laravel -->
@@ -20,9 +19,9 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Vorname<span>*</span></label>
+                                        <label>Forename<span>*</span></label>
                                         <input type="text" name="forename" class="form-control @error('forename') is-invalid @enderror"
-                                               value="{{ old('forename') }}" placeholder="Leonardo" required />
+                                               value="{{ old('forename') }}" placeholder="John" required />
 
                                         @error('forename')
                                         <span class="invalid-feedback" role="alert">
@@ -34,9 +33,9 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Zweiter Vorname</label>
+                                        <label>Middle Name</label>
                                         <input type="text" name="middle_name" class="form-control @error('middle_name') is-invalid @enderror"
-                                               value="{{ old('middle_name') }}" placeholder="Di" />
+                                               value="{{ old('middle_name') }}" placeholder="F." />
 
                                         @error('middle_name')
                                         <span class="invalid-feedback" role="alert">
@@ -48,9 +47,9 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Nachname<span>*</span></label>
+                                        <label>Lastname<span>*</span></label>
                                         <input type="text" name="lastname" class="form-control @error('lastname') is-invalid @enderror"
-                                               value="{{ old('lastname') }}" placeholder="Caprio" required />
+                                               value="{{ old('lastname') }}" placeholder="Doe" required />
 
                                         @error('lastname')
                                         <span class="invalid-feedback" role="alert">
@@ -62,7 +61,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Straße</label>
+                                        <label>Street</label>
                                         <input type="text" name="street" class="form-control @error('street') is-invalid @enderror"
                                                value="{{ old('street') }}" placeholder="Wallstreet" />
 
@@ -76,7 +75,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Hausnummer</label>
+                                        <label>House Number</label>
                                         <input type="text" name="house_number" class="form-control @error('house_number') is-invalid @enderror"
                                                value="{{ old('house_number') }}" placeholder="1" />
 
@@ -90,7 +89,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Postleitzahl<span>*</span></label>
+                                        <label>Postal Code<span>*</span></label>
                                         <input type="text" name="postal_code" class="form-control @error('postal_code') is-invalid @enderror"
                                                value="{{ old('postal_code') }}" placeholder="10005" required />
 
@@ -104,7 +103,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Stadt</label>
+                                        <label>City</label>
                                         <input type="text" name="city" class="form-control @error('city') is-invalid @enderror"
                                                value="{{ old('city') }}" placeholder="New York" />
 
@@ -118,7 +117,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Land</label>
+                                        <label>Country</label>
                                         <input type="text" name="country" class="form-control @error('country') is-invalid @enderror"
                                                value="{{ old('country') }}" placeholder="USA" />
 
@@ -146,7 +145,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Geburtsdatum</label>
+                                        <label>Birth Date</label>
                                         <input type="date" name="birth_date" class="form-control @error('birth_date') is-invalid @enderror"
                                                value="{{ old('birth_date') }}" />
 
@@ -160,9 +159,9 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>E-Mail-Adresse<span>*</span></label>
+                                        <label>E-Mail-Address<span>*</span></label>
                                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                               value="{{ old('email') }}" placeholder="Leonardo.Di@Caprio.com" required />
+                                               value="{{ old('email') }}" placeholder="John.Doe@example.com" required />
 
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -174,7 +173,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Passwort<span>*</span></label>
+                                        <label>Password<span>*</span></label>
                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                                                placeholder="********" required />
 
@@ -188,16 +187,33 @@
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Passwort bestätigen<span>*</span></label>
+                                        <label>Confirm Password<span>*</span></label>
                                         <input type="password" name="password_confirmation" class="form-control"
                                                placeholder="********" required />
                                     </div>
                                 </div>
 
                                 <div class="col-12">
+                                    <label>Favourite Beer</label>
+                                    <div class="form-group" id="favorite_beer">
+                                    <select name="favorite_beer" >
+                                        <option value="Heineken1">Heineken</option>
+                                        <option value="Heineken2">Heineken</option>
+                                        <option value="Heineken3">Heineken</option>
+                                        <option value="Heineken4">Heineken</option>
+                                        <option value="Heineken5">Heineken</option>
+                                        <option value="Heineken6">Heineken</option>
+                                        <option value="Heineken7">Heineken</option>
+                                        <option value="Oettinger">Öttinger</option>
+                                        <option value="Andere Ploere">Other plonk</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button class="btn btn-primary" type="submit">Registrieren</button>
-                                        <a href="{{ route('login') }}" class="btn btn-secondary">Anmelden</a>
+                                        <button class="btn btn-primary" type="submit">Register</button>
+                                        <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
                                     </div>
                                 </div>
                             </div>
