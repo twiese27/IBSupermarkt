@@ -70,15 +70,15 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                          <!-- Prüfe hier den Status den Kunden auf seinen Status. 
-                            profilicon0 ist gold,
-                            profilicon1 silver,
-                            profilicon2 bronze,
-                            profilicon3 gruen
+                            1 Bulk Buyer (high cart value, few purchases) -> Silber 7%
+                            2 Brokie (few orders, low amounts) -> Grau 3%
+                            3 Cash Cow (high order volume, frequent purchases) -> Gold 10%
+                            4 Occasional Buyer (irregular purchase behavior) -> Bronze 5%
+                            5 Inactive Customer (hardly or no purchases) -> Schwarz 1%
                             zu definieren in public/css/style.css zeile 1019 ff.
                         -->
                         <div class="sinlge-bar">
                             @if(\Illuminate\Support\Facades\Auth::check())
-                            <!--TODO: Abfragen des Kundenstatus-->
                                 <div class="user-info">
                                 @php
                                     $clusterCustomerId = null;
@@ -88,21 +88,22 @@
                                         $clusterCustomerId = null;
                                     }
                                 @endphp
-                                    @if($clusterCustomerId == 1)<!--Goldkunde 1-->
+                                    @if($clusterCustomerId == 1)
                                         <a id="profilicon1" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     
-                                    @elseif($clusterCustomerId == 2)<!--Silberkunde 2-->
+                                    @elseif($clusterCustomerId == 2)
                                         <a id="profilicon2" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     
-                                    @elseif($clusterCustomerId == 3)<!--Bronzekunde 3-->
+                                    @elseif($clusterCustomerId == 3)
                                         <a id="profilicon3" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     
-                                    @elseif($clusterCustomerId == 4)<!--Greenkunde 4-->
+                                    @elseif($clusterCustomerId == 4)
                                         <a id="profilicon4" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     
-                                    @elseif($clusterCustomerId == 5)<!--Bluekunde 5-->
+                                    @elseif($clusterCustomerId == 5)
                                         <a id="profilicon5" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    
+                                    @else
+                                        <a id="profilicon6" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     @endif
                                     </div>
                             @else
@@ -174,27 +175,26 @@
                                                 <!--(\Illuminate\Support\Facades\Auth::check())-->
                                                 
                                                     @if(\Illuminate\Support\Facades\Auth::check())
-                                                        @if($clusterCustomerId == 1)<!--Goldkunde 1: Bulk Buyer (high cart value, few purchases)-->
-                                                            <li><a class="startAnimation" id="NavBarGold" href="#">GOLD Status! 20% discount on your next purchase!</a></li>
+                                                        @if($clusterCustomerId == 1)<!--1 Bulk Buyer (high cart value, few purchases) -> Silber 7%-->
+                                                            <li><a class="startAnimation" id="NavBarSilber" href="#">Bulk Buyer Status! 7% discount on your next purchase!</a></li>
 
-                                                        @elseif($clusterCustomerId == 2)<!--Silberkunde 2: Brokie (few orders, low amounts)-->
-                                                            <li><a class="startAnimation" id="NavBarSilber" href="#">SILVER Status! 15% discount on your next purchase!</a></li>
-
+                                                        @elseif($clusterCustomerId == 2)<!--2 Brokie (few orders, low amounts) -> Grau 3%-->
+                                                            <li><a class="startAnimation" id="NavBarGrey" href="#">Brokie Status! 3% discount on your next purchase!</a></li>
                                                         
-                                                        @elseif($clusterCustomerId == 3)<!--Bronzekunde 3: Cash Cow (high order volume, frequent purchases)-->
-                                                            <li><a class="startAnimation" id="NavBarBronze" href="#">BRONCE Status! 10% discount on your next purchase!</a></li>
+                                                        @elseif($clusterCustomerId == 3)<!--3 Cash Cow (high order volume, frequent purchases) -> Gold 10%-->
+                                                            <li><a class="startAnimation" id="NavBarGold" href="#">Cash Cow Status! 10% discount on your next purchase!</a></li>
 
-                                                        @elseif($clusterCustomerId == 4)<!--Greenkunde 4: Occasional Buyer (irregular purchase behavior)-->
-                                                            <li><a class="startAnimation" id="NavBarGreen" href="#">GREEN Status! 5% discount on your next purchase!</a></li>
+                                                        @elseif($clusterCustomerId == 4)<!--4 Occasional Buyer (irregular purchase behavior) -> Bronze 5%-->
+                                                            <li><a class="startAnimation" id="NavBarBronze" href="#">Occasional Buyer Status! 5% discount on your next purchase!</a></li>
                                                         
-                                                        @elseif($clusterCustomerId == 5)<!--Bluekunde 5: Inactive Customer (hardly or no purchases)-->
-                                                            <li><a class="startAnimation" id="NavBarBlue" href="#">ORANGE Status! 1% discount on your next purchase!</a></li>
+                                                        @elseif($clusterCustomerId == 5)<!--5 Inactive Customer (hardly or no purchases) -> Schwarz 1%-->
+                                                            <li><a class="startAnimation" id="NavBarBlack" href="#">Inactive Customer Status! 1% discount on your next purchase!</a></li>
                                                         @else
-                                                            <li><a class="startAnimationSad" id="NavBarGuest" href="#">Yet No Status!</a></li>
+                                                            <li><a class="startAnimationSad" id="NavBarBlack" href="#">Yet No Status!</a></li>
                                                         @endif
                                                     @else
                                                         <!--Gastkunde 5-->
-                                                        <li><a id="NavBarGuest" href="{{ route('login') }}">Sign in to receive personalized discounts</a></li>
+                                                        <li><a id="NavBarBlack" href="{{ route('login') }}">Sign in to receive personalized discounts</a></li>
                                                     @endif
                                             </ul>
                                         </div>
@@ -223,8 +223,8 @@
                 "NavBarGold": "#FFD700",
                 "NavBarSilber": "#C0C0C0",
                 "NavBarBronze": "#CD7F32",
-                "NavBarGreen": "#2E6930",
-                "NavBarBlue": "#0004ff",
+                "NavBarBlack": "#000000",
+                "NavBarGrey": "#4A4A4A",
             };
 
             // Get the ID of the clicked element and determine the color
