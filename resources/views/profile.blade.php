@@ -68,7 +68,7 @@
                                 <div class="form-group">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button class="btn" type="submit">Abmelden</button>
+                                        <button class="btn" type="submit">Logout</button>
                                     </form>
                                 </div>
                             </div>

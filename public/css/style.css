@@ -1018,30 +1018,30 @@ Version:1.0
 }
 
 /* Profilicon in Farbe
-1 für Gold
-2 für Silber
-3 für Bronze
-4 für Gruen
-5 für Orange
+1 Bulk Buyer (high cart value, few purchases) --> Silber 7%
+2 Brokie (few orders, low amounts) --> Grau 3%
+3 Cash Cow (high order volume, frequent purchases) --> Gold 10%
+4 Occasional Buyer (irregular purchase behavior) --> Bronze 5%
+5 Inactive Customer (hardly or no purchases) --> Schwarz 1%
 6 für Gast
 */
 #profilicon1{
-    color: #ffd700;
+    color: #C0C0C0;
 }
 #profilicon2{
-    color: #d0d0d0;
+    color: #4A4A4A;
 }
 #profilicon3{
-    color: #bf8970 ;
+    color: #FFD700 ;
 }
 #profilicon4{
-    color: #2e6930 ;
+    color: #CD7F32 ;
 }
 #profilicon5{
-    color:#0004ff;
+    color:#000000;
 }
 #profilicon6{
-    color:#333;
+    color:#333333;
 }
 /* profilicon*/
 .header.shop .right-bar .sinlge-bar .single-icon{
@@ -5124,14 +5124,15 @@ Version:1.0
     color: #cd7f32;
 }
 
-#NavBarGreen{
-    color: #2e6930;
+#NavBarGrey{
+    color: #4A4A4A;
 }
-
-#NavBarGuest{
+#NavBarWhite{
     color: #ffffff;
 }
-
+#NavBarGuest{
+    color: #333333;
+}
 #NavBarBlue{
     color: #0004ff;
 }
