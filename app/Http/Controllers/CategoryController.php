@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\AssociationRuleCat;
-use App\Models\SalesLastMonth;
+use App\Models\SalesLastYear;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -38,7 +38,8 @@ class CategoryController extends Controller
         $subProducts = $this->getProductsFromSubcategories($category);
 
         // Zusammenführen beider Collections
-        $allProducts = $mainProducts->merge($subProducts);
+        $allProducts = $mainProducts->merge($subProducts)->sortByDesc('product_id');
+
 
         // Optional: Sortierung (z.B. nach Datum oder einem anderen Kriterium)
         // $allProducts = $allProducts->sortByDesc('created_at');
@@ -60,7 +61,7 @@ class CategoryController extends Controller
         );
 
         // Get trending products
-        $trendingProducts = $this->getTrendingProducts($category->product_category_id);
+        $trendingProducts = $this->getTrendingProducts($category->product_category_id)->sortByDesc('product_id');
 
         $consequentIds = AssociationRuleCat::query()
         ->join('rule_antecedent_category as b', 'association_rule_category .association_rule_category_id', '=', 'b.association_rule_category_id')
@@ -109,7 +110,7 @@ class CategoryController extends Controller
     private function getTrendingProducts(int $categoryId): Collection
     {
         // Get the trending products sorted by SALES for a specific category
-        $topSalesLastMonth = SalesLastMonth::query()
+        $topSalesLastYear = SalesLastYear::query()
             ->where('product_category_id', $categoryId)
             ->orderByDesc('sales')
             ->limit(20)
@@ -117,7 +118,7 @@ class CategoryController extends Controller
 
         // Manuell Produkt-IDs extrahieren, ohne pluck()
         $productIds = [];
-        foreach ($topSalesLastMonth as $sale) {
+        foreach ($topSalesLastYear as $sale) {
             $productIds[] = $sale->product_id;
         }
 
@@ -128,9 +129,7 @@ class CategoryController extends Controller
         // Produkte abrufen und in der ursprünglichen Reihenfolge sortieren
         return Product::query()
             ->whereIn('product_id', $productIds)
-            ->get()
-            ->sortBy(function ($product) use ($productIds) {
-                return array_search($product->product_id, $productIds);
-            })->values();
+            ->orderBy('product_id', 'desc')
+            ->get();
     }
 }
