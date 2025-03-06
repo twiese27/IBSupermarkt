@@ -9,6 +9,22 @@ class Product extends Model
 {
     use HasFactory;
 
+    const TABLE = 'PRODUCT';
+    const PRODUCT_ID = 'PRODUCT_ID';
+    const CASES_PER_PALLET = 'CASES_PER_PALLET';
+    const UNITS_PER_CASE = 'UNITS_PER_CASE';
+    const PRODUCT_NAME = 'PRODUCT_NAME';
+    const SRP = 'SRP';
+    const RECYCLABLE_PACKAGE = 'RECYCLABLE_PACKAGE';
+    const LOW_FAT = 'LOW_FAT';
+    const RETAIL_PRICE = 'RETAIL_PRICE';
+    const GROSS_WEIGHT = 'GROSS_WEIGHT';
+    const SHELF_WIDTH = 'SHELF_WIDTH';
+    const PRODUCER_ID = 'PRODUCER_ID';
+    const SKU = 'SKU';
+    const PRODUCT_CATEGORY_ID = 'PRODUCT_CATEGORY_ID';
+    const NET_WEIGHT = 'NET_WEIGHT';
+
     /** @var string */
     protected $table = 'product';
 
@@ -54,9 +70,9 @@ class Product extends Model
     public function producer() {
         return $this->belongsTo(Producer::class, 'producer_id');
     }
-    
+
     public function productCategory() {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
-    
+
 }
