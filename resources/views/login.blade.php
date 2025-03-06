@@ -10,11 +10,11 @@
     <div class="row">
       <div class="col-lg-6 offset-lg-3 col-12">
         <div class="login-form">
-          <h2>Anmeldung</h2>
+          <h2>Login</h2>
           @if(session('status'))
             <p>{{ session('status') }}</p>
           @endif
-          <p>Bitte anmelden, um den vollen Funktionsumfang des Shops zu erleben</p>
+          <p>Please login, the access all features.</p>
           
 
           <!-- Form -->
@@ -36,7 +36,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group login-btn">
-                  <button class="btn" type="submit">Anmelden</button>
+                  <button class="btn" type="submit">Login</button>
                   <a href="{{ route('register') }}" class="btn">Register</a>
                 </div>
                 <a href="#" class="lost-pass">Forgot password?</a>
