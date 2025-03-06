@@ -112,7 +112,7 @@
                                             <!-- Modal Body -->
                                             <div class="mt-4">
                                                 <p><strong>Date: </strong>{{$order['order_time']}}</p>
-                                                <p><strong>Total: </strong> {{$order['total_price']}}</p>
+                                                <p><strong>Total: </strong> {{$order['total_price']}} €</p>
                                                 <p><strong>Status: </strong> {{$order['status']}}</p>
                                                 @foreach ($order['products'] as $product)
                                                     <p><strong>Produkt: </strong><a href="{{ route('product', ['id' => $product['product_id']]) }}">{{$product['product_name']}}</a><strong> | </strong> x{{$product['total_amount']}}    </p>
