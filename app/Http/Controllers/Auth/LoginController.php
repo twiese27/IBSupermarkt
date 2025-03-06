@@ -74,19 +74,18 @@ class LoginController extends Controller
 
         // Versuche den Login mit der Customer-ID
         if (Auth::attempt(['customer_id' => $customer->customer_id, 'password' => $request->password])) {
-            $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
-            $productIds = collect($customerRecommendations)->pluck('suggested_product_id');
-            $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
-            
-            // Ermittle die Cluster-ID des Customers mithilfe des Modells
             $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customer->customer_id)->first();
-            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
-            
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0; // Stelle sicher, dass es nicht NULL ist
+
+            $customerRecommendations = $this->getCustomerRecommendations($customer->customer_id);
+            $productIds = collect($customerRecommendations)->pluck('suggested_product_id')->filter(); // Entfernt NULL-Werte
+            $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
+
+                        
             session()->put([
                 'recommendedProducts' => $recommendedProducts,
                 'clusterCustomerId' => $clusterCustomerId
             ]);
-            
             return redirect()->intended('/');
         }
         
