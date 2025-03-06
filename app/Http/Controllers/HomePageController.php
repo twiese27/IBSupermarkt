@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Customer;
 use App\Models\CustomerRecommendation;
 use Illuminate\Http\Request;
+use App\Models\TimeSeriesAnalysis;
 
 class HomePageController extends Controller
 {
@@ -24,22 +25,13 @@ class HomePageController extends Controller
             ->get();
 
         // Start Trending products
-            $first20Sales = SalesLastMonth::orderBy('sales', 'desc')->take(20)->get();
 
-            $minSales = $first20Sales->last()->sales;
-
-            $trendingSalesTies = SalesLastMonth::where('sales', '>=', $minSales)
-                ->orderBy('sales', 'desc')
-                ->get();
-
-            $trendingProductsTies = $trendingSalesTies->pluck('product_id');
-            $first20SalesTies = $first20Sales->pluck('product_id');
-
-
-            $combinedProductIds = $trendingProductsTies->merge($first20SalesTies)->unique();
-            
-            $trendingProducts = Product::whereIn('product_id', $combinedProductIds)->get();
-    
+            $trendingProducts = TimeSeriesAnalysis::orderByDesc('FORECAST')
+            ->limit(20)
+            ->pluck('product_id');
+        
+            $trendingProducts = Product::whereIn('product_id', $trendingProducts)
+            ->get();
         // Ende Trending products
 
         // Start Conscious Living Products
@@ -187,7 +179,7 @@ class HomePageController extends Controller
                     $recommendedProducts = Product::whereIn('product_id', $productIds)->get();
                 }
             }
-// End Recommended Products
+        // End Recommended Products
 
         // End Recommended Products
         return view('index', compact('products', 'trendingProducts', 'bestseller', 'insiderTip', 'newProducts', 'specialOffer', 'consciousLivingProducts'));
