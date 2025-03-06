@@ -6,14 +6,10 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\SalesAllTime;
 use App\Models\SalesLastMonth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Customer;
-use App\Models\CustomerRecommendation;
-use Illuminate\Http\Request;
 use App\Models\TimeSeriesAnalysis;
 
 class HomePageController extends Controller
@@ -29,7 +25,7 @@ class HomePageController extends Controller
             $trendingProducts = TimeSeriesAnalysis::orderByDesc('FORECAST')
             ->limit(20)
             ->pluck('product_id');
-        
+
             $trendingProducts = Product::whereIn('product_id', $trendingProducts)
             ->get();
         // Ende Trending products
@@ -38,19 +34,19 @@ class HomePageController extends Controller
             $rrProduct = Product::where('product_name', 'LIKE', '%R&R%')
             ->inRandomOrder()
             ->first();
-            
+
             $vegiProduct = Product::whereIn('product_category_id', [31, 104, 105])
                 ->inRandomOrder()
                 ->first();
-            
+
             $fruitProduct = Product::where('product_category_id', 9)
                 ->inRandomOrder()
                 ->first();
-            
+
             $lowFatDairyProduct = Product::select(
                     'product.product_id', 'product.low_fat', 'product.product_category_id', 'product_category.parent_category',
-                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp', 
-                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight', 
+                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp',
+                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight',
                     'product.shelf_width', 'product.producer_id', 'product.sku', 'product.net_weight'
                 )
                 ->leftJoin('product_category', 'product.product_category_id', '=', 'product_category.product_category_id')
@@ -58,11 +54,11 @@ class HomePageController extends Controller
                 ->where('product.low_fat', 1)
                 ->inRandomOrder()
                 ->first();
-            
+
             $tufoProduct = Product::where('product_category_id', 111)
                 ->inRandomOrder()
                 ->first();
-            
+
             function getDrinkDescendantCategoryIds($drinkParentId) {
                 $drinkIds = [];
                 $drinkChildren = ProductCategory::where('parent_category', $drinkParentId)
@@ -74,19 +70,19 @@ class HomePageController extends Controller
                 }
                 return $drinkIds;
             }
-            
+
             $drinkCategoryId = 16;
             $drinkCategoryIds = array_merge([$drinkCategoryId], getDrinkDescendantCategoryIds($drinkCategoryId));
-            
+
             $drinkProduct = Product::whereIn('product_category_id', $drinkCategoryIds)
                 ->where('recyclable_package', 1)
                 ->inRandomOrder()
                 ->first();
-            
+
             $paperProduct = Product::select(
                     'product.product_id', 'product.low_fat', 'product.product_category_id', 'product_category.parent_category',
-                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp', 
-                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight', 
+                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp',
+                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight',
                     'product.shelf_width', 'product.producer_id', 'product.sku', 'product.net_weight'
                 )
                 ->leftJoin('product_category', 'product.product_category_id', '=', 'product_category.product_category_id')
@@ -94,10 +90,10 @@ class HomePageController extends Controller
                 ->where('product.recyclable_package', 1)
                 ->inRandomOrder()
                 ->first();
-            
+
             $plasticProduct = Product::select('product.product_id', 'product.low_fat', 'product.product_category_id', 'product_category.parent_category',
-                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp', 
-                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight', 
+                    'product.cases_per_pallet', 'product.units_per_case', 'product.product_name', 'product.srp',
+                    'product.recyclable_package', 'product.retail_price', 'product.gross_weight',
                     'product.shelf_width', 'product.producer_id', 'product.sku', 'product.net_weight'
                     )
                 ->leftJoin('product_category', 'product.product_category_id', '=', 'product_category.product_category_id')
@@ -105,18 +101,18 @@ class HomePageController extends Controller
                 ->where('product.recyclable_package', 1)
                 ->inRandomOrder()
                 ->first();
-                
+
             $consciousLivingProducts = collect([
-                $rrProduct, 
-                $vegiProduct,  
-                $fruitProduct, 
-                $lowFatDairyProduct, 
-                $tufoProduct, 
-                $paperProduct,  
-                $plasticProduct, 
+                $rrProduct,
+                $vegiProduct,
+                $fruitProduct,
+                $lowFatDairyProduct,
+                $tufoProduct,
+                $paperProduct,
+                $plasticProduct,
                 $drinkProduct
             ])->flatten()->shuffle();
-            
+
         // End Conscious Living Products
 
         // Start Bestseller
@@ -134,7 +130,7 @@ class HomePageController extends Controller
 
             $bestseller = $bestseller->shuffle();
         // End Bestseller
-        
+
         // Start Insider Tip as list
             $salesAllTime = DB::table('product_to_warehouse as ptw')
                 ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))

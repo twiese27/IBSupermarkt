@@ -1,3 +1,9 @@
+<?php
+use \Illuminate\Support\Facades\Auth;
+use \app\Models\ProductToShoppingCart;
+use \app\Models\Product;
+use \app\Models\ShoppingCart;
+?>
 <style>
 
         .confetti-container {
@@ -19,7 +25,7 @@
             border-radius: 50%;
             animation: fall linear infinite;
         }
-        
+
         @keyframes fall {
             to {
                 transform: translateY(100vh);
@@ -69,7 +75,7 @@
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
-                         <!-- Prüfe hier den Status den Kunden auf seinen Status. 
+                         <!-- Prüfe hier den Status den Kunden auf seinen Status.
                             1 Bulk Buyer (high cart value, few purchases) -> Silber 7%
                             2 Brokie (few orders, low amounts) -> Grau 3%
                             3 Cash Cow (high order volume, frequent purchases) -> Gold 10%
@@ -90,16 +96,16 @@
                                 @endphp
                                     @if($clusterCustomerId == 1)
                                         <a id="profilicon1" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    
+
                                     @elseif($clusterCustomerId == 2)
                                         <a id="profilicon2" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    
+
                                     @elseif($clusterCustomerId == 3)
                                         <a id="profilicon3" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    
+
                                     @elseif($clusterCustomerId == 4)
                                         <a id="profilicon4" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                                    
+
                                     @elseif($clusterCustomerId == 5)
                                         <a id="profilicon5" href="{{ route('profile') }}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                     @else
@@ -116,7 +122,44 @@
                         </div>
                         <!-- Warenkorb Button im Header -->
                     @php
-                        $cartItems = session('cart', []);
+                        if (Auth::check()) {
+                            $cartItems = ProductToShoppingCart::query()
+                                ->select(
+                                    ShoppingCart::TABLE . '.' . ShoppingCart::SHOPPING_CART_ID,
+                                    Product::TABLE . '.' . Product::PRODUCT_ID,
+                                    Product::TABLE . '.' . Product::PRODUCT_NAME,
+                                    Product::TABLE . '.' . Product::RETAIL_PRICE,
+                                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::TOTAL_AMOUNT
+                                )
+                                ->join(
+                                    ShoppingCart::TABLE,
+                                    ShoppingCart::TABLE . '.' . ShoppingCart::SHOPPING_CART_ID,
+                                    '=',
+                                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::SHOPPING_CART_ID
+                                )
+                                ->join(
+                                    Product::TABLE,
+                                    Product::TABLE . '.' . Product::PRODUCT_ID,
+                                    '=',
+                                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID
+                                )
+                                ->where(
+                                    ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID,
+                                    '=',
+                                    Auth::user()->customer_id
+                                )
+                                ->whereNull(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID)
+                                ->get()
+                                ->map(function ($item) {
+                                    return (object) [
+                                        'product' => Product::find($item->product_id),
+                                        'quantity' => $item->total_amount
+                                    ];
+                                });
+                        } else {
+                            $cartItems = session('cart', []);
+                        }
+
                         $totalCount = array_sum(array_column($cartItems, 'quantity'));
                     @endphp
 
@@ -131,7 +174,7 @@
                                     @if(count($cartItems) > 0)
                                         @foreach($cartItems as $item)
                                             <li>
-                                                <strong>{{ $item['name'] }}</strong> - Amount: {{ $item['quantity'] }}
+                                                <strong>{{ $item['product']->product_name }}</strong> - Amount: {{ $item['quantity'] }}
                                             </li>
                                         @endforeach
                                     @else
@@ -173,20 +216,20 @@
                                                 <!--TODO: Abfragen des Kundenstatus und Loginstatus-->
                                                 <!-- Unterscheidung, je nach Status des Kunden-->
                                                 <!--(\Illuminate\Support\Facades\Auth::check())-->
-                                                
+
                                                     @if(\Illuminate\Support\Facades\Auth::check())
                                                         @if($clusterCustomerId == 1)<!--1 Bulk Buyer (high cart value, few purchases) -> Silber 7%-->
                                                             <li><a class="startAnimation" id="NavBarSilber" href="#">Bulk Buyer Status! 7% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 2)<!--2 Brokie (few orders, low amounts) -> Grau 3%-->
                                                             <li><a class="startAnimation" id="NavBarGrey" href="#">Brokie Status! 3% discount on your next purchase!</a></li>
-                                                        
+
                                                         @elseif($clusterCustomerId == 3)<!--3 Cash Cow (high order volume, frequent purchases) -> Gold 10%-->
                                                             <li><a class="startAnimation" id="NavBarGold" href="#">Cash Cow Status! 10% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 4)<!--4 Occasional Buyer (irregular purchase behavior) -> Bronze 5%-->
                                                             <li><a class="startAnimation" id="NavBarBronze" href="#">Occasional Buyer Status! 5% discount on your next purchase!</a></li>
-                                                        
+
                                                         @elseif($clusterCustomerId == 5)<!--5 Inactive Customer (hardly or no purchases) -> Schwarz 1%-->
                                                             <li><a class="startAnimation" id="NavBarBlack" href="#">Inactive Customer Status! 1% discount on your next purchase!</a></li>
                                                         @else
@@ -223,8 +266,8 @@
                 "NavBarGold": "#FFD700",
                 "NavBarSilber": "#C0C0C0",
                 "NavBarBronze": "#CD7F32",
-                "NavBarBlack": "#000000",
-                "NavBarGrey": "#4A4A4A",
+                "NavBarGreen": "#2E6930",
+                "NavBarBlue": "#0004ff",
             };
 
             // Get the ID of the clicked element and determine the color
@@ -236,7 +279,7 @@
 
                 // Set random positions and apply the selected color
                 confetti.style.left = Math.random() * 100 + "vw";
-                confetti.style.top = Math.random() * 50 + "vh"; 
+                confetti.style.top = Math.random() * 50 + "vh";
                 confetti.style.backgroundColor = confettiColor;
                 confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
 

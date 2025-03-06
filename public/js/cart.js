@@ -25,7 +25,7 @@ function updateCartIcon(data) {
     // Optionally, update the shopping list in the header as well
     let shoppingList = '';
     $.each(data.cart, function(productId, item) {
-        shoppingList += `<li><strong>${item.name}</strong> - Menge: ${item.quantity}</li>`;
+        shoppingList += `<li><strong>${item.product.product_name}</strong> - Menge: ${item.quantity}</li>`;
     });
 
     $('.shopping-item .shopping-list').html(shoppingList);

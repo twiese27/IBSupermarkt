@@ -35,8 +35,8 @@
                         @endphp
                         @foreach($items as $item)
                             @php
-                                $qty = $item->total_amount;
-                                $total = $item->product->retail_price * $qty;
+                                $qty = $item['quantity'];
+                                $total = $item['product']->retail_price * $qty;
                                 $subtotal += $total;
                             @endphp
                             <tr>
@@ -44,22 +44,22 @@
                                     <img src="https://placehold.co/100x100" alt="#"/>
                                 </td>
                                 <td class="product-des" data-title="Description">
-                                    <p class="product-name"><a href="#">{{ $item->product->product_name }}</a></p>
+                                    <p class="product-name"><a href="#">{{ $item['product']->product_name }}</a></p>
                                 </td>
                                 <td class="price" data-title="Price">
-                                    <span>{{ $item->product->retail_price }} €</span>
+                                    <span>{{ $item['product']->retail_price }} €</span>
                                 </td>
                                 <td class="qty" data-title="Qty">
                                     <!-- Input Order -->
                                     <div class="input-group">
                                         <div class="button minus">
-                                            <button type="button" class="btn btn-primary btn-number" onclick="decreaseProduct({{ $item->product->product_id }})">
+                                            <button type="button" class="btn btn-primary btn-number" onclick="decreaseProduct({{ $item['product']->product_id }})">
                                                 <i class="ti-minus"></i>
                                             </button>
                                         </div>
-                                        <input id="quantity-{{ $item->product->product_id }}" type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100" value="{{ $qty }}"/>
+                                        <input id="quantity-{{ $item['product']->product_id }}" type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100" value="{{ $item['quantity'] }}"/>
                                         <div class="button plus">
-                                            <button type="button" class="btn btn-primary btn-number" onclick="increaseProduct({{ $item->product->product_id }})">
+                                            <button type="button" class="btn btn-primary btn-number" onclick="increaseProduct({{ $item['product']->product_id }})">
                                                 <i class="ti-plus"></i>
                                             </button>
                                         </div>
@@ -67,12 +67,12 @@
                                     <!--/ End Input Order -->
                                 </td>
                                 <td class="total-amount" data-title="Total">
-                                    <span id="total-{{ $item->product->product_id }}">{{ $total }} €</span>
+                                    <span id="total-{{ $item['product']->product_id }}">{{ $total }} €</span>
                                 </td>
                                 <td class="action" data-title="Remove">
                                     <form action="{{ route('cart.remove') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{ $item->product->product_id }}">
+                                        <input type="hidden" name="product_id" value="{{ $item['product']->product_id }}">
                                         <button type="submit" class="btn"
                                                 style="background: transparent; border: none; padding: 0;">
                                             <i class="ti-trash" style="color: black;"></i>

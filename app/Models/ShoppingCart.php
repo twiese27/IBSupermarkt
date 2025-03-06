@@ -9,6 +9,13 @@ class ShoppingCart extends Model
 {
     use HasFactory;
 
+    const TABLE = 'SHOPPING_CART';
+    const SHOPPING_CART_ID = 'SHOPPING_CART_ID';
+    const DELETED_ON = 'DELETED_ON';
+    const CREATED_ON = 'CREATED_ON';
+    const AMOUNT_OF_PRODUCTS = 'AMOUNT_OF_PRODUCTS';
+    const CUSTOMER_ID = 'CUSTOMER_ID';
+
     /** @var string */
     protected $table = 'shopping_cart';
 
