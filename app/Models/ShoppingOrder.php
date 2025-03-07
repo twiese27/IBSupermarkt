@@ -9,6 +9,15 @@ class ShoppingOrder extends Model
 {
     use HasFactory;
 
+    const TABLE = 'SHOPPING_ORDER';
+    const ORDER_ID = 'ORDER_ID';
+    const STATUS = 'STATUS';
+    const ORDER_TIME = 'ORDER_TIME';
+    const SHOPPING_CART_ID = 'SHOPPING_CART_ID';
+    const EMPLOYEE_ID = 'EMPLOYEE_ID';
+    const DELIVERY_SERVICE_ID = 'DELIVERY_SERVICE_ID';
+    const TOTAL_PRICE = 'TOTAL_PRICE';
+
     /** @var string */
     protected $table = 'shopping_order';
 
@@ -20,6 +29,7 @@ class ShoppingOrder extends Model
 
     /** @var string[] */
     protected $fillable = [
+        'order_id',
         'status',
         'order_time',
         'shopping_cart_id',
@@ -35,7 +45,7 @@ class ShoppingOrder extends Model
         'shopping_cart_id' => 'integer',
         'employee_id' => 'integer',
         'delivery_service_id' => 'integer',
-        'total_price' => 'decimal:2',  // Der Gesamtpreis mit 2 Dezimalstellen
+        'total_price' => 'decimal:2',
     ];
 
     public function shoppingCart() {

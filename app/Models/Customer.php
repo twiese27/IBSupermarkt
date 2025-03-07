@@ -9,6 +9,21 @@ class Customer extends Model
 {
     use HasFactory;
 
+    const TABLE = 'CUSTOMER';
+    const CUSTOMER_ID = 'CUSTOMER_ID';
+    const STREET = 'STREET';
+    const HOUSE_NUMBER = 'HOUSE_NUMBER';
+    const POSTAL_CODE = 'POSTAL_CODE';
+    const CITY = 'CITY';
+    const MIDDLE_NAME = 'MIDDLE_NAME';
+    const LASTNAME = 'LASTNAME';
+    const IBAN = 'IBAN';
+    const BIRTH_DATE = 'BIRTH_DATE';
+    const CREATED_ON = 'CREATED_ON';
+    const EMAIL = 'EMAIL';
+    const COUNTRY = 'COUNTRY';
+    const FORENAME = 'FORENAME';
+
     /** @var string */
     protected $table = 'customer';
 

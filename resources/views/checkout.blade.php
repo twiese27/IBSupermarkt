@@ -17,19 +17,19 @@
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Forename<span>*</span></label>
-                  <input type="text" name="name" placeholder="" required="required" />
+                  <input type="text" name="name" value="{{ $customer ? $customer->forename : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Lastname<span>*</span></label>
-                  <input type="text" name="name" placeholder="" required="required" />
+                  <input type="text" name="name" value="{{ $customer ? $customer->lastname : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Email<span>*</span></label>
-                  <input type="email" name="email" placeholder="" required="required" />
+                  <input type="email" name="email" value="{{ $customer ? $customer->email : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
@@ -303,33 +303,35 @@
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>City<span>*</span></label>
-                  <input type="text" name="city" placeholder="" required="required" />
+                  <input type="text" name="city" value="{{ $customer ? $customer->city : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>Street<span>*</span></label>
-                  <input type="text" name="street" placeholder="" required="required" />
+                  <input type="text" name="street" value="{{ $customer ? $customer->street : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>House number<span>*</span></label>
-                  <input type="text" name="house" placeholder="" required="required" />
+                  <input type="text" name="house" value="{{ $customer ? $customer->house_number : '' }}" placeholder="" required="required" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group">
                   <label>postcode<span>*</span></label>
-                  <input type="text" name="post" placeholder="" required="required" />
+                  <input type="text" name="post" value="{{ $customer ? $customer->postal_code : '' }}" placeholder="" required="required" />
                 </div>
               </div>
-              <div class="col-12">
-                <div class="form-group create-account">
-                  <input id="cbox" type="checkbox" />
-                  <label>Create Account?</label>
-                </div>
-              </div>
+                @if(!\Illuminate\Support\Facades\Auth::check())
+                    <div class="col-12">
+                        <div class="form-group create-account">
+                            <input id="cbox" type="checkbox"/>
+                            <label>Create Account?</label>
+                        </div>
+                    </div>
+                @endif
             </div>
           </form>
           <!--/ End Form -->
@@ -342,9 +344,9 @@
             <h2>Shopping Cart</h2>
             <div class="content">
               <ul>
-                <li>Subtotal<span>330,00€</span></li>
+                <li>Subtotal<span>{{ $totalPrice }}€</span></li>
                 <li>(+) Shipping<span>Free</span></li>
-                <li class="last">Total<span>330,00€</span></li>
+                <li class="last">Total<span>{{ $totalPrice }}€</span></li>
               </ul>
             </div>
           </div>
@@ -375,7 +377,7 @@
           <div class="single-widget get-button">
             <div class="content">
               <div class="button">
-                <a href="#" class="btn">Order now</a>
+                <a href="{{ route('checkout.submit') }}" class="btn">Order now</a>
               </div>
             </div>
           </div>
