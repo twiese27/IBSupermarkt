@@ -1,8 +1,8 @@
 <?php
-use \Illuminate\Support\Facades\Auth;
-use \app\Models\ProductToShoppingCart;
-use \app\Models\Product;
-use \app\Models\ShoppingCart;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProductToShoppingCart;
+use App\Models\Product;
+use App\Models\ShoppingCart;
 ?>
 <style>
 
@@ -143,12 +143,19 @@ use \app\Models\ShoppingCart;
                                     '=',
                                     ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID
                                 )
+                                ->leftJoin(
+                                    \App\Models\ShoppingOrder::TABLE,
+                                    \App\Models\ShoppingOrder::TABLE . '.' . \App\Models\ShoppingOrder::SHOPPING_CART_ID,
+                                    '=',
+                                    \App\Models\ShoppingCart::TABLE . '.' . \App\Models\ShoppingCart::SHOPPING_CART_ID
+                                )
                                 ->where(
                                     ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID,
                                     '=',
-                                    Auth::user()->customer_id
+                                    \Illuminate\Support\Facades\Auth::user()->customer_id
                                 )
-                                ->whereNull(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID)
+                                ->whereNull(ShoppingCart::TABLE . '.' . ShoppingCart::DELETED_ON)
+                                ->whereNull(\App\Models\ShoppingOrder::ORDER_ID)
                                 ->get()
                                 ->map(function ($item) {
                                     return (object) [
@@ -157,10 +164,10 @@ use \app\Models\ShoppingCart;
                                     ];
                                 });
                         } else {
-                            $cartItems = session('cart', []);
+                            $cartItems = session('cart', collect());
                         }
 
-                        $totalCount = array_sum(array_column($cartItems, 'quantity'));
+                        $totalCount = array_sum(array_column($cartItems->toArray(), 'quantity'));
                     @endphp
 
                     <!-- Warenkorb Button im Header -->
@@ -174,7 +181,7 @@ use \app\Models\ShoppingCart;
                                     @if(count($cartItems) > 0)
                                         @foreach($cartItems as $item)
                                             <li>
-                                                <strong>{{ $item['product']->product_name }}</strong> - Amount: {{ $item['quantity'] }}
+                                                <strong>{{ $item->product->product_name }}</strong> - Amount: {{ $item->quantity }}</strong>
                                             </li>
                                         @endforeach
                                     @else

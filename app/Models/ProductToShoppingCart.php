@@ -18,7 +18,8 @@ class ProductToShoppingCart extends Model
     protected $table = 'product_to_shopping_cart';
 
     /** @var string */
-    protected $primaryKey = null; // Keine eigene ID, weil es sich um eine Verknüpfung handelt
+    protected $primaryKey = null; // Kein einzelner Primärschlüssel
+    public $incrementing = false; // Kein Auto-Increment
 
     /** @var bool */
     public $timestamps = false;
@@ -40,5 +41,12 @@ class ProductToShoppingCart extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    // Wichtig für Laravel, um Updates mit Composite Keys zu ermöglichen
+    public function setKeysForSaveQuery($query)
+    {
+        return $query->where('product_id', $this->product_id)
+            ->where('shopping_cart_id', $this->shopping_cart_id);
     }
 }

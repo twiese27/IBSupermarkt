@@ -31,6 +31,7 @@ class ShoppingCart extends Model
         'created_on',
         'amount_of_products',
         'customer_id',
+        'shopping_cart_id'
     ];
 
     /** @var string[] */

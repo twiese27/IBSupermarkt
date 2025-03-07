@@ -20,7 +20,7 @@ function updateCartIcon(data) {
     // Update the total count in the cart icon
     let totalCount = data.totalCount;
     $('.shopping .single-icon span').text(totalCount);
-    $('.dropdown-cart-header span').text(totalCount);
+    $('.dropdown-cart-header span').text(totalCount + ' article');
 
     // Optionally, update the shopping list in the header as well
     let shoppingList = '';
