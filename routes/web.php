@@ -33,7 +33,7 @@ Route::post('/cart/total-cart-price', [CartController::class, 'getTotalCartPrice
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::get('/checkout-submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
+Route::post('/checkout-submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
 
 // Login und Registrierung
 //Route::get('/login', [AuthController::class, 'login'])->name('login');
