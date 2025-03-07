@@ -180,8 +180,10 @@ use App\Models\ShoppingCart;
                                 <ul class="shopping-list">
                                     @if(count($cartItems) > 0)
                                         @foreach($cartItems as $item)
-                                            <li>
-                                                <strong>{{ $item->product->product_name }}</strong> - Amount: {{ $item->quantity }}</strong>
+                                            <li><a href="{{ route('product', ['id' => $item->product->product_id]) }}">
+                                                    <strong>{{ $item->product->product_name }}</strong>
+                                                </a>
+                                                - Amount: {{ $item->quantity }}
                                             </li>
                                         @endforeach
                                     @else
@@ -219,7 +221,7 @@ use App\Models\ShoppingCart;
                                             @include('partials.category', ['categories' => $categories, 'level' => 0])
                                             <!-- Statische Menüpunkte -->
                                                 <li><a href="#">Service</a></li>
-                                                <li><a href="#">Kontakt</a></li>
+                                                <li><a href="#">Contact</a></li>
                                                 <!--TODO: Abfragen des Kundenstatus und Loginstatus-->
                                                 <!-- Unterscheidung, je nach Status des Kunden-->
                                                 <!--(\Illuminate\Support\Facades\Auth::check())-->
