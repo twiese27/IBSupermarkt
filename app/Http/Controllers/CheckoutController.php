@@ -81,14 +81,9 @@ class CheckoutController extends Controller
             $customer = Customer::find($customerId);
         } else {
             $cart = session('cart', collect());
-            $productIds = array_keys($cart->toArray());
 
-            $products = \App\Models\Product::whereIn('id', $productIds)->get()->keyBy('id');
-
-            foreach ($cart as $prodId => $item) {
-                if (isset($products[$prodId])) {
-                    $totalPriceWithoutDiscount += $products[$prodId]->retail_price * $item['quantity'];
-                }
+            foreach ($cart as $item) {
+                $totalPriceWithoutDiscount += $item->product->retail_price * $item->quantity;
             }
 
             $totalPriceWithDiscount = $totalPriceWithoutDiscount;
