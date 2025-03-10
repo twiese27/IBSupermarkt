@@ -44,6 +44,13 @@ class CheckoutController extends Controller
                     '=',
                     ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID
                 )
+                ->leftJoin(
+                    \App\Models\ShoppingOrder::TABLE,
+                    \App\Models\ShoppingOrder::TABLE . '.' . \App\Models\ShoppingOrder::SHOPPING_CART_ID,
+                    '=',
+                    \App\Models\ShoppingCart::TABLE . '.' . \App\Models\ShoppingCart::SHOPPING_CART_ID
+                )
+                ->whereNull(\App\Models\ShoppingOrder::ORDER_ID)
                 ->where(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID, $customerId)
                 ->whereNull(ShoppingCart::DELETED_ON)
                 ->get();
