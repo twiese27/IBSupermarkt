@@ -229,7 +229,7 @@ class CheckoutController extends Controller
             $POSToCustomerExtension = new POSToCustomerExtension();
             //$POSToCustomerExtension->customer_extension_id = DB::table('pos_to_customer_extension')->max($customerExtension->customer_extension_id);
             $POSToCustomerExtension->customer_id = $maxCustomerId + 1;
-            $POSToCustomerExtension->customer_extension_id = $maxCustomerExtensionId;
+            $POSToCustomerExtension->customer_extension_id = $maxCustomerExtensionId + 1;
             $POSToCustomerExtension->point_of_sale_id = 2;
     
             $POSToCustomerExtension->save();
