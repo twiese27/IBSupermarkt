@@ -285,6 +285,7 @@
                                 <div class="content">
                                     <ul>
                                         <li>Subtotal<span>{{ $totalPriceWithoutDiscount }}€</span></li>
+                                        <li>Discount<span>{{ $totalPriceWithDiscount - $totalPriceWithoutDiscount }}€</span></li>
                                         <li>(+) Shipping<span>Free</span></li>
                                         <li class="last">Total<span>{{ $totalPriceWithDiscount }}€</span></li>
                                     </ul>

@@ -106,12 +106,13 @@
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Subtotal<span id="subtotal">{{ $subtotal }} €</span></li>
+                                        <li>Subtotal<span id="subtotal">{{ round($subtotal, 2) }} €</span></li>
+                                        <li>Discount<span id="discount">{{ round($total - $subtotal, 2) }} €</span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li class="last">You pay<span id="total">{{ $total }} €</span></li>
+                                        <li class="last">You pay<span id="total">{{ round($total, 2) }} €</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="{{ route('checkout') }}" class="btn">to the checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">checkout</a>
                                     </div>
                                 </div>
                             </div>
