@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClusterCustomerRegressionData;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
@@ -14,8 +15,23 @@ class CartController extends Controller
 {
     public function index()
     {
+        $discount = 0;
         if (Auth::check()) {
             $customerId = Auth::user()->customer_id;
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customerId)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+
+            if ($clusterCustomerId == 1) {
+                $discount = 7;
+            } else if ($clusterCustomerId == 2) {
+                $discount = 3;
+            } else if ($clusterCustomerId == 3) {
+                $discount = 10;
+            } else if ($clusterCustomerId == 4) {
+                $discount = 5;
+            } else if ($clusterCustomerId == 5) {
+                $discount = 1;
+            }
             $items = $this->getShoppingCartItems($customerId);
         } else {
             $items = session('cart', collect());
@@ -31,7 +47,7 @@ class CartController extends Controller
             }
         }
 
-        return view('cart', compact('items'));
+        return view('cart', compact('items', 'discount'));
     }
 
     public function add(Request $request)

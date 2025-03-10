@@ -89,6 +89,9 @@
                     <!--/ End Shopping Summery -->
                 </div>
             </div>
+            @php
+                $total = $subtotal * (1 - $discount / 100);
+            @endphp
             <div class="row">
                 <div class="col-12">
                     <!-- Total Amount -->
@@ -105,7 +108,7 @@
                                     <ul>
                                         <li>Subtotal<span id="subtotal">{{ $subtotal }} €</span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li class="last">You pay<span id="total">{{ $subtotal }} €</span></li>
+                                        <li class="last">You pay<span id="total">{{ $total }} €</span></li>
                                     </ul>
                                     <div class="button5">
                                         <a href="{{ route('checkout') }}" class="btn">to the checkout</a>
