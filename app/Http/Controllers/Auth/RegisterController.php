@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerExtension;
+use App\Models\POSToCustomerExtension;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -92,6 +94,21 @@ class RegisterController extends Controller
         $customer->iban = $data['iban'] ?? null;
         $customer->birth_date = $data['birth_date'];
         $customer->save();
+
+        $customerExtension = new CustomerExtension();
+        $customerExtension->customer_extension_id = DB::table('customer_extension')->max('customer_extension_id') + 1;
+        $customerExtension->customer_id = $customer->customer_id;
+        $customerExtension->gender = null;
+        $customerExtension->additional_delivery_address_information = null;
+        $customerExtension->save();
+
+        $POSToCustomerExtension = new POSToCustomerExtension();
+        //$POSToCustomerExtension->customer_extension_id = DB::table('pos_to_customer_extension')->max($customerExtension->customer_extension_id);
+        $POSToCustomerExtension->customer_id = $customer->customer_id;
+        $POSToCustomerExtension->customer_extension_id = $customerExtension->customer_extension_id;
+        $POSToCustomerExtension->point_of_sale_id = 2;
+
+        $POSToCustomerExtension->save();
 
         $timestamp = Carbon::now()->toDateTimeString();
 
