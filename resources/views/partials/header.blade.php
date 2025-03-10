@@ -196,7 +196,7 @@ use App\Models\ShoppingCart;
                                 </div>
                                 <div class="bottom">
                                     <div class="total">
-                                        <a href="{{ route('checkout') }}" class="btn animate">Go to checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn animate">Checkout</a>
                                     </div>
                                 </div>
                             </div>

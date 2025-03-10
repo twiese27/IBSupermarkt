@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kasse')
+@section('title', 'Checkout')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-12">
                         <div class="checkout-form">
-                            <h2>Kasse</h2>
+                            <h2>Checkout</h2>
                             <!-- Form -->
                             <div class="form" method="post" action="{{ route('checkout.submit') }}"
                                  enctype="multipart/form-data">
@@ -41,15 +41,10 @@
                                                    required="required"/>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Telephone<span>*</span></label>
-                                            <input type="text" name="number" placeholder="" required="required"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Country<<span>*</span></label>
+                                            <label>Country<span>*</span></label>
                                             <select name="country_name" id="country">
                                                 <option value="AF">Afghanistan</option>
                                                 <option value="AX">Åland Islands</option>
@@ -132,7 +127,7 @@
                                                 <option value="GA">Gabon</option>
                                                 <option value="GM">Gambia</option>
                                                 <option value="GE">Georgia</option>
-                                                <option value="DE">Germany</option>
+                                                <option value="DE" selected>Germany</option>
                                                 <option value="GH">Ghana</option>
                                                 <option value="GI">Gibraltar</option>
                                                 <option value="GR">Greece</option>
@@ -242,6 +237,14 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
+                                            <label>Postcode<span>*</span></label>
+                                            <input type="text" name="post"
+                                                   value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
                                             <label>Street<span>*</span></label>
                                             <input type="text" name="street"
                                                    value="{{ $customer ? $customer->street : '' }}" placeholder=""
@@ -256,14 +259,7 @@
                                                    required="required"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>postcode<span>*</span></label>
-                                            <input type="text" name="post"
-                                                   value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
-                                                   required="required"/>
-                                        </div>
-                                    </div>
+                                    
                                     @if(!\Illuminate\Support\Facades\Auth::check())
                                         <div class="col-12">
                                             <div class="form-group create-account">

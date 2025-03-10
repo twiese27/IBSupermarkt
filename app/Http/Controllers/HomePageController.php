@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\SalesAllTime;
-use App\Models\SalesLastMonth;
+use App\Models\SalesLastYear;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -116,13 +116,13 @@ class HomePageController extends Controller
         // End Conscious Living Products
 
         // Start Bestseller
-            $minSales = SalesAllTime::orderBy('sales', 'desc')
+            $minSales = SalesLastYear::orderBy('sales', 'desc')
             ->limit(20)
             ->pluck('sales')
             ->last();
 
             // Die entsprechenden Produkt-IDs abrufen
-            $newItemIds = SalesAllTime::where('sales', '>=', $minSales)
+            $newItemIds = SalesLastYear::where('sales', '>=', $minSales)
             ->pluck('product_id')
             ->unique(); // Falls es doppelte Einträge gibt, diese entfernen
 
@@ -132,11 +132,11 @@ class HomePageController extends Controller
         // End Bestseller
 
         // Start Insider Tip as list
-            $salesAllTime = DB::table('product_to_warehouse as ptw')
+            $salesLastYear = DB::table('product_to_warehouse as ptw')
                 ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
                 ->whereIn('ptw.product_id', function($query) {
                     $query->select('product_id')
-                        ->from('Sales_Last_Month')
+                        ->from('Sales_Last_Year')
                         ->whereRaw('rownum <= 100');
                 })
                 ->groupBy('ptw.product_id')
@@ -144,7 +144,7 @@ class HomePageController extends Controller
                 ->get();
 
 
-            $topStockProducts = $salesAllTime->sortByDesc('total_stock')->take(20);
+            $topStockProducts = $salesLastYear->sortByDesc('total_stock')->take(20);
             $insiderTipIds = $topStockProducts->pluck('product_id')->shuffle();
 
             $insiderTip = Product::query()
