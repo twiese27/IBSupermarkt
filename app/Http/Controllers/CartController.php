@@ -202,10 +202,13 @@ class CartController extends Controller
             }
         }
 
+        $totalCount = array_sum(array_column($cart->toArray(), 'quantity'));
+
         return response()->json([
             'message' => 'Produktmenge geändert',
             'newSubtotal' => $newSubtotal,
-            'session' => $cart
+            'cart' => $cart,
+            'totalCount' => $totalCount
         ]);
     }
 
@@ -246,13 +249,33 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             $cart = $this->getShoppingCartItems(Auth::user()->customer_id);
-            $total = 0;
-            foreach ($cart as $item) {
-                $total += $item->product->retail_price * $item->quantity;
+            $subtotal = 0;
+            $discount = 0;
+            $customerId = Auth::user()->customer_id;
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customerId)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+
+            if ($clusterCustomerId == 1) {
+                $discount = 7;
+            } else if ($clusterCustomerId == 2) {
+                $discount = 3;
+            } else if ($clusterCustomerId == 3) {
+                $discount = 10;
+            } else if ($clusterCustomerId == 4) {
+                $discount = 5;
+            } else if ($clusterCustomerId == 5) {
+                $discount = 1;
             }
+            foreach ($cart as $item) {
+                $subtotal += $item->product->retail_price * $item->quantity;
+            }
+
+            $total = $subtotal * (1 - $discount / 100);
+
             return response()->json([
-                'subtotal' => $total,
-                'total' => $total
+                'subtotal' => $subtotal,
+                'total' => $total,
+                'discount' => $total - $subtotal
             ]);
         } else {
             $cart = session('cart', collect());

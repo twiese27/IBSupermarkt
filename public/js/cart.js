@@ -62,6 +62,7 @@ function updateProductQuantity(productId, quantity) {
         success: function(response) {
             console.log('Produktmenge geändert:', response);
             $("#quantity-" + productId).val(quantity);
+            updateCartIcon(response);
             updateProductTotalPrice(productId, quantity);
         },
         error: function(xhr) {
@@ -103,8 +104,10 @@ function updateTotalCartPrice() {
             console.log('Preis des Warenkorbs aktualisiert:', response);
             let roundedTotal = parseFloat(response.total).toFixed(2);
             let roundedSubtotal = parseFloat(response.subtotal).toFixed(2);
+            let discount = parseFloat(response.discount).toFixed(2);
             $('#total').text(roundedTotal + ' €');
             $('#subtotal').text(roundedSubtotal + ' €');
+            $('#discount').text(discount + ' €');
         },
         error: function(xhr) {
             console.error('Fehler beim Aktualisieren des Preises des Warenkorbs:', xhr.responseText);
