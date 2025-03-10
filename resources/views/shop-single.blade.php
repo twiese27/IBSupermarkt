@@ -42,7 +42,7 @@
 
               <!-- Product Buy -->
               <div class="product-buy">
-                <form>
+                  <form action="{{ route('cart.addToCart') }}" method="POST">
                   @csrf
                   <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                   <div class="quantity">
@@ -50,14 +50,14 @@
                     <!-- Input Order -->
                     <div class="input-group">
                       <div class="button minus">
-                        <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"
+                        <button type="button" onclick="decreaseProductDetail()" class="btn btn-primary btn-number" data-type="minus"
                           data-field="quant[1]">
                           <i class="ti-minus"></i>
                         </button>
                       </div>
-                      <input type="text" name="quantity" class="input-number" data-min="1" data-max="1000" value="1" />
+                      <input id="quantityProductDetail" type="text" name="quantity" class="input-number" data-min="1" data-max="1000" value="1" />
                       <div class="button plus">
-                        <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                        <button type="button" onclick="increaseProductDetail()" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
                           <i class="ti-plus"></i>
                         </button>
                       </div>
@@ -100,7 +100,7 @@
   @if($customersAlsoBought->count() > 1)
     @include('partials.sliderOfFourVisibles', ['products' => $customersAlsoBought, 'headerText' => 'Customers Also Bought', 'labelText' => 'none'])
   @endif
-  
-<!-- End customers also bought Products --> 
+
+<!-- End customers also bought Products -->
 
 @endsection

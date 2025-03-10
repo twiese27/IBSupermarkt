@@ -352,4 +352,61 @@ class CartController extends Controller
             ->where(ShoppingCart::SHOPPING_CART_ID, '=', $shoppingCart->shopping_cart_id)
             ->update([ShoppingCart::AMOUNT_OF_PRODUCTS => $shoppingCart->amount_of_products + 1]);
     }
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        $product = Product::find($productId);
+
+        if (Auth::check()) {
+            $customerId = Auth::user()->customer_id;
+            $shoppingCart = $this->getShoppingCart($customerId);
+
+            if ($shoppingCart->exists) {
+                $productToCart = ProductToShoppingCart::query()
+                    ->firstOrNew([
+                        ProductToShoppingCart::PRODUCT_ID => $product->product_id,
+                        ProductToShoppingCart::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id
+                    ]);
+
+                if (!$productToCart->exists) {
+                    $productToCart->product_id = $product->product_id;
+                    $productToCart->shopping_cart_id = $shoppingCart->shopping_cart_id;
+                    $this->updateAmountOfProducts($shoppingCart);
+                }
+
+                $productToCart->total_amount = ($productToCart->exists ? $productToCart->total_amount + $quantity : 1);
+                $productToCart->save();
+            } else {
+                $shoppingCart = $this->createShoppingCart($customerId);
+
+                ProductToShoppingCart::query()
+                    ->insert([
+                        ProductToShoppingCart::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
+                        ProductToShoppingCart::PRODUCT_ID => $product->product_id,
+                        ProductToShoppingCart::TOTAL_AMOUNT => $quantity
+                    ]);
+            }
+
+            $cart = $this->getShoppingCartItems($customerId);
+        } else {
+            $cart = session()->get('cart', collect());
+
+            if (isset($cart[$productId])) {
+                $cart[$productId]->quantity = $quantity;
+            } else {
+                $cart[$productId] = (object) [
+                    'quantity' => $quantity,
+                    'product' => (object) $product
+                ];
+            }
+
+            session()->put('cart', $cart);
+        }
+        $totalCount = array_sum(array_column($cart->toArray(), 'quantity'));
+
+        return redirect()->back();
+    }
 }
