@@ -132,7 +132,7 @@
                                                 <option value="GA">Gabon</option>
                                                 <option value="GM">Gambia</option>
                                                 <option value="GE">Georgia</option>
-                                                <option value="DE">Germany</option>
+                                                <option value="DE" selected>Germany</option>
                                                 <option value="GH">Ghana</option>
                                                 <option value="GI">Gibraltar</option>
                                                 <option value="GR">Greece</option>
