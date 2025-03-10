@@ -237,6 +237,14 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
+                                            <label>Postcode<span>*</span></label>
+                                            <input type="text" name="post"
+                                                   value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
                                             <label>Street<span>*</span></label>
                                             <input type="text" name="street"
                                                    value="{{ $customer ? $customer->street : '' }}" placeholder=""
@@ -251,14 +259,7 @@
                                                    required="required"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Postcode<span>*</span></label>
-                                            <input type="text" name="post"
-                                                   value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
-                                                   required="required"/>
-                                        </div>
-                                    </div>
+                                    
                                     @if(!\Illuminate\Support\Facades\Auth::check())
                                         <div class="col-12">
                                             <div class="form-group create-account">
