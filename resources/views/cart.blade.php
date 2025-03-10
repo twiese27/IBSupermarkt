@@ -108,7 +108,7 @@
                                         <li class="last">You pay<span id="total">{{ $subtotal }} €</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="{{ route('checkout') }}" class="btn">to the checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">Checkout</a>
                                     </div>
                                 </div>
                             </div>

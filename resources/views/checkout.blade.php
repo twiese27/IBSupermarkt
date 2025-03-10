@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kasse')
+@section('title', 'Checkout')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-12">
                         <div class="checkout-form">
-                            <h2>Kasse</h2>
+                            <h2>Checkout</h2>
                             <!-- Form -->
                             <div class="form" method="post" action="{{ route('checkout.submit') }}"
                                  enctype="multipart/form-data">
