@@ -41,15 +41,10 @@
                                                    required="required"/>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Telephone<span>*</span></label>
-                                            <input type="text" name="number" placeholder="" required="required"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Country<<span>*</span></label>
+                                            <label>Country<span>*</span></label>
                                             <select name="country_name" id="country">
                                                 <option value="AF">Afghanistan</option>
                                                 <option value="AX">Åland Islands</option>
@@ -258,7 +253,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>postcode<span>*</span></label>
+                                            <label>Postcode<span>*</span></label>
                                             <input type="text" name="post"
                                                    value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
                                                    required="required"/>
