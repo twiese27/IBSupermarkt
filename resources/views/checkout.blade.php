@@ -361,9 +361,9 @@
                                 <h2>Shopping Cart</h2>
                                 <div class="content">
                                     <ul>
-                                        <li>Subtotal<span>{{ $totalPrice }}€</span></li>
+                                        <li>Subtotal<span>{{ $totalPriceWithoutDiscount }}€</span></li>
                                         <li>(+) Shipping<span>Free</span></li>
-                                        <li class="last">Total<span>{{ $totalPrice }}€</span></li>
+                                        <li class="last">Total<span>{{ $totalPriceWithDiscount }}€</span></li>
                                     </ul>
                                 </div>
                             </div>

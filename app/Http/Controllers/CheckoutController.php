@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClusterCustomerRegressionData;
 use App\Models\Customer;
 use App\Models\CustomerExtension;
 use App\Models\DeliveryService;
+use App\Models\Discount;
 use App\Models\Employee;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
+use App\Models\ShoppingCartToDiscount;
 use App\Models\ShoppingOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,13 +22,29 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $totalPrice = 0;
+        $totalPriceWithoutDiscount = 0;
+        $totalPriceWithDiscount = 0;
         $customer = null;
 
         if (Auth::check()) {
+            $discount = 0;
             $customerId = Auth::user()->customer_id;
 
-            // Produkte und Preise in einer Abfrage holen
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customerId)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+
+            if ($clusterCustomerId == 1) {
+                $discount = 7;
+            } else if ($clusterCustomerId == 2) {
+                $discount = 3;
+            } else if ($clusterCustomerId == 3) {
+                $discount = 10;
+            } else if ($clusterCustomerId == 4) {
+                $discount = 5;
+            } else if ($clusterCustomerId == 5) {
+                $discount = 1;
+            }
+
             $items = ProductToShoppingCart::query()
                 ->select(
                     ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID,
@@ -55,27 +74,27 @@ class CheckoutController extends Controller
                 ->whereNull(ShoppingCart::DELETED_ON)
                 ->get();
 
-            // Gesamtsumme berechnen
-            $totalPrice = $items->sum(fn($item) => $item->retail_price * $item->total_amount);
+            $totalPriceWithoutDiscount = $items->sum(fn($item) => $item->retail_price * $item->total_amount);
 
-            // Kundendaten abrufen
+            $totalPriceWithDiscount = $totalPriceWithoutDiscount * (1 - $discount / 100);
+
             $customer = Customer::find($customerId);
         } else {
             $cart = session('cart', collect());
             $productIds = array_keys($cart->toArray());
 
-            // Alle Produkte auf einmal abrufen
             $products = \App\Models\Product::whereIn('id', $productIds)->get()->keyBy('id');
 
-            // Gesamtsumme berechnen
             foreach ($cart as $prodId => $item) {
                 if (isset($products[$prodId])) {
-                    $totalPrice += $products[$prodId]->retail_price * $item['quantity'];
+                    $totalPriceWithoutDiscount += $products[$prodId]->retail_price * $item['quantity'];
                 }
             }
+
+            $totalPriceWithDiscount = $totalPriceWithoutDiscount;
         }
 
-        return view('checkout', compact('totalPrice', 'customer'));
+        return view('checkout', compact('totalPriceWithoutDiscount', 'totalPriceWithDiscount', 'customer'));
     }
 
     public function submit(Request $request)
@@ -85,7 +104,26 @@ class CheckoutController extends Controller
                 ->where(ShoppingCart::CUSTOMER_ID, '=', Auth::user()->customer_id)
                 ->firstOrNew();
 
-            $totalPrice = 0;
+            $totalPriceWithoutDiscount = 0;
+            $totalPriceWithDiscount = 0;
+            $discount = 0;
+
+            $customerId = Auth::user()->customer_id;
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customerId)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+
+            if ($clusterCustomerId == 1) {
+                $discount = 7;
+            } else if ($clusterCustomerId == 2) {
+                $discount = 3;
+            } else if ($clusterCustomerId == 3) {
+                $discount = 10;
+            } else if ($clusterCustomerId == 4) {
+                $discount = 5;
+            } else if ($clusterCustomerId == 5) {
+                $discount = 1;
+            }
+
             $items = ProductToShoppingCart::query()
                 ->select(ProductToShoppingCart::PRODUCT_ID, ProductToShoppingCart::TOTAL_AMOUNT)
                 ->join(
@@ -94,33 +132,56 @@ class CheckoutController extends Controller
                     '=',
                     ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::SHOPPING_CART_ID
                 )
-                ->where(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID, Auth::user()->customer_id)
+                ->leftJoin(
+                    \App\Models\ShoppingOrder::TABLE,
+                    \App\Models\ShoppingOrder::TABLE . '.' . \App\Models\ShoppingOrder::SHOPPING_CART_ID,
+                    '=',
+                    \App\Models\ShoppingCart::TABLE . '.' . \App\Models\ShoppingCart::SHOPPING_CART_ID
+                )
+                ->whereNull(\App\Models\ShoppingOrder::ORDER_ID)
+                ->where(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID, $customerId)
                 ->whereNull(ShoppingCart::DELETED_ON)
                 ->get();
 
             foreach ($items as $item) {
                 $product = \App\Models\Product::find($item->product_id);
                 if ($product) {
-                    $totalPrice += $product->retail_price * $item->total_amount;
+                    $totalPriceWithoutDiscount += $product->retail_price * $item->total_amount;
                 }
             }
+
+            $totalPriceWithDiscount = $totalPriceWithoutDiscount * (1 - $discount / 100);
 
             $deliveryService = DeliveryService::inRandomOrder()->first();
             $maxOrderId = DB::table('SHOPPING_ORDER')->max('ORDER_ID');
 
-
             DB::statement("
-            INSERT INTO SHOPPING_ORDER (ORDER_ID, STATUS, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, DELIVERY_SERVICE_ID, TOTAL_PRICE)
-            VALUES (:order_id, :status, :order_time, :shopping_cart_id, :employee_id, :delivery_service_id, :total_price)
-        ", [
+        INSERT INTO SHOPPING_ORDER (ORDER_ID, STATUS, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, DELIVERY_SERVICE_ID, TOTAL_PRICE)
+        VALUES (:order_id, :status, :order_time, :shopping_cart_id, :employee_id, :delivery_service_id, :total_price)
+    ", [
                 'order_id' => $maxOrderId + 1,
                 'status' => 'Shipped',
                 'order_time' => Carbon::now(),
                 'shopping_cart_id' => $shoppingCart->shopping_cart_id,
                 'employee_id' => 1,
                 'delivery_service_id' => $deliveryService->delivery_service_id,
-                'total_price' => $totalPrice
+                'total_price' => $totalPriceWithDiscount
             ]);
+
+            $discountId = DB::table('Discount')->max('DISCOUNT_ID') + 1;
+
+            Discount::query()
+                ->insert([
+                    Discount::DISCOUNT_ID => $discountId,
+                    Discount::PERCENTAGE => $discount,
+                    Discount::CODE => null
+                ]);
+
+            ShoppingCartToDiscount::query()
+                ->insert([
+                    ShoppingCartToDiscount::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
+                    ShoppingCartToDiscount::DISCOUNT_ID => $discountId
+                ]);
         } else {
             $maxCustomerId = DB::table('CUSTOMER')->max('CUSTOMER_ID');
             Customer::query()
@@ -129,7 +190,6 @@ class CheckoutController extends Controller
                     Customer::FORENAME => $request->input('forename'),
                     Customer::LASTNAME => $request->input('lastname'),
                     Customer::EMAIL => $request->input('email'),
-                    //number
                     Customer::COUNTRY => $request->input('country_name'),
                     Customer::CITY => $request->input('city'),
                     Customer::STREET => $request->input('street'),
@@ -167,7 +227,7 @@ class CheckoutController extends Controller
                     ]);
             }
 
-            $totalPrice = 0;
+            $totalPriceWithoutDiscount = 0;
             $items = ProductToShoppingCart::query()
                 ->select(ProductToShoppingCart::PRODUCT_ID, ProductToShoppingCart::TOTAL_AMOUNT)
                 ->join(
@@ -182,30 +242,30 @@ class CheckoutController extends Controller
             foreach ($items as $item) {
                 $product = \App\Models\Product::find($item->product_id);
                 if ($product) {
-                    $totalPrice += $product->retail_price * $item->total_amount;
+                    $totalPriceWithoutDiscount += $product->retail_price * $item->total_amount;
                 }
             }
+
+            $totalPriceWithDiscount = $totalPriceWithoutDiscount;
 
             $deliveryService = DeliveryService::inRandomOrder()->first();
             $maxOrderId = DB::table('SHOPPING_ORDER')->max('ORDER_ID');
 
-
             DB::statement("
-            INSERT INTO SHOPPING_ORDER (ORDER_ID, STATUS, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, DELIVERY_SERVICE_ID, TOTAL_PRICE)
-            VALUES (:order_id, :status, :order_time, :shopping_cart_id, :employee_id, :delivery_service_id, :total_price)
-        ", [
+        INSERT INTO SHOPPING_ORDER (ORDER_ID, STATUS, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, DELIVERY_SERVICE_ID, TOTAL_PRICE)
+        VALUES (:order_id, :status, :order_time, :shopping_cart_id, :employee_id, :delivery_service_id, :total_price)
+    ", [
                 'order_id' => $maxOrderId + 1,
                 'status' => 'Shipped',
                 'order_time' => Carbon::now(),
                 'shopping_cart_id' => $shoppingCart->shopping_cart_id,
                 'employee_id' => 1,
                 'delivery_service_id' => $deliveryService->delivery_service_id,
-                'total_price' => $totalPrice
+                'total_price' => $totalPriceWithDiscount
             ]);
         }
 
         session()->flash('success', 'Order successfully placed!');
-
         session()->forget('cart');
 
         return redirect()->route('home');

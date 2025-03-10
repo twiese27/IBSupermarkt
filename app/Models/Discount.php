@@ -9,8 +9,16 @@ class Discount extends Model
 {
     use HasFactory;
 
+    const TABLE = 'DISCOUNT';
+    const DISCOUNT_ID = 'DISCOUNT_ID';
+    const PERCENTAGE = 'PERCENTAGE';
+    const CODE = 'CODE';
+
     /** @var string */
     protected $table = 'discount';
+
+    /** @var bool */
+    public $incrementing = false;
 
     /** @var string */
     protected $primaryKey = 'discount_id';
@@ -20,6 +28,7 @@ class Discount extends Model
 
     /** @var string[] */
     protected $fillable = [
+        'discount_id',
         'percentage',
         'code',
     ];

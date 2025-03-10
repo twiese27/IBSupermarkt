@@ -9,6 +9,10 @@ class ShoppingCartToDiscount extends Model
 {
     use HasFactory;
 
+    const TABLE = '';
+    const SHOPPING_CART_ID = 'SHOPPING_CART_ID';
+    const DISCOUNT_ID = 'DISCOUNT_ID';
+
     /** @var string */
     protected $table = 'shopping_cart_to_discount';
 
