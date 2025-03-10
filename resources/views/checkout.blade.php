@@ -372,16 +372,16 @@
                             <div class="single-widget">
                                 <h2>Payment method</h2>
                                 <div class="content">
-                                    <div class="checkbox">
-                                        <label class="checkbox-inline" for="1"><input name="updates" id="1"
-                                                                                      type="checkbox"/>
-                                            Debit</label>
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2"
-                                                                                      type="checkbox"/>
-                                            Klarna</label>
-                                        <label class="checkbox-inline" for="3"><input name="news" id="3"
-                                                                                      type="checkbox"/>
-                                            PayPal</label>
+                                    <div style="box-sizing: border-box; padding: 0" class="radio-group">
+                                        <label class="checkbox-inline" for="debit">
+                                            <input type="radio" name="payment_method" id="debit" value="debit" required /> Debit
+                                        </label>
+                                        <label class="checkbox-inline" for="klarna">
+                                            <input type="radio" name="payment_method" id="klarna" value="klarna" required /> Klarna
+                                        </label>
+                                        <label class="checkbox-inline" for="paypal">
+                                            <input type="radio" name="payment_method" id="paypal" value="paypal" required /> PayPal
+                                        </label>
                                     </div>
                                 </div>
                             </div>

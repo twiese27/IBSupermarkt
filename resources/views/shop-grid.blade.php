@@ -11,7 +11,7 @@
             <br>
             <br>
             <div style="text-align: center;">
-                <h1> Trending products in this category</h1>
+                <h1>Bestseller In This Category</h1>
             </div>
         </section>
         <section class="hero-area4">

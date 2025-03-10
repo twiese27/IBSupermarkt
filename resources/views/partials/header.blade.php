@@ -180,8 +180,10 @@ use App\Models\ShoppingCart;
                                 <ul class="shopping-list">
                                     @if(count($cartItems) > 0)
                                         @foreach($cartItems as $item)
-                                            <li>
-                                                <strong>{{ $item->product->product_name }}</strong> - Amount: {{ $item->quantity }}</strong>
+                                            <li><a href="{{ route('product', ['id' => $item->product->product_id]) }}">
+                                                    <strong>{{ $item->product->product_name }}</strong>
+                                                </a>
+                                                - Amount: {{ $item->quantity }}
                                             </li>
                                         @endforeach
                                     @else
@@ -219,26 +221,26 @@ use App\Models\ShoppingCart;
                                             @include('partials.category', ['categories' => $categories, 'level' => 0])
                                             <!-- Statische Menüpunkte -->
                                                 <li><a href="#">Service</a></li>
-                                                <li><a href="#">Kontakt</a></li>
+                                                <li><a href="#">Contact</a></li>
                                                 <!--TODO: Abfragen des Kundenstatus und Loginstatus-->
                                                 <!-- Unterscheidung, je nach Status des Kunden-->
                                                 <!--(\Illuminate\Support\Facades\Auth::check())-->
 
                                                     @if(\Illuminate\Support\Facades\Auth::check())
                                                         @if($clusterCustomerId == 1)<!--1 Bulk Buyer (high cart value, few purchases) -> Silber 7%-->
-                                                            <li><a class="startAnimation" id="NavBarSilber" href="#">Bulk Buyer Status! 7% discount on your next purchase!</a></li>
+                                                            <li><a class="startAnimation" id="NavBarSilber" href="#">SILVER Status! 7% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 2)<!--2 Brokie (few orders, low amounts) -> Grau 3%-->
-                                                            <li><a class="startAnimation" id="NavBarGrey" href="#">Brokie Status! 3% discount on your next purchase!</a></li>
+                                                            <li><a class="startAnimation" id="NavBarGrey" href="#">GREY Status! 3% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 3)<!--3 Cash Cow (high order volume, frequent purchases) -> Gold 10%-->
-                                                            <li><a class="startAnimation" id="NavBarGold" href="#">Cash Cow Status! 10% discount on your next purchase!</a></li>
+                                                            <li><a class="startAnimation" id="NavBarGold" href="#">GOLD Status! 10% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 4)<!--4 Occasional Buyer (irregular purchase behavior) -> Bronze 5%-->
-                                                            <li><a class="startAnimation" id="NavBarBronze" href="#">Occasional Buyer Status! 5% discount on your next purchase!</a></li>
+                                                            <li><a class="startAnimation" id="NavBarBronze" href="#">BRONCE Buyer Status! 5% discount on your next purchase!</a></li>
 
                                                         @elseif($clusterCustomerId == 5)<!--5 Inactive Customer (hardly or no purchases) -> Schwarz 1%-->
-                                                            <li><a class="startAnimation" id="NavBarBlack" href="#">Inactive Customer Status! 1% discount on your next purchase!</a></li>
+                                                            <li><a class="startAnimation" id="NavBarBlack" href="#">BLACK Status! 1% discount on your next purchase!</a></li>
                                                         @else
                                                             <li><a class="startAnimationSad" id="NavBarBlack" href="#">Yet No Status!</a></li>
                                                         @endif

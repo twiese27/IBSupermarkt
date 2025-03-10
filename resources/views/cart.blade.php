@@ -13,11 +13,11 @@
                     <table class="table shopping-summery">
                         <thead>
                         <tr class="main-hading">
-                            <th>PRODUKT</th>
+                            <th>PRODUCT</th>
                             <th>NAME</th>
-                            <th class="text-center">Piece Price</th>
-                            <th class="text-center">Amount</th>
-                            <th class="text-center">Total</th>
+                            <th class="text-center">PIECE PRICE</th>
+                            <th class="text-center">AMOUNT</th>
+                            <th class="text-center">TOTAL</th>
                             <th class="text-center">
                                 <form action="{{ route('cart.clear') }}" method="POST">
                                     @csrf
@@ -38,10 +38,13 @@
                                 $qty = $item->quantity;
                                 $total = $item->product->retail_price * $qty;
                                 $subtotal += $total;
+                                $imagePath = "images/product_images/" . str_pad($item->product->product_id, 5, "0", STR_PAD_LEFT) . "_00001_.png";
+                                $imageExists = file_exists(public_path($imagePath));
+                                $backgroundImage = $imageExists ? asset($imagePath) : 'https://placehold.co/512x512';
                             @endphp
                             <tr>
                                 <td class="image" data-title="No">
-                                    <img src="https://placehold.co/100x100" alt="#"/>
+                                    <img src="{{ $backgroundImage }}" alt="#"/>
                                 </td>
                                 <td class="product-des" data-title="Description">
                                     <p class="product-name"><a href="#">{{ $item->product->product_name }}</a></p>
@@ -57,7 +60,7 @@
                                                 <i class="ti-minus"></i>
                                             </button>
                                         </div>
-                                        <input id="quantity-{{ $item->product->product_id }}" type="text" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100" value="{{ $item->quantity }}"/>
+                                        <input id="quantity-{{ $item->product->product_id }}" type="text" onchange="updateProductQuantity({{$item->product->product_id}}, this.value)" name="quant[{{ $loop->index }}]" class="input-number" data-min="1" data-max="100" value="{{ $item->quantity }}"/>
                                         <div class="button plus">
                                             <button type="button" class="btn btn-primary btn-number" onclick="increaseProduct({{ $item->product->product_id }})">
                                                 <i class="ti-plus"></i>

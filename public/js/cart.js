@@ -25,7 +25,7 @@ function updateCartIcon(data) {
     // Optionally, update the shopping list in the header as well
     let shoppingList = '';
     $.each(data.cart, function(productId, item) {
-        shoppingList += `<li><strong>${item.product.product_name}</strong> - Menge: ${item.quantity}</li>`;
+        shoppingList += `<li><strong>${item.product.product_name}</strong> - Amount: ${item.quantity}</li>`;
     });
 
     $('.shopping-item .shopping-list').html(shoppingList);
@@ -50,6 +50,7 @@ function decreaseProduct(productId) {
 }
 
 function updateProductQuantity(productId, quantity) {
+    console.log(productId, quantity);
     $.ajax({
         type: 'POST',
         url: '/cart/update',
@@ -109,4 +110,16 @@ function updateTotalCartPrice() {
             console.error('Fehler beim Aktualisieren des Preises des Warenkorbs:', xhr.responseText);
         }
     });
+}
+
+function toggleCheckbox(selected) {
+    let checkboxes = document.querySelectorAll('input[name="payment_method"]');
+
+    checkboxes.forEach(cb => {
+        if (cb !== selected) cb.checked = false;
+    });
+
+    if (![...checkboxes].some(cb => cb.checked)) {
+        selected.checked = true;
+    }
 }
