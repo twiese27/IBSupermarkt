@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'house_number' => 'nullable|string|max:10',
             'postal_code' => 'required|string|max:10',
             'city' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
+            'country_name' => 'nullable|string|max:255',
             'iban' => 'nullable|string|max:34',
             'birth_date' => 'nullable|date',
             'password' => 'required|string|min:8',
@@ -88,7 +88,7 @@ class RegisterController extends Controller
         $customer->house_number = $data['house_number'] ?? null;
         $customer->postal_code = $data['postal_code'];
         $customer->city = $data['city'] ?? null;
-        $customer->country = $data['country'] ?? null;
+        $customer->country = $data['country_name'] ?? null;
         $customer->iban = $data['iban'] ?? null;
         $customer->birth_date = $data['birth_date'];
         $customer->save();
