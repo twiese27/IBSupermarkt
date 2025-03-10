@@ -23,6 +23,7 @@ Route::get('/search', [HomePageController::class, 'search'])->name('search');
 
 // Warenkorb
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('cart.addToCart');
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('cart.show');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');

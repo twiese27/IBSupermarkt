@@ -74,9 +74,9 @@ class CheckoutController extends Controller
                 ->whereNull(ShoppingCart::DELETED_ON)
                 ->get();
 
-            $totalPriceWithoutDiscount = $items->sum(fn($item) => $item->retail_price * $item->total_amount);
+            $totalPriceWithoutDiscount = round($items->sum(fn($item) => $item->retail_price * $item->total_amount), 2);
 
-            $totalPriceWithDiscount = $totalPriceWithoutDiscount * (1 - $discount / 100);
+            $totalPriceWithDiscount = round($totalPriceWithoutDiscount * (1 - $discount / 100), 2);
 
             $customer = Customer::find($customerId);
         } else {

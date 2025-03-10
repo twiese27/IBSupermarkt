@@ -123,3 +123,19 @@ function toggleCheckbox(selected) {
         selected.checked = true;
     }
 }
+
+
+function increaseProductDetail() {
+    let inputField = $("#quantityProductDetail");
+    let newQuantity = parseInt(inputField.val(), 10) + 1;
+    $("#quantityProductDetail").val(newQuantity);
+}
+
+function decreaseProductDetail() {
+    let inputField = $("#quantityProductDetail");
+    if (inputField.val() - 1 < 1) {
+    } else {
+        let newQuantity = parseInt(inputField.val(), 10) - 1;
+        $("#quantityProductDetail").val(newQuantity);
+    }
+}

@@ -47,7 +47,7 @@
                                     <img src="{{ $backgroundImage }}" alt="#"/>
                                 </td>
                                 <td class="product-des" data-title="Description">
-                                    <p class="product-name"><a href="#">{{ $item->product->product_name }}</a></p>
+                                    <p class="product-name"><a href="{{ route('product', ['id' => $item->product->product_id]) }}">{{ $item->product->product_name }}</a></p>
                                 </td>
                                 <td class="price" data-title="Price">
                                     <span>{{ $item->product->retail_price }} €</span>
@@ -89,6 +89,9 @@
                     <!--/ End Shopping Summery -->
                 </div>
             </div>
+            @php
+                $total = $subtotal * (1 - $discount / 100);
+            @endphp
             <div class="row">
                 <div class="col-12">
                     <!-- Total Amount -->
@@ -103,12 +106,13 @@
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Subtotal<span id="subtotal">{{ $subtotal }} €</span></li>
+                                        <li>Subtotal<span id="subtotal">{{ round($subtotal, 2) }} €</span></li>
+                                        <li>Discount<span id="discount">{{ round($total - $subtotal, 2) }} €</span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li class="last">You pay<span id="total">{{ $subtotal }} €</span></li>
+                                        <li class="last">You pay<span id="total">{{ round($total, 2) }} €</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="{{ route('checkout') }}" class="btn">Checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">checkout</a>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClusterCustomerRegressionData;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
@@ -14,8 +15,23 @@ class CartController extends Controller
 {
     public function index()
     {
+        $discount = 0;
         if (Auth::check()) {
             $customerId = Auth::user()->customer_id;
+            $clusterData = ClusterCustomerRegressionData::where('CUSTOMER_ID', $customerId)->first();
+            $clusterCustomerId = $clusterData ? $clusterData->cluster_customer_id : 0;
+
+            if ($clusterCustomerId == 1) {
+                $discount = 7;
+            } else if ($clusterCustomerId == 2) {
+                $discount = 3;
+            } else if ($clusterCustomerId == 3) {
+                $discount = 10;
+            } else if ($clusterCustomerId == 4) {
+                $discount = 5;
+            } else if ($clusterCustomerId == 5) {
+                $discount = 1;
+            }
             $items = $this->getShoppingCartItems($customerId);
         } else {
             $items = session('cart', collect());
@@ -31,7 +47,7 @@ class CartController extends Controller
             }
         }
 
-        return view('cart', compact('items'));
+        return view('cart', compact('items', 'discount'));
     }
 
     public function add(Request $request)
@@ -335,5 +351,62 @@ class CartController extends Controller
         ShoppingCart::query()
             ->where(ShoppingCart::SHOPPING_CART_ID, '=', $shoppingCart->shopping_cart_id)
             ->update([ShoppingCart::AMOUNT_OF_PRODUCTS => $shoppingCart->amount_of_products + 1]);
+    }
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        $product = Product::find($productId);
+
+        if (Auth::check()) {
+            $customerId = Auth::user()->customer_id;
+            $shoppingCart = $this->getShoppingCart($customerId);
+
+            if ($shoppingCart->exists) {
+                $productToCart = ProductToShoppingCart::query()
+                    ->firstOrNew([
+                        ProductToShoppingCart::PRODUCT_ID => $product->product_id,
+                        ProductToShoppingCart::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id
+                    ]);
+
+                if (!$productToCart->exists) {
+                    $productToCart->product_id = $product->product_id;
+                    $productToCart->shopping_cart_id = $shoppingCart->shopping_cart_id;
+                    $this->updateAmountOfProducts($shoppingCart);
+                }
+
+                $productToCart->total_amount = ($productToCart->exists ? $productToCart->total_amount + $quantity : 1);
+                $productToCart->save();
+            } else {
+                $shoppingCart = $this->createShoppingCart($customerId);
+
+                ProductToShoppingCart::query()
+                    ->insert([
+                        ProductToShoppingCart::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
+                        ProductToShoppingCart::PRODUCT_ID => $product->product_id,
+                        ProductToShoppingCart::TOTAL_AMOUNT => $quantity
+                    ]);
+            }
+
+            $cart = $this->getShoppingCartItems($customerId);
+        } else {
+            $cart = session()->get('cart', collect());
+
+            if (isset($cart[$productId])) {
+                $cart[$productId]->quantity = $quantity;
+            } else {
+                $cart[$productId] = (object) [
+                    'quantity' => $quantity,
+                    'product' => (object) $product
+                ];
+            }
+
+            session()->put('cart', $cart);
+        }
+        $totalCount = array_sum(array_column($cart->toArray(), 'quantity'));
+
+        return redirect()->back();
     }
 }
