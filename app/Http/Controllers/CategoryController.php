@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\AssociationRuleCat;
-use App\Models\SalesLastYear;
+use App\Models\MvSalesLastYear;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -110,7 +110,7 @@ class CategoryController extends Controller
     private function getTrendingProducts(int $categoryId): Collection
     {
         // Get the trending products sorted by SALES for a specific category
-        $topSalesLastYear = SalesLastYear::query()
+        $topSalesLastYear = MvSalesLastYear::query()
             ->where('product_category_id', $categoryId)
             ->orderByDesc('sales')
             ->limit(20)
