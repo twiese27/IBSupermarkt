@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\CustomerExtension;
 use App\Models\DeliveryService;
 use App\Models\Employee;
+use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingOrder;
@@ -19,43 +20,52 @@ class CheckoutController extends Controller
     public function index()
     {
         $totalPrice = 0;
+        $customer = null;
 
         if (Auth::check()) {
             $customerId = Auth::user()->customer_id;
 
+            // Produkte und Preise in einer Abfrage holen
             $items = ProductToShoppingCart::query()
-                ->select(ProductToShoppingCart::PRODUCT_ID, ProductToShoppingCart::TOTAL_AMOUNT)
+                ->select(
+                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID,
+                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::TOTAL_AMOUNT,
+                    Product::TABLE . '.' . Product::RETAIL_PRICE
+                )
                 ->join(
                     ShoppingCart::TABLE,
                     ShoppingCart::TABLE . '.' . ShoppingCart::SHOPPING_CART_ID,
                     '=',
                     ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::SHOPPING_CART_ID
                 )
+                ->join(
+                    Product::TABLE,
+                    Product::TABLE . '.' . Product::PRODUCT_ID,
+                    '=',
+                    ProductToShoppingCart::TABLE . '.' . ProductToShoppingCart::PRODUCT_ID
+                )
                 ->where(ShoppingCart::TABLE . '.' . ShoppingCart::CUSTOMER_ID, $customerId)
                 ->whereNull(ShoppingCart::DELETED_ON)
                 ->get();
 
-            foreach ($items as $item) {
-                $product = \App\Models\Product::find($item->product_id);
-                if ($product) {
-                    $totalPrice += $product->retail_price * $item->total_amount;
-                }
-            }
+            // Gesamtsumme berechnen
+            $totalPrice = $items->sum(fn($item) => $item->retail_price * $item->total_amount);
 
-            $customer = Customer::query()
-                ->where(Customer::CUSTOMER_ID, '=', Auth::user()->customer_id)
-                ->firstOrNew();
+            // Kundendaten abrufen
+            $customer = Customer::find($customerId);
         } else {
             $cart = session('cart', collect());
+            $productIds = array_keys($cart->toArray());
 
+            // Alle Produkte auf einmal abrufen
+            $products = \App\Models\Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+            // Gesamtsumme berechnen
             foreach ($cart as $prodId => $item) {
-                $product = \App\Models\Product::find($prodId);
-                if ($product) {
-                    $totalPrice += $product->retail_price * $item->quantity;
+                if (isset($products[$prodId])) {
+                    $totalPrice += $products[$prodId]->retail_price * $item['quantity'];
                 }
             }
-
-            $customer = null;
         }
 
         return view('checkout', compact('totalPrice', 'customer'));
