@@ -47,7 +47,7 @@
                                     <img src="{{ $backgroundImage }}" alt="#"/>
                                 </td>
                                 <td class="product-des" data-title="Description">
-                                    <p class="product-name"><a href="#">{{ $item->product->product_name }}</a></p>
+                                    <p class="product-name"><a href="{{ route('product', ['id' => $item->product->product_id]) }}">{{ $item->product->product_name }}</a></p>
                                 </td>
                                 <td class="price" data-title="Price">
                                     <span>{{ $item->product->retail_price }} €</span>
