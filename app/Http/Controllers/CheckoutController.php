@@ -7,12 +7,12 @@ use App\Models\Customer;
 use App\Models\CustomerExtension;
 use App\Models\DeliveryService;
 use App\Models\Discount;
-use App\Models\Employee;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartToDiscount;
-use App\Models\ShoppingOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -99,6 +99,7 @@ class CheckoutController extends Controller
 
     public function submit(Request $request)
     {
+        $paymentMethod = $request->input('payment_method');
         if (Auth::check()) {
             $shoppingCart = ShoppingCart::query()
                 ->where(ShoppingCart::CUSTOMER_ID, '=', Auth::user()->customer_id)
@@ -182,6 +183,27 @@ class CheckoutController extends Controller
                     ShoppingCartToDiscount::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
                     ShoppingCartToDiscount::DISCOUNT_ID => $discountId
                 ]);
+
+            $paymentMethodId = PaymentMethod::query()
+                ->where(
+                    'NAME',
+                    '=',
+                    $paymentMethod
+                )
+                ->firstOrNew()
+                ->payment_method_id;
+
+            Payment::query()
+                ->insert([
+                    'PAYMENT_ID' => DB::table('PAYMENT')->max('PAYMENT_ID') + 1,
+                    'PAYMENT_DATE' => Carbon::now(),
+                    'CASH_FLOW' => $totalPriceWithDiscount,
+                    'SUPPLIER_ID' => null,
+                    'ORDER_ID' => $maxOrderId + 1,
+                    'EMPLOYEE_ID' => null,
+                    'WAREHOUSE_ID' => null,
+                    'PAYMENT_METHOD_ID' => $paymentMethodId
+                ]);
         } else {
             $maxCustomerId = DB::table('CUSTOMER')->max('CUSTOMER_ID');
             Customer::query()
@@ -264,6 +286,27 @@ class CheckoutController extends Controller
                 'total_price' => $totalPriceWithDiscount
             ]);
         }
+
+        $paymentMethodId = PaymentMethod::query()
+            ->where(
+                'NAME',
+                '=',
+                $paymentMethod
+            )
+            ->firstOrNew()
+            ->payment_method_id;
+
+        Payment::query()
+            ->insert([
+                'PAYMENT_ID' => DB::table('PAYMENT')->max('PAYMENT_ID') + 1,
+                'PAYMENT_DATE' => Carbon::now(),
+                'CASH_FLOW' => $totalPriceWithDiscount,
+                'SUPPLIER_ID' => null,
+                'ORDER_ID' => $maxOrderId + 1,
+                'EMPLOYEE_ID' => null,
+                'WAREHOUSE_ID' => null,
+                'PAYMENT_METHOD_ID' => $paymentMethodId
+            ]);
 
         session()->flash('success', 'Order successfully placed!');
         session()->forget('cart');

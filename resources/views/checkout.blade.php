@@ -374,13 +374,13 @@
                                 <div class="content">
                                     <div style="box-sizing: border-box; padding: 0" class="radio-group">
                                         <label class="checkbox-inline" for="debit">
-                                            <input type="radio" name="payment_method" id="debit" value="debit" required /> Debit
+                                            <input type="radio" name="payment_method" id="Debit" value="Debit" required /> Debit
                                         </label>
                                         <label class="checkbox-inline" for="klarna">
-                                            <input type="radio" name="payment_method" id="klarna" value="klarna" required /> Klarna
+                                            <input type="radio" name="payment_method" id="Klarna" value="Klarna" required /> Klarna
                                         </label>
                                         <label class="checkbox-inline" for="paypal">
-                                            <input type="radio" name="payment_method" id="paypal" value="paypal" required /> PayPal
+                                            <input type="radio" name="payment_method" id="Paypal" value="Paypal" required /> PayPal
                                         </label>
                                     </div>
                                 </div>
