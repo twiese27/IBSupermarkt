@@ -13,7 +13,7 @@ class POSToCustomerExtension extends Model
     protected $table = 'pos_to_customer_extension';
 
     /** @var string */
-    protected $primaryKey = 'customer_extension_id'; // Keine eigene ID, weil es sich um eine Verknüpfung handelt
+    protected $primaryKey = 'customer_extension_id'; 
 
     /** @var bool */
     public $timestamps = false;
