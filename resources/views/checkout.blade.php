@@ -295,20 +295,29 @@
                             <!-- Order Widget -->
                             <div class="single-widget">
                                 <h2>Payment method</h2>
-                                <div class="content">
-                                    <div style="box-sizing: border-box; padding: 0" class="radio-group">
-                                        <label class="checkbox-inline" for="debit">
+                                <div class="content" style="margin-left: 25px">
+                                    <div class="radio-group">
+                                        <label style="display: block" for="debit">
                                             <input type="radio" name="payment_method" id="Debit" value="Debit" required /> Debit
                                         </label>
-                                        <label class="checkbox-inline" for="klarna">
+                                        <label style="display: block" for="klarna">
                                             <input type="radio" name="payment_method" id="Klarna" value="Klarna" required /> Klarna
                                         </label>
-                                        <label class="checkbox-inline" for="paypal">
+                                        <label style="display: block" for="paypal">
                                             <input type="radio" name="payment_method" id="Paypal" value="Paypal" required /> PayPal
                                         </label>
                                     </div>
                                 </div>
                             </div>
+
+{{--                            <style>--}}
+{{--                                .radio-group label {--}}
+{{--                                    display: block;  /* Jedes Label in eine neue Zeile */--}}
+{{--                                    margin-left: 10px; /* Falls nötig, nach rechts rücken */--}}
+{{--                                    padding: 5px 0;--}}
+{{--                                }--}}
+{{--                            </style>--}}
+
                             <!--/ End Order Widget -->
                             <!-- Payment Method Widget -->
                             <div class="single-widget payement">
