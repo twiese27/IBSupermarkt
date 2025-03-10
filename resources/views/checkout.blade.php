@@ -321,8 +321,10 @@
                             <!--/ End Order Widget -->
                             <!-- Payment Method Widget -->
                             <div class="single-widget payement">
-                                <div class="content">
-                                    <img src="{{ asset('images/payment-method.png') }}" alt="#"/>
+                                <div class="content" style="display: flex; align-items: center; gap: 15px;">
+                                    <img style="height: 40px; width: auto" src="{{ asset('images/debit.png') }}" alt="Debit" class="payment-icon" />
+                                    <img style="height: 40px; width: auto" src="{{ asset('images/klarna.svg') }}" alt="Klarna" class="payment-icon" />
+                                    <img style="height: 40px; width: auto" src="{{ asset('images/paypal.svg') }}" alt="PayPal" class="payment-icon" />
                                 </div>
                             </div>
                             <!--/ End Payment Method Widget -->
