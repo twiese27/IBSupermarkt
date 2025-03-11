@@ -21,8 +21,14 @@
                                         <div class="form-group">
                                             <label>Forename<span>*</span></label>
                                             <input type="text" name="forename"
+                                                   class="form-control @error('forename') is-invalid @enderror"
                                                    value="{{ $customer ? $customer->forename : '' }}" placeholder=""
                                                    required="required"/>
+                                            @error('forename')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -30,7 +36,13 @@
                                             <label>Lastname<span>*</span></label>
                                             <input type="text" name="lastname"
                                                    value="{{ $customer ? $customer->lastname : '' }}" placeholder=""
+                                                   class="form-control @error('lastname') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('lastname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -38,7 +50,13 @@
                                             <label>Email<span>*</span></label>
                                             <input type="email" name="email"
                                                    value="{{ $customer ? $customer->email : '' }}" placeholder=""
+                                                   class="form-control @error('email') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -232,7 +250,13 @@
                                             <label>City<span>*</span></label>
                                             <input type="text" name="city"
                                                    value="{{ $customer ? $customer->city : '' }}" placeholder=""
+                                                   class="form-control @error('city') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('city')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -240,7 +264,14 @@
                                             <label>Postcode<span>*</span></label>
                                             <input type="text" name="post"
                                                    value="{{ $customer ? $customer->postal_code : '' }}" placeholder=""
+                                                   class="form-control @error('post') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('post')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -248,7 +279,13 @@
                                             <label>Street<span>*</span></label>
                                             <input type="text" name="street"
                                                    value="{{ $customer ? $customer->street : '' }}" placeholder=""
+                                                   class="form-control @error('street') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('street')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -256,7 +293,13 @@
                                             <label>House number<span>*</span></label>
                                             <input type="text" name="house"
                                                    value="{{ $customer ? $customer->house_number : '' }}" placeholder=""
+                                                   class="form-control @error('house') is-invalid @enderror"
                                                    required="required"/>
+                                            @error('house')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
 

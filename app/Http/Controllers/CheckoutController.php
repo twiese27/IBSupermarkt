@@ -19,9 +19,23 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CheckoutController extends Controller
 {
+    protected function validator(Request $request) {
+        return Validator::make($request->all(), [
+            'forename' => 'required|string|max:20',
+            'lastname' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'city' => 'required|string|max:100',
+            'post' => 'required|string|max:10',
+            'street' => 'required|string|max:255',
+            'house' => 'required|string|max:10',
+            'payment_method' => 'required|in:Debit,Klarna,PayPal',
+        ]);
+    }
+
     public function index()
     {
         $totalPriceWithoutDiscount = 0;
@@ -96,6 +110,13 @@ class CheckoutController extends Controller
 
     public function submit(Request $request)
     {
+        $validator = $this->validator($request);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        dd($validator);
         $paymentMethod = $request->input('payment_method');
         if (Auth::check()) {
             $shoppingCart = ShoppingCart::query()
