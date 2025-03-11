@@ -24,7 +24,7 @@
                             <div class="home-slider-4">
                                 
 
-                                @foreach ($displayProducts as $product)
+                                @foreach ($recommendedProducts as $product)
                                     @include('partials.sliderElement', ['product' => $product])
                                 @endforeach
 
