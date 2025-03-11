@@ -142,3 +142,16 @@ function decreaseProductDetail() {
         $("#quantityProductDetail").val(newQuantity);
     }
 }
+
+function togglePasswordFields() {
+    let checkbox = document.getElementById("cbox");
+    let passwordFields = document.querySelectorAll(".password-fields");
+
+    passwordFields.forEach(field => {
+        field.style.display = checkbox.checked ? "block" : "none";
+        let input = field.querySelector("input");
+        if (input) {
+            input.required = checkbox.checked;
+        }
+    });
+}

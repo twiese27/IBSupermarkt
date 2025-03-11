@@ -344,33 +344,36 @@
                                         </div>
                                     </div>
                                     @if(!\Illuminate\Support\Facades\Auth::check())
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Password<span>*</span></label>
-                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                                                   placeholder="********" required />
+                                        <div class="col-lg-6 col-md-6 col-12 password-fields" style="display: none;">
+                                            <div class="form-group">
+                                                <label>Password<span>*</span></label>
+                                                <input type="password" name="password"
+                                                       class="form-control @error('password') is-invalid @enderror"
+                                                       placeholder="********"/>
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                            @enderror
+                                        <div class="col-lg-6 col-md-6 col-12 password-fields" style="display: none;">
+                                            <div class="form-group">
+                                                <label>Confirm Password<span>*</span></label>
+                                                <input type="password" name="password_confirmation" class="form-control"
+                                                       placeholder="********"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Confirm Password<span>*</span></label>
-                                            <input type="password" name="password_confirmation" class="form-control"
-                                                   placeholder="********" required />
-                                        </div>
-                                    </div>
 
                                         <div class="col-12">
                                             <div class="form-group create-account">
-                                                <input id="cbox" name="create_account" type="checkbox"/>
-                                                <label>Create Account?</label>
+                                                <input onchange="togglePasswordFields()" id="cbox" name="create_account"
+                                                       type="checkbox"/>
+                                                <label for="cbox">Create Account?</label>
                                             </div>
                                         </div>
+
                                     @endif
                                 </div>
                             </div>

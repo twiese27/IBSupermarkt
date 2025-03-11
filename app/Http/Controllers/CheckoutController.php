@@ -47,8 +47,20 @@ class CheckoutController extends Controller
             'forename' => 'required|string|max:20',
             'middlename' => 'nullable|string|max:100',
             'lastname' => 'required|string|max:100',
-            //'email' => 'required|email|unique:customer,email',
-            'email' => 'required|email|max:100',
+            'email' => [
+                'required',
+                'email',
+                'max:100',
+                function ($attribute, $value, $fail) {
+                    $customer = Customer::where('email', $value)->first();
+                    if ($customer) {
+                        $user = User::where('customer_id', $customer->customer_id)->first();
+                        if ($user) {
+                            $fail('This email address is already linked to an existing account.');
+                        }
+                    }
+                }
+            ],
             'street' => 'nullable|string|max:255',
             'house' => 'nullable|string|max:10',
             'post' => 'required|string|max:10',
