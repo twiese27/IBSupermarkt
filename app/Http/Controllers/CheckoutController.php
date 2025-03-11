@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartToDiscount;
+use App\Models\ShoppingOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -150,20 +151,16 @@ class CheckoutController extends Controller
             $totalPriceWithDiscount = $totalPriceWithoutDiscount * (1 - $discount / 100);
 
             $deliveryService = DeliveryService::inRandomOrder()->first();
-            $maxOrderId = DB::table('SHOPPING_ORDER')->max('ORDER_ID');
 
-            DB::statement("
-        INSERT INTO SHOPPING_ORDER (ORDER_ID, STATUS, ORDER_TIME, SHOPPING_CART_ID, EMPLOYEE_ID, DELIVERY_SERVICE_ID, TOTAL_PRICE)
-        VALUES (:order_id, :status, :order_time, :shopping_cart_id, :employee_id, :delivery_service_id, :total_price)
-    ", [
-                'order_id' => $maxOrderId + 1,
-                'status' => 'Shipped',
-                'order_time' => Carbon::now(),
-                'shopping_cart_id' => $shoppingCart->shopping_cart_id,
-                'employee_id' => 1,
-                'delivery_service_id' => $deliveryService->delivery_service_id,
-                'total_price' => $totalPriceWithDiscount
-            ]);
+            $shoppingOrder = new ShoppingOrder();
+            $shoppingOrder->order_id = DB::table('SHOPPING_ORDER')->max('ORDER_ID') + 1;
+            $shoppingOrder->status = 'Shipped';
+            $shoppingOrder->order_time = Carbon::now();
+            $shoppingOrder->shopping_cart_id = $shoppingCart->shopping_cart_id;
+            $shoppingOrder->employee_id = 1;
+            $shoppingOrder->delivery_service_id = $deliveryService->delivery_service_id;
+            $shoppingOrder->total_price = $totalPriceWithDiscount;
+            $shoppingOrder->save();
 
             $discountId = DB::table('Discount')->max('DISCOUNT_ID') + 1;
 
@@ -195,7 +192,7 @@ class CheckoutController extends Controller
                     'PAYMENT_DATE' => Carbon::now(),
                     'CASH_FLOW' => $totalPriceWithDiscount,
                     'SUPPLIER_ID' => null,
-                    'ORDER_ID' => $maxOrderId + 1,
+                    'ORDER_ID' => $shoppingOrder->order_id,
                     'EMPLOYEE_ID' => null,
                     'WAREHOUSE_ID' => null,
                     'PAYMENT_METHOD_ID' => $paymentMethodId
@@ -231,7 +228,7 @@ class CheckoutController extends Controller
             $POSToCustomerExtension->customer_id = $maxCustomerId + 1;
             $POSToCustomerExtension->customer_extension_id = $maxCustomerExtensionId + 1;
             $POSToCustomerExtension->point_of_sale_id = 2;
-    
+
             $POSToCustomerExtension->save();
 
             $cart = session('cart', collect());
