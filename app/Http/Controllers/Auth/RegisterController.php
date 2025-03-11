@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerExtension;
+use App\Models\POSToCustomerExtension;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -52,16 +54,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'forename' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'lastname' => 'required|string|max:255',
+            'forename' => 'required|string|max:20',
+            'middle_name' => 'nullable|string|max:100',
+            'lastname' => 'required|string|max:100',
             //'email' => 'required|email|unique:customer,email',
             'email' => 'required|email',
             'street' => 'nullable|string|max:255',
             'house_number' => 'nullable|string|max:10',
             'postal_code' => 'required|string|max:10',
             'city' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
+            'country_name' => 'nullable|string|max:100',
             'iban' => 'nullable|string|max:34',
             'birth_date' => 'nullable|date',
             'password' => 'required|string|min:8',
@@ -88,10 +90,25 @@ class RegisterController extends Controller
         $customer->house_number = $data['house_number'] ?? null;
         $customer->postal_code = $data['postal_code'];
         $customer->city = $data['city'] ?? null;
-        $customer->country = $data['country'] ?? null;
+        $customer->country = $data['country_name'] ?? null;
         $customer->iban = $data['iban'] ?? null;
         $customer->birth_date = $data['birth_date'];
         $customer->save();
+
+        $customerExtension = new CustomerExtension();
+        $customerExtension->customer_extension_id = DB::table('customer_extension')->max('customer_extension_id') + 1;
+        $customerExtension->customer_id = $customer->customer_id;
+        $customerExtension->gender = null;
+        $customerExtension->additional_delivery_address_information = null;
+        $customerExtension->save();
+
+        $POSToCustomerExtension = new POSToCustomerExtension();
+        //$POSToCustomerExtension->customer_extension_id = DB::table('pos_to_customer_extension')->max($customerExtension->customer_extension_id);
+        $POSToCustomerExtension->customer_id = $customer->customer_id;
+        $POSToCustomerExtension->customer_extension_id = $customerExtension->customer_extension_id;
+        $POSToCustomerExtension->point_of_sale_id = 2;
+
+        $POSToCustomerExtension->save();
 
         $timestamp = Carbon::now()->toDateTimeString();
 

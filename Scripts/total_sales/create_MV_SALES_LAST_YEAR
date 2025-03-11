@@ -1,0 +1,85 @@
+import cx_Oracle
+
+# === KONFIGURATION ===
+DB_USER = "ONLINESHOP_PROD"
+DB_PASSWORD = "onlineshop_prod"
+DB_DSN = "134.106.62.237:1521/dbprak2"
+
+MV_NAME = "MV_SALES_LAST_YEAR"
+
+# === FUNKTION: Verbindung zur DB ===
+def connect_to_db():
+    try:
+        connection = cx_Oracle.connect(DB_USER, DB_PASSWORD, DB_DSN)
+        print("✅ Verbindung zur Datenbank erfolgreich!")
+        return connection
+    except cx_Oracle.DatabaseError as e:
+        print("❌ Fehler bei der Verbindung zur Datenbank:", e)
+        return None
+
+# === FUNKTION: Prüfe, ob Materialized View existiert ===
+def check_materialized_view_exists(cursor, mv_name):
+    query = f"""
+    SELECT COUNT(*) 
+    FROM user_mviews 
+    WHERE mview_name = UPPER(:mv_name)
+    """
+    cursor.execute(query, {"mv_name": mv_name})
+    result = cursor.fetchone()
+    return result[0] > 0  # True, falls die MV existiert
+
+# === FUNKTION: Materialized View erstellen ===
+def create_materialized_view(cursor):
+    print("🔄 Erstelle Materialized View...")
+
+    create_mv_sql = f"""
+    CREATE MATERIALIZED VIEW {MV_NAME}
+    BUILD IMMEDIATE
+    REFRESH COMPLETE ON DEMAND
+    AS
+    SELECT 
+        s.sales_last_year_id,
+        s.product_id,
+        s.sales,
+        p.product_category_id
+    FROM SALES_LAST_YEAR s
+    JOIN PRODUCT p ON s.product_id = p.product_id
+    """
+    
+    try:
+        cursor.execute(create_mv_sql)
+        print(f"✅ Materialized View {MV_NAME} wurde erfolgreich erstellt!")
+    except cx_Oracle.DatabaseError as e:
+        print(f"❌ Fehler beim Erstellen der Materialized View: {e}")
+
+# === FUNKTION: Materialized View aktualisieren ===
+def refresh_materialized_view(cursor):
+    print("🔄 Aktualisiere Materialized View...")
+    
+    try:
+        cursor.callproc("DBMS_MVIEW.REFRESH", [MV_NAME])
+        print(f"✅ Materialized View {MV_NAME} wurde erfolgreich aktualisiert!")
+    except cx_Oracle.DatabaseError as e:
+        print(f"❌ Fehler beim Aktualisieren der Materialized View: {e}")
+
+# === HAUPTPROGRAMM ===
+def main():
+    connection = connect_to_db()
+    if not connection:
+        return
+    
+    cursor = connection.cursor()
+    
+    if check_materialized_view_exists(cursor, MV_NAME):
+        print(f"✅ Materialized View {MV_NAME} existiert bereits.")
+        refresh_materialized_view(cursor)
+    else:
+        print(f"⚠️ Materialized View {MV_NAME} existiert nicht.")
+        create_materialized_view(cursor)
+    
+    cursor.close()
+    connection.close()
+    print("🔚 Verbindung geschlossen.")
+
+if __name__ == "__main__":
+    main()

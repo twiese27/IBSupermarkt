@@ -9,6 +9,7 @@ use App\Models\DeliveryService;
 use App\Models\Discount;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
+use App\Models\POSToCustomerExtension;
 use App\Models\Product;
 use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
@@ -223,6 +224,15 @@ class CheckoutController extends Controller
                     'ADDITIONAL_DELIVERY_ADDRESS_INFORMATION' => null,
                     'IS_GUEST' => true,
                 ]);
+
+
+            $POSToCustomerExtension = new POSToCustomerExtension();
+            //$POSToCustomerExtension->customer_extension_id = DB::table('pos_to_customer_extension')->max($customerExtension->customer_extension_id);
+            $POSToCustomerExtension->customer_id = $maxCustomerId + 1;
+            $POSToCustomerExtension->customer_extension_id = $maxCustomerExtensionId + 1;
+            $POSToCustomerExtension->point_of_sale_id = 2;
+    
+            $POSToCustomerExtension->save();
 
             $cart = session('cart', collect());
             $amountOfProducts = $cart->count();

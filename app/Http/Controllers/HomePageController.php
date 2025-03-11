@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClusterStockToProduct;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\SalesAllTime;
@@ -131,7 +132,8 @@ class HomePageController extends Controller
             $bestseller = $bestseller->shuffle();
         // End Bestseller
 
-        // Start Insider Tip as list
+        
+        // Start Insider Tip as list alt
             $salesLastYear = DB::table('product_to_warehouse as ptw')
                 ->select('ptw.product_id', DB::raw('SUM(ptw.stock) as total_stock'))
                 ->whereIn('ptw.product_id', function($query) {
@@ -150,7 +152,16 @@ class HomePageController extends Controller
             $insiderTip = Product::query()
                 ->whereIn('product_id', $insiderTipIds->toArray())
                 ->get();
-        // End Insider Tip as list
+        // End Insider Tip as list alt
+
+        // Start Insider Tip as List neu mit Cluster Analsye
+            // select product_id from cluster_stock_to_product where cluster_stock_id = 3;
+            $insiderTipIds = ClusterStockToProduct::query()
+                ->where('cluster_stock_id', 3)
+                ->inRandomOrder()
+                ->pluck('product_id');
+            $insiderTip = Product::whereIn('product_id', $insiderTipIds)->get();
+        // Ende Insider Tip as List neu mit Cluster Analsye
 
         // Start Insider Tip big
             $specialOffer = Product::whereIn('product_id', [32362, 32372, 32373, 32381, 32366])

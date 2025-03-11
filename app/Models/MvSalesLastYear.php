@@ -5,30 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class POSToCustomerExtension extends Model
+class MvSalesLastYear extends Model
 {
     use HasFactory;
 
     /** @var string */
-    protected $table = 'pos_to_customer_extension';
+    protected $table = 'MV_Sales_Last_Year';
 
     /** @var string */
-    protected $primaryKey = 'customer_extension_id'; 
+    protected $primaryKey = 'SALES_LAST_YEAR_ID';
 
     /** @var bool */
     public $timestamps = false;
 
     /** @var string[] */
     protected $fillable = [
-        'customer_extension_id',
-        'customer_id',
-        'point_of_sale_id',
+        'PRODUCT_ID',
+        'SALES',
+        'PRODUCT_CATEGORY_ID'
     ];
 
     /** @var string[] */
     protected $casts = [
-        'customer_extension_id' => 'integer',
-        'customer_id' => 'integer',
-        'point_of_sale_id' => 'integer',
+        'PRODUCT_ID' => 'integer',
+        'SALES' => 'integer',
+        'PRODUCT_CATEGORY_ID' => 'integer'
     ];
 }
