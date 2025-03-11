@@ -104,7 +104,8 @@ function updateTotalCartPrice() {
             console.log('Preis des Warenkorbs aktualisiert:', response);
             let roundedTotal = parseFloat(response.total).toFixed(2);
             let roundedSubtotal = parseFloat(response.subtotal).toFixed(2);
-            let discount = parseFloat(response.discount).toFixed(2);
+            let discount = parseFloat(response.discount);
+            discount = isNaN(discount) ? "0" : discount.toFixed(2);
             $('#total').text(roundedTotal + ' €');
             $('#subtotal').text(roundedSubtotal + ' €');
             $('#discount').text(discount + ' €');
