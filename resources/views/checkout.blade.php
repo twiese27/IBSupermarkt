@@ -41,7 +41,7 @@
                                                    required="required"/>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Country<span>*</span></label>
@@ -259,7 +259,7 @@
                                                    required="required"/>
                                         </div>
                                     </div>
-                                    
+
                                     @if(!\Illuminate\Support\Facades\Auth::check())
                                         <div class="col-12">
                                             <div class="form-group create-account">
@@ -300,7 +300,7 @@
                                             <input type="radio" name="payment_method" id="Klarna" value="Klarna" required /> Klarna
                                         </label>
                                         <label style="display: block" for="paypal">
-                                            <input type="radio" name="payment_method" id="Paypal" value="Paypal" required /> PayPal
+                                            <input type="radio" name="payment_method" id="PayPal" value="PayPal" required /> PayPal
                                         </label>
                                     </div>
                                 </div>
