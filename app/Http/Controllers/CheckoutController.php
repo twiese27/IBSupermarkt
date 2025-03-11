@@ -15,23 +15,48 @@ use App\Models\ProductToShoppingCart;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartToDiscount;
 use App\Models\ShoppingOrder;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class CheckoutController extends Controller
 {
-    protected function validator(Request $request) {
+    protected function validatorUser(Request $request) {
         return Validator::make($request->all(), [
             'forename' => 'required|string|max:20',
+            'middlename' => 'nullable|string|max:100',
             'lastname' => 'required|string|max:100',
             'email' => 'required|email|max:100',
-            'city' => 'required|string|max:100',
+            'street' => 'nullable|string|max:255',
+            'house' => 'nullable|string|max:10',
             'post' => 'required|string|max:10',
-            'street' => 'required|string|max:255',
-            'house' => 'required|string|max:10',
+            'city' => 'nullable|string|max:255',
+            'country_name' => 'nullable|string|max:100',
+            'iban' => 'nullable|string|max:34',
+            'birth_date' => 'nullable|date',
+            'payment_method' => 'required|in:Debit,Klarna,PayPal',
+        ]);
+    }
+
+    protected function validatorGuest(Request $request) {
+        return Validator::make($request->all(), [
+            'forename' => 'required|string|max:20',
+            'middlename' => 'nullable|string|max:100',
+            'lastname' => 'required|string|max:100',
+            //'email' => 'required|email|unique:customer,email',
+            'email' => 'required|email|max:100',
+            'street' => 'nullable|string|max:255',
+            'house' => 'nullable|string|max:10',
+            'post' => 'required|string|max:10',
+            'city' => 'nullable|string|max:255',
+            'country_name' => 'nullable|string|max:100',
+            'iban' => 'nullable|string|max:34',
+            'birth_date' => 'nullable|date',
+            'password' => 'required|string|min:8',
             'payment_method' => 'required|in:Debit,Klarna,PayPal',
         ]);
     }
@@ -110,15 +135,13 @@ class CheckoutController extends Controller
 
     public function submit(Request $request)
     {
-        $validator = $this->validator($request);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        dd($validator);
         $paymentMethod = $request->input('payment_method');
         if (Auth::check()) {
+            $validator = $this->validatorUser($request);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
             $shoppingCart = ShoppingCart::query()
                 ->where(ShoppingCart::CUSTOMER_ID, '=', Auth::user()->customer_id)
                 ->firstOrNew();
@@ -219,6 +242,12 @@ class CheckoutController extends Controller
                     'PAYMENT_METHOD_ID' => $paymentMethodId
                 ]);
         } else {
+            $validator = $this->validatorGuest($request);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
             $maxCustomerId = DB::table('CUSTOMER')->max('CUSTOMER_ID');
             Customer::query()
                 ->insert([
@@ -233,6 +262,7 @@ class CheckoutController extends Controller
                     Customer::POSTAL_CODE => $request->input('post'),
                 ]);
 
+
             $maxCustomerExtensionId = DB::table('CUSTOMER_EXTENSION')->max('CUSTOMER_EXTENSION_ID');
             CustomerExtension::query()
                 ->insert([
@@ -240,8 +270,21 @@ class CheckoutController extends Controller
                     'CUSTOMER_ID' => $maxCustomerId + 1,
                     'GENDER' => null,
                     'ADDITIONAL_DELIVERY_ADDRESS_INFORMATION' => null,
-                    'IS_GUEST' => true,
+                    'IS_GUEST' => !$request->has('create_account'),
                 ]);
+
+            if (!$request->has('create_account')) {
+                User::query()
+                    ->create([
+                        'user_account_id' => DB::table('USERS')->max('USER_ACCOUNT_ID') + 1,
+                        'customer_id' => $maxCustomerId + 1,
+                        'password' => Hash::make($request->input('password')),
+                        'password_valid_begin' => Carbon::now()->toDateTimeString(),
+                        'password_valid_end' => null
+                    ]);
+            } else {
+                dd('problem');
+            }
 
 
             $POSToCustomerExtension = new POSToCustomerExtension();

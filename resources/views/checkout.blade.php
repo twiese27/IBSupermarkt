@@ -33,6 +33,20 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
+                                            <label>Middlename<span>*</span></label>
+                                            <input type="text" name="middlename"
+                                                   class="form-control @error('middlename') is-invalid @enderror"
+                                                   value="{{ $customer ? $customer->middlename : '' }}" placeholder=""
+                                                   required="required"/>
+                                            @error('middlename')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
                                             <label>Lastname<span>*</span></label>
                                             <input type="text" name="lastname"
                                                    value="{{ $customer ? $customer->lastname : '' }}" placeholder=""
@@ -302,11 +316,58 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>IBAN<span>*</span></label>
+                                            <input type="text" name="iban"
+                                                   value="{{ $customer ? $customer->iban : '' }}" placeholder=""
+                                                   class="form-control @error('iban') is-invalid @enderror"
+                                                   required="required"/>
+                                            @error('iban')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>Birth Date</label>
+                                            <input type="date" name="birth_date" class="form-control @error('birth_date') is-invalid @enderror"
+                                                   value="{{ old('birth_date') }}" />
 
+                                            @error('birth_date')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     @if(!\Illuminate\Support\Facades\Auth::check())
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>Password<span>*</span></label>
+                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                                                   placeholder="********" required />
+
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>Confirm Password<span>*</span></label>
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                   placeholder="********" required />
+                                        </div>
+                                    </div>
+
                                         <div class="col-12">
                                             <div class="form-group create-account">
-                                                <input id="cbox" type="checkbox"/>
+                                                <input id="cbox" name="create_account" type="checkbox"/>
                                                 <label>Create Account?</label>
                                             </div>
                                         </div>
