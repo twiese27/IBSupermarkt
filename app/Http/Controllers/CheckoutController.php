@@ -273,8 +273,8 @@ class CheckoutController extends Controller
                     'IS_GUEST' => !$request->has('create_account'),
                 ]);
 
-            if (!$request->has('create_account')) {
-                User::query()
+            if ($request->has('create_account')) {
+                $user = User::query()
                     ->create([
                         'user_account_id' => DB::table('USERS')->max('USER_ACCOUNT_ID') + 1,
                         'customer_id' => $maxCustomerId + 1,
@@ -282,8 +282,8 @@ class CheckoutController extends Controller
                         'password_valid_begin' => Carbon::now()->toDateTimeString(),
                         'password_valid_end' => null
                     ]);
-            } else {
-                dd('problem');
+
+                Auth::login($user, true);
             }
 
 
