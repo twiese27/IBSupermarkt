@@ -155,7 +155,16 @@ class CheckoutController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             $shoppingCart = ShoppingCart::query()
+                ->select(ShoppingCart::TABLE . '.*')
+                ->leftJoin(
+                    ShoppingOrder::TABLE,
+                    ShoppingOrder::TABLE . '.' . ShoppingOrder::SHOPPING_CART_ID,
+                    '=',
+                    ShoppingCart::TABLE . '.' . ShoppingCart::SHOPPING_CART_ID
+                )
                 ->where(ShoppingCart::CUSTOMER_ID, '=', Auth::user()->customer_id)
+                ->whereNull(ShoppingCart::DELETED_ON)
+                ->whereNull(ShoppingOrder::ORDER_ID)
                 ->firstOrNew();
 
             $totalPriceWithoutDiscount = 0;
@@ -218,20 +227,22 @@ class CheckoutController extends Controller
             $shoppingOrder->total_price = $totalPriceWithDiscount;
             $shoppingOrder->save();
 
-            $discountId = DB::table('Discount')->max('DISCOUNT_ID') + 1;
+            if ($discount !== 0) {
+                $discountId = DB::table('Discount')->max('DISCOUNT_ID') + 1;
 
-            Discount::query()
-                ->insert([
-                    Discount::DISCOUNT_ID => $discountId,
-                    Discount::PERCENTAGE => $discount,
-                    Discount::CODE => null
-                ]);
+                Discount::query()
+                    ->insert([
+                        Discount::DISCOUNT_ID => $discountId,
+                        Discount::PERCENTAGE => $discount,
+                        Discount::CODE => null
+                    ]);
 
-            ShoppingCartToDiscount::query()
-                ->insert([
-                    ShoppingCartToDiscount::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
-                    ShoppingCartToDiscount::DISCOUNT_ID => $discountId
-                ]);
+                ShoppingCartToDiscount::query()
+                    ->insert([
+                        ShoppingCartToDiscount::SHOPPING_CART_ID => $shoppingCart->shopping_cart_id,
+                        ShoppingCartToDiscount::DISCOUNT_ID => $discountId
+                    ]);
+            }
 
             $paymentMethodId = PaymentMethod::query()
                 ->where(
@@ -265,13 +276,17 @@ class CheckoutController extends Controller
                 ->insert([
                     Customer::CUSTOMER_ID => $maxCustomerId + 1,
                     Customer::FORENAME => $request->input('forename'),
+                    Customer::MIDDLE_NAME => $request->input('middlename'),
                     Customer::LASTNAME => $request->input('lastname'),
                     Customer::EMAIL => $request->input('email'),
                     Customer::COUNTRY => $request->input('country_name'),
+                    Customer::IBAN => $request->input('iban'),
+                    Customer::BIRTH_DATE => $request->input('birth_date'),
                     Customer::CITY => $request->input('city'),
                     Customer::STREET => $request->input('street'),
                     Customer::HOUSE_NUMBER => $request->input('house'),
                     Customer::POSTAL_CODE => $request->input('post'),
+                    Customer::CREATED_ON => Carbon::now()
                 ]);
 
 
@@ -363,28 +378,28 @@ class CheckoutController extends Controller
                 'delivery_service_id' => $deliveryService->delivery_service_id,
                 'total_price' => $totalPriceWithDiscount
             ]);
+
+            $paymentMethodId = PaymentMethod::query()
+                ->where(
+                    'NAME',
+                    '=',
+                    $paymentMethod
+                )
+                ->firstOrNew()
+                ->payment_method_id;
+
+            Payment::query()
+                ->insert([
+                    'PAYMENT_ID' => DB::table('PAYMENT')->max('PAYMENT_ID') + 1,
+                    'PAYMENT_DATE' => Carbon::now(),
+                    'CASH_FLOW' => $totalPriceWithDiscount,
+                    'SUPPLIER_ID' => null,
+                    'ORDER_ID' => $maxOrderId + 1,
+                    'EMPLOYEE_ID' => null,
+                    'WAREHOUSE_ID' => null,
+                    'PAYMENT_METHOD_ID' => $paymentMethodId
+                ]);
         }
-
-        $paymentMethodId = PaymentMethod::query()
-            ->where(
-                'NAME',
-                '=',
-                $paymentMethod
-            )
-            ->firstOrNew()
-            ->payment_method_id;
-
-        Payment::query()
-            ->insert([
-                'PAYMENT_ID' => DB::table('PAYMENT')->max('PAYMENT_ID') + 1,
-                'PAYMENT_DATE' => Carbon::now(),
-                'CASH_FLOW' => $totalPriceWithDiscount,
-                'SUPPLIER_ID' => null,
-                'ORDER_ID' => $maxOrderId + 1,
-                'EMPLOYEE_ID' => null,
-                'WAREHOUSE_ID' => null,
-                'PAYMENT_METHOD_ID' => $paymentMethodId
-            ]);
 
         session()->flash('success', 'Order successfully placed!');
         session()->forget('cart');

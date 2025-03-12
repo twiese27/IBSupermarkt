@@ -93,6 +93,7 @@ class RegisterController extends Controller
         $customer->country = $data['country_name'] ?? null;
         $customer->iban = $data['iban'] ?? null;
         $customer->birth_date = $data['birth_date'];
+        $customer->created_on = Carbon::now();
         $customer->save();
 
         $customerExtension = new CustomerExtension();

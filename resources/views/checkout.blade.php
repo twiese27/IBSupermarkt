@@ -36,7 +36,7 @@
                                             <label>Middlename<span>*</span></label>
                                             <input type="text" name="middlename"
                                                    class="form-control @error('middlename') is-invalid @enderror"
-                                                   value="{{ $customer ? $customer->middlename : '' }}" placeholder=""
+                                                   value="{{ $customer ? $customer->middle_name : '' }}" placeholder=""
                                                    required="required"/>
                                             @error('middlename')
                                             <span class="invalid-feedback" role="alert">
@@ -334,7 +334,7 @@
                                         <div class="form-group">
                                             <label>Birth Date</label>
                                             <input type="date" name="birth_date" class="form-control @error('birth_date') is-invalid @enderror"
-                                                   value="{{ old('birth_date') }}" />
+                                                   value="{{ 'birth_date' }}" />
 
                                             @error('birth_date')
                                             <span class="invalid-feedback" role="alert">
