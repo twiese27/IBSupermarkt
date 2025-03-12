@@ -8,8 +8,8 @@
                     $backgroundImage = $imageExists ? $imagePath : 'https://placehold.co/115x115';
                 @endphp
                 <img src="{{ $backgroundImage}}"
-                        alt="{{ $productHorizontal->product_name }}" />
-                <a href="{{ route('product', ['id' => $productHorizontal->product_id]) }}" class="buy"><i
+                     alt="{{ $productHorizontal->product_name }}" />
+                <a style="cursor: pointer" onclick="addProductToCart('{{ $productHorizontal->product_id }}')" class="buy"><i
                         class="fa fa-shopping-bag"></i></a>
             </div>
         </div>
@@ -19,8 +19,8 @@
                     <a
                         href="{{ route('product', ['id' => $productHorizontal->product_id]) }}">{{ $productHorizontal->product_name }}</a>
                 </h5>
-                <a href="#" class="price with-discount" id="BuyButtonHorizontal" onclick="addProductToCart('{{ $productHorizontal->product_id }}')">{{ $productHorizontal->retail_price }} €</a>
-                    
+                <a href="{{ route('product', ['id' => $productHorizontal->product_id]) }}" class="price with-discount" id="BuyButtonHorizontal">{{ $productHorizontal->retail_price }} €</a>
+
             </div>
         </div>
     </div>
